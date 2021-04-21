@@ -9,12 +9,19 @@ class QuestionController extends Controller
     public function index()
     {
         $questions = Question::all();
-        return response()->json(['questions' => [$questions], 200], 200);
+        if (isset($questions)) {
+            return response()->json(['questions' => [$questions], 200], 200);
+        }
+        return response()->json(['failure' => ['No Questions in the database...'], 404], 404);
     }
 
-    public function show(Question $question)
+    public function show($question)
     {
-        return response()->json(['question' => [$question], 200], 200);
+        $question = Question::find($question)->with('answers')->get();
+        if (isset($question)) {
+            return response()->json(['question' => [$question], 200], 200);
+        }
+        return response()->json(['failure' => ['No Questions in the database with the given ID'], 404], 404);
     }
 
     public function create()
@@ -41,7 +48,10 @@ class QuestionController extends Controller
     }
     public function delete(Question $question)
     {
-        $question->delete();
-        return response()->json(['success' => ["Question deleted successfully."], 200], 200);
+        if (isset($quesion)) {
+            $question->delete();
+            return response()->json(['success' => ["Question deleted successfully."], 200], 200);
+        }
+        return response()->json(['failure' => ["The question with given ID was not found"], 404], 404);
     }
 }
