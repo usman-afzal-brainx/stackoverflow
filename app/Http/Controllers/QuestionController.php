@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
-use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -27,9 +26,6 @@ class QuestionController extends Controller
             'no_thumbs_down' => 'required | integer',
         ]);
 
-        $user = auth('api')->user();
-        array_push($validatedAttributes, $user);
-        return response()->json(['attributes' => $validatedAttributes]);
         Question::create($validatedAttributes);
         return response()->json(['success' => ['Question has been created successfully'], 200], 200);
     }

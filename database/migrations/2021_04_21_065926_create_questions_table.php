@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->string('description');
             $table->integer('no_thumbs_up');
             $table->integer('no_thumbs_down');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
