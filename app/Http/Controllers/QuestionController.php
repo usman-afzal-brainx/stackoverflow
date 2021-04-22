@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
     public function index()
     {
-        $questions = Question::all();
+        $questions = Question::latest()->get();
         if (isset($questions)) {
             return response()->json(['questions' => [$questions], 200], 200);
         }
@@ -26,14 +27,16 @@ class QuestionController extends Controller
 
     public function create()
     {
-        $validatedAttributes = request()->validate([
+        request()->validate([
             'question' => 'string | required',
             'description' => 'string |required',
-            'no_thumbs_up' => 'required | integer',
-            'no_thumbs_down' => 'required | integer',
         ]);
-
-        Question::create($validatedAttributes);
+        $question = new Question();
+        $question->question = request('question');
+        $question->description = request('description');
+        $question->no_thumbs_up = 0;
+        $question->no_thumbs_down = 0;
+        $question->save();
         return response()->json(['success' => ['Question has been created successfully'], 200], 200);
     }
 
