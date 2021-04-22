@@ -27,8 +27,8 @@ class QuestionController extends Controller
     public function create()
     {
         $validatedAttributes = request()->validate([
-            'question' => 'String | required',
-            'description' => 'String |required',
+            'question' => 'string | required',
+            'description' => 'string |required',
             'no_thumbs_up' => 'required | integer',
             'no_thumbs_down' => 'required | integer',
         ]);

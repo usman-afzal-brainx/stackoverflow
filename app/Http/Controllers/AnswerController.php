@@ -33,7 +33,7 @@ class AnswerController extends Controller
     public function update(Answer $answer)
     {
         request()->validate([
-            'description' => 'String | required',
+            'description' => 'string | required',
             'no_thumbs_up' => 'required | integer',
             'no_thumbs_down' => 'required | integer',
         ]);
