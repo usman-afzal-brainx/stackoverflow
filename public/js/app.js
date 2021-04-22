@@ -1919,12 +1919,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -2138,39 +2147,45 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee4, null, [[3, 10]]);
       }))();
     },
-    handleDelete: function handleDelete() {
+    handleDelete: function handleDelete(question) {
+      var _this5 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        var originalQuestions, questions;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.prev = 0;
-                _context5.next = 3;
-                return axios["delete"]("/api/company/delete", {
+                originalQuestions = _objectSpread({}, _this5.questions);
+                _context5.prev = 1;
+                questions = _this5.questions.filter(function (q) {
+                  return q.id !== question.id;
+                });
+                _this5.questions = questions;
+                _context5.next = 6;
+                return axios["delete"]("/api/questions/".concat(question.id, "/"), {
                   headers: {
                     Authorization: "Bearer " + window.api_token,
                     Accept: "application/json"
-                  },
-                  params: {
-                    id: company.id
                   }
                 });
 
-              case 3:
-                _context5.next = 8;
+              case 6:
+                _context5.next = 12;
                 break;
 
-              case 5:
-                _context5.prev = 5;
-                _context5.t0 = _context5["catch"](0);
+              case 8:
+                _context5.prev = 8;
+                _context5.t0 = _context5["catch"](1);
+                _this5.questions = originalQuestions;
                 console.log(_context5.t0);
 
-              case 8:
+              case 12:
               case "end":
                 return _context5.stop();
             }
           }
-        }, _callee5, null, [[0, 5]]);
+        }, _callee5, null, [[1, 8]]);
       }))();
     }
   }
@@ -38868,7 +38883,21 @@ var render = function() {
                   _vm._v(" "),
                   _vm.deleteAble
                     ? _c("div", { staticClass: "question-delete" }, [
-                        _vm._m(3, true)
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.handleDelete(question)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("\n                                Delete "),
+                            _c("i", { staticClass: "far fa-trash-alt" })
+                          ]
+                        )
                       ])
                     : _vm._e()
                 ])
@@ -38907,15 +38936,6 @@ var staticRenderFns = [
     return _c("button", { staticClass: "btn btn-primary" }, [
       _vm._v("\n                                Edit "),
       _c("i", { staticClass: "far fa-edit" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-danger" }, [
-      _vm._v("\n                                Delete "),
-      _c("i", { staticClass: "far fa-trash-alt" })
     ])
   }
 ]

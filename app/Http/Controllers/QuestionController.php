@@ -51,7 +51,7 @@ class QuestionController extends Controller
     }
     public function delete(Question $question)
     {
-        if (isset($quesion)) {
+        if (isset($question)) {
             $question->delete();
             return response()->json(['success' => ["Question deleted successfully."], 200], 200);
         }

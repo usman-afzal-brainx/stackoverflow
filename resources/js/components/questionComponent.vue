@@ -62,7 +62,10 @@
                                 </button>
                             </div>
                             <div class="question-delete" v-if="deleteAble">
-                                <button class="btn btn-danger">
+                                <button
+                                    class="btn btn-danger"
+                                    @click="handleDelete(question)"
+                                >
                                     Delete <i class="far fa-trash-alt"></i>
                                 </button>
                             </div>
@@ -129,18 +132,21 @@ export default {
                 this.questions[index] = question;
             }
         },
-        async handleDelete() {
+        async handleDelete(question) {
+            const originalQuestions = { ...this.questions };
             try {
-                await axios.delete("/api/company/delete", {
+                const questions = this.questions.filter(
+                    q => q.id !== question.id
+                );
+                this.questions = questions;
+                await axios.delete(`/api/questions/${question.id}/`, {
                     headers: {
                         Authorization: "Bearer " + window.api_token,
                         Accept: "application/json"
-                    },
-                    params: {
-                        id: company.id
                     }
                 });
             } catch (error) {
+                this.questions = originalQuestions;
                 console.log(error);
             }
         }
