@@ -18,13 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['auth:api']], function () {
-    Route::get('/questions', 'QuestionController@index');
     Route::post('/logout', 'AuthController@logout');
 
 });
 
 Route::post('/register', 'AuthController@register');
 
+Route::get('/questions', 'QuestionController@index');
 Route::post('/questions', 'QuestionController@create');
 Route::get('/questions/{question}', 'QuestionController@show');
 Route::put('/questions/{question}', 'QuestionController@update');
