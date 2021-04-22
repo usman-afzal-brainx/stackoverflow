@@ -31,15 +31,15 @@
                 </div>
             </div>
         </nav>
-        <create-question></create-question>
+        <question-component></question-component>
     </div>
 </template>
 
 <script>
-import createQuestion from "./createQuestion";
+import QuestionComponent from "./questionComponent.vue";
 export default {
     components: {
-        createQuestion
+        QuestionComponent
     },
     mounted() {
         console.log("Component mounted.");

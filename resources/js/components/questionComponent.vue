@@ -16,7 +16,7 @@
                     <div class="col-sm-2">
                         <div class="question-count">
                             <p>
-                                Count:
+                                Votes:
                                 {{
                                     question.no_thumbs_up -
                                         question.no_thumbs_down
@@ -24,19 +24,25 @@
                             </p>
                         </div>
                         <div class="question-thumbs-up">
-                            <button class="btn btn-primary">
+                            <button
+                                class="btn btn-success btn-sm"
+                                @click="handleLike(question)"
+                            >
                                 {{ question.no_thumbs_up }}
                                 <i class="far fa-thumbs-up"></i>
                             </button>
                         </div>
                         <div class="question-thumbs-down pt-1">
-                            <button class="btn btn-danger">
+                            <button
+                                class="btn btn-danger btn-sm"
+                                @click="handleDislike(question)"
+                            >
                                 {{ question.no_thumbs_down }}
                                 <i class="far fa-thumbs-down"></i>
                             </button>
                         </div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
                         <div class="question-content">
                             <div class="question-title">
                                 <h2>{{ question.question }}</h2>
@@ -45,6 +51,20 @@
                                 <p>
                                     {{ question.description }}
                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="manipulation-buttons">
+                            <div class="question-edit" v-if="editAble">
+                                <button class="btn btn-primary">
+                                    Edit <i class="far fa-edit"></i>
+                                </button>
+                            </div>
+                            <div class="question-delete" v-if="deleteAble">
+                                <button class="btn btn-danger">
+                                    Delete <i class="far fa-trash-alt"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -58,7 +78,9 @@
 export default {
     data() {
         return {
-            questions: []
+            questions: [],
+            editAble: true,
+            deleteAble: true
         };
     },
     async created() {
@@ -74,7 +96,53 @@ export default {
             });
             const questions = data.questions[0];
             this.questions = questions;
-            console.log(data.questions[0]);
+        },
+        async handleLike(question) {
+            const data = {
+                api_token: window.api_token
+            };
+            let no_thumbs_up = question.no_thumbs_up;
+            const index = this.questions.indexOf(question);
+            try {
+                question.no_thumbs_up = no_thumbs_up + 1;
+                this.questions[index] = question;
+                await axios.post(`/api/questions/${question.id}/like`, data);
+            } catch (error) {
+                console.log(error);
+                question.no_thumbs_up = no_thumbs_up;
+                this.questions[index] = question;
+            }
+        },
+        async handleDislike(question) {
+            const data = {
+                api_token: window.api_token
+            };
+            let no_thumbs_down = question.no_thumbs_down;
+            const index = this.questions.indexOf(question);
+            try {
+                question.no_thumbs_down = no_thumbs_down + 1;
+                this.questions[index] = question;
+                await axios.post(`/api/questions/${question.id}/dislike`, data);
+            } catch (error) {
+                console.log(error);
+                question.no_thumbs_down = no_thumbs_down;
+                this.questions[index] = question;
+            }
+        },
+        async handleDelete() {
+            try {
+                await axios.delete("/api/company/delete", {
+                    headers: {
+                        Authorization: "Bearer " + window.api_token,
+                        Accept: "application/json"
+                    },
+                    params: {
+                        id: company.id
+                    }
+                });
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 };
@@ -98,7 +166,9 @@ export default {
     float: right;
 }
 .question-thumbs-up,
-.question-thumbs-down {
+.question-thumbs-down,
+.question-edit,
+.question-delete {
     display: inline-block;
     margin-right: 5px;
 }
@@ -110,5 +180,8 @@ export default {
 }
 .question-content {
     margin-top: 15px;
+}
+.manipulation-buttons {
+    margin-top: 30px;
 }
 </style>
