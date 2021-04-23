@@ -6,7 +6,7 @@
                     <h1>All Questions</h1>
                 </div>
                 <div class="question-section-button">
-                    <button class="btn btn-primary" @click="handleClick">
+                    <button class="btn btn-primary" @click="handleAskQuestion">
                         Ask a question
                     </button>
                 </div>
@@ -48,7 +48,10 @@
                         </div>
                     </div>
                     <div class="col-sm-7">
-                        <div class="question-content">
+                        <div
+                            class="question-content"
+                            @click="handleClick(question)"
+                        >
                             <div class="question-title">
                                 <h2>{{ question.question }}</h2>
                             </div>
@@ -155,8 +158,11 @@ export default {
                 console.log(error);
             }
         },
-        handleClick() {
+        handleAskQuestion() {
             this.$router.push({ path: "/question/create" });
+        },
+        handleClick(question) {
+            console.log(question);
         }
     }
 };
@@ -165,6 +171,9 @@ export default {
 <style scoped>
 .question {
     margin: 0px 35px 20px;
+}
+.question-content:hover {
+    cursor: pointer;
 }
 .description {
     width: 50%;
