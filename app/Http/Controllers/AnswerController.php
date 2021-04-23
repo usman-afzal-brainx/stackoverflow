@@ -26,7 +26,7 @@ class AnswerController extends Controller
         $answer->user_id = 1;
         $answer->question_id = $question;
         $answer->save();
-        return response()->json(['success' => ['The answer has been created successfully'], 200], 200);
+        return response()->json(['answer' => [$answer], 200], 200);
     }
     public function update(Answer $answer)
     {

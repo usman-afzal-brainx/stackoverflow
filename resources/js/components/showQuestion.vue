@@ -5,6 +5,11 @@
                 <div class="question-section-title">
                     <h1>Question</h1>
                 </div>
+                <div class="back-button">
+                    <button class="btn btn-primary" @click="handleBack">
+                        <i class="fas fa-long-arrow-alt-left"></i> Back
+                    </button>
+                </div>
             </div>
             <div class="row">
                 <div class="col-sm-2">
@@ -48,13 +53,13 @@
                 </div>
             </div>
         </div>
-        <div class="answers">
+        <div class="answers" v-if="isAnswers">
             <div class="answer-section-title">
                 <div class="answer-header">
                     <h2>Answers</h2>
                 </div>
             </div>
-            <div class="answer">
+            <div class="answer" v-for="answer in answers" :key="answer.id">
                 <div class="header"></div>
                 <div class="row">
                     <div class="col-sm-2">
@@ -62,15 +67,21 @@
                             <div class="answer-count">
                                 <p>
                                     Votes:
+                                    {{
+                                        answer.no_thumbs_up -
+                                            answer.no_thumbs_down
+                                    }}
                                 </p>
                             </div>
                             <div class="answer-thumbs-up">
                                 <button class="btn btn-success btn-sm">
+                                    {{ answer.no_thumbs_up }}
                                     <i class="far fa-thumbs-up"></i>
                                 </button>
                             </div>
                             <div class="answer-thumbs-down pt-1">
                                 <button class="btn btn-danger btn-sm">
+                                    {{ answer.no_thumbs_down }}
                                     <i class="far fa-thumbs-down"></i>
                                 </button>
                             </div>
@@ -80,16 +91,45 @@
                         <div class="answer-content">
                             <div class="answer-description">
                                 <p>
-                                    Lorem ipsum dolor, sit amet consectetur
-                                    adipisicing elit. Voluptates laboriosam,
-                                    modi error ipsa quas facilis iure a
-                                    molestiae suscipit tempore sed consequuntur,
-                                    porro doloremque ipsum optio, dolore neque
-                                    unde aperiam!
+                                    {{ answer.description }}
                                 </p>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="answer-not-found-error" v-if="!isAnswers">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-8">
+                    <p>
+                        There are no answers for this question. Want to answer?
+                        Go for it!
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="answer-form">
+            <div class="row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-6">
+                    <form @submit.prevent="createAnswer">
+                        <div class="mb-3">
+                            <label for="description" class="form-label"
+                                >Add Answer to this Question</label
+                            >
+                            <textarea
+                                class="form-control rounded-0"
+                                id="description"
+                                rows="8"
+                                v-model="description"
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Submit
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -105,8 +145,40 @@ export default {
                 no_thumbs_up: this.$route.params.question.no_thumbs_up,
                 no_thumbs_down: this.$route.params.question.no_thumbs_down
             },
-            answers: this.$route.params.question.answers
+            isAnswers: false,
+            answers: this.$route.params.question.answers,
+            description: ""
         };
+    },
+    created() {
+        this.computeAnswersLength();
+    },
+    methods: {
+        handleBack() {
+            this.$router.push({ path: "/" });
+        },
+        computeAnswersLength() {
+            this.isAnswers = true
+                ? this.$route.params.question.answers.length > 0
+                : false;
+        },
+        async createAnswer() {
+            let payload = {
+                description: this.description,
+                api_token: window.api_token
+            };
+            try {
+                const { data } = await axios.post(
+                    `/api/answers/${this.$route.params.question.id}`,
+                    payload
+                );
+                this.answers.push(data.answer[0]);
+                this.description = "";
+                this.isAnswers = true;
+            } catch (ex) {
+                console.log(ex);
+            }
+        }
     }
 };
 </script>
@@ -161,5 +233,27 @@ export default {
 }
 .answer-header {
     margin: 0px 30px 20px;
+}
+.back-button {
+    float: right;
+    margin-right: 100px;
+}
+.question-section-title {
+    display: inline-block;
+}
+.answer-description {
+    padding-top: 40px;
+}
+.answer-left-part {
+    padding-top: 10px;
+}
+.answer-not-found-error {
+    font-size: 23px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+.answer-form {
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 </style>

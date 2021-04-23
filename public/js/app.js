@@ -2311,6 +2311,54 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2417,8 +2465,65 @@ __webpack_require__.r(__webpack_exports__);
         no_thumbs_up: this.$route.params.question.no_thumbs_up,
         no_thumbs_down: this.$route.params.question.no_thumbs_down
       },
-      answers: this.$route.params.question.answers
+      isAnswers: false,
+      answers: this.$route.params.question.answers,
+      description: ""
     };
+  },
+  created: function created() {
+    this.computeAnswersLength();
+  },
+  methods: {
+    handleBack: function handleBack() {
+      this.$router.push({
+        path: "/"
+      });
+    },
+    computeAnswersLength: function computeAnswersLength() {
+      this.isAnswers =  true ? this.$route.params.question.answers.length > 0 : 0;
+    },
+    createAnswer: function createAnswer() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var payload, _yield$axios$post, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                payload = {
+                  description: _this.description,
+                  api_token: window.api_token
+                };
+                _context.prev = 1;
+                _context.next = 4;
+                return axios.post("/api/answers/".concat(_this.$route.params.question.id), payload);
+
+              case 4:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+
+                _this.answers.push(data.answer[0]);
+
+                _this.description = "";
+                _this.isAnswers = true;
+                _context.next = 14;
+                break;
+
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0);
+
+              case 14:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[1, 11]]);
+      }))();
+    }
   }
 });
 
@@ -7039,7 +7144,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.question[data-v-404ca44e] {\r\n    margin: 0px 20px 20px;\n}\n.question-thumbs-up[data-v-404ca44e],\r\n.question-thumbs-down[data-v-404ca44e],\r\n.question-edit[data-v-404ca44e],\r\n.question-delete[data-v-404ca44e] {\r\n    display: inline-block;\r\n    margin-right: 5px;\n}\n.question-count[data-v-404ca44e] {\r\n    font-size: 20px;\r\n    font-weight: bold;\n}\n.question-count > p[data-v-404ca44e] {\r\n    margin: 0;\n}\n.question-left-part[data-v-404ca44e] {\r\n    margin-left: 50px;\n}\n.question-content[data-v-404ca44e] {\r\n    border-bottom: 1px solid;\r\n    padding-bottom: 40px;\r\n    border-color: rgb(166, 162, 151);\n}\n.answer-thumbs-up[data-v-404ca44e],\r\n.answer-thumbs-down[data-v-404ca44e],\r\n.answer-edit[data-v-404ca44e],\r\n.answer-delete[data-v-404ca44e] {\r\n    display: inline-block;\r\n    margin-right: 5px;\n}\n.answer-left-part[data-v-404ca44e] {\r\n    margin-left: 50px;\n}\n.answer-count[data-v-404ca44e] {\r\n    font-size: 20px;\r\n    font-weight: bold;\n}\n.answer-count > p[data-v-404ca44e] {\r\n    margin: 0;\n}\n.answer-content[data-v-404ca44e] {\r\n    border-bottom: 1px solid;\r\n    padding-bottom: 40px;\r\n    border-color: rgb(166, 162, 151);\n}\n.answer-header[data-v-404ca44e] {\r\n    margin: 0px 30px 20px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.question[data-v-404ca44e] {\r\n    margin: 0px 20px 20px;\n}\n.question-thumbs-up[data-v-404ca44e],\r\n.question-thumbs-down[data-v-404ca44e],\r\n.question-edit[data-v-404ca44e],\r\n.question-delete[data-v-404ca44e] {\r\n    display: inline-block;\r\n    margin-right: 5px;\n}\n.question-count[data-v-404ca44e] {\r\n    font-size: 20px;\r\n    font-weight: bold;\n}\n.question-count > p[data-v-404ca44e] {\r\n    margin: 0;\n}\n.question-left-part[data-v-404ca44e] {\r\n    margin-left: 50px;\n}\n.question-content[data-v-404ca44e] {\r\n    border-bottom: 1px solid;\r\n    padding-bottom: 40px;\r\n    border-color: rgb(166, 162, 151);\n}\n.answer-thumbs-up[data-v-404ca44e],\r\n.answer-thumbs-down[data-v-404ca44e],\r\n.answer-edit[data-v-404ca44e],\r\n.answer-delete[data-v-404ca44e] {\r\n    display: inline-block;\r\n    margin-right: 5px;\n}\n.answer-left-part[data-v-404ca44e] {\r\n    margin-left: 50px;\n}\n.answer-count[data-v-404ca44e] {\r\n    font-size: 20px;\r\n    font-weight: bold;\n}\n.answer-count > p[data-v-404ca44e] {\r\n    margin: 0;\n}\n.answer-content[data-v-404ca44e] {\r\n    border-bottom: 1px solid;\r\n    padding-bottom: 40px;\r\n    border-color: rgb(166, 162, 151);\n}\n.answer-header[data-v-404ca44e] {\r\n    margin: 0px 30px 20px;\n}\n.back-button[data-v-404ca44e] {\r\n    float: right;\r\n    margin-right: 100px;\n}\n.question-section-title[data-v-404ca44e] {\r\n    display: inline-block;\n}\n.answer-description[data-v-404ca44e] {\r\n    padding-top: 40px;\n}\n.answer-left-part[data-v-404ca44e] {\r\n    padding-top: 10px;\n}\n.answer-not-found-error[data-v-404ca44e] {\r\n    font-size: 23px;\r\n    font-weight: bold;\r\n    padding-top: 10px;\n}\n.answer-form[data-v-404ca44e] {\r\n    padding-top: 30px;\r\n    padding-bottom: 20px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -39652,7 +39757,20 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "question" }, [
-      _vm._m(0),
+      _c("div", { staticClass: "question-header" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "back-button" }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", on: { click: _vm.handleBack } },
+            [
+              _c("i", { staticClass: "fas fa-long-arrow-alt-left" }),
+              _vm._v(" Back\n                ")
+            ]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "row" }, [
         _c("div", { staticClass: "col-sm-2" }, [
@@ -39713,7 +39831,145 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _vm.isAnswers
+      ? _c(
+          "div",
+          { staticClass: "answers" },
+          [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._l(_vm.answers, function(answer) {
+              return _c("div", { key: answer.id, staticClass: "answer" }, [
+                _c("div", { staticClass: "header" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-sm-2" }, [
+                    _c("div", { staticClass: "answer-left-part" }, [
+                      _c("div", { staticClass: "answer-count" }, [
+                        _c("p", [
+                          _vm._v(
+                            "\n                                Votes:\n                                " +
+                              _vm._s(
+                                answer.no_thumbs_up - answer.no_thumbs_down
+                              ) +
+                              "\n                            "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "answer-thumbs-up" }, [
+                        _c(
+                          "button",
+                          { staticClass: "btn btn-success btn-sm" },
+                          [
+                            _vm._v(
+                              "\n                                " +
+                                _vm._s(answer.no_thumbs_up) +
+                                "\n                                "
+                            ),
+                            _c("i", { staticClass: "far fa-thumbs-up" })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "answer-thumbs-down pt-1" }, [
+                        _c("button", { staticClass: "btn btn-danger btn-sm" }, [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(answer.no_thumbs_down) +
+                              "\n                                "
+                          ),
+                          _c("i", { staticClass: "far fa-thumbs-down" })
+                        ])
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-sm-8" }, [
+                    _c("div", { staticClass: "answer-content" }, [
+                      _c("div", { staticClass: "answer-description" }, [
+                        _c("p", [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(answer.description) +
+                              "\n                            "
+                          )
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            })
+          ],
+          2
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    !_vm.isAnswers
+      ? _c("div", { staticClass: "answer-not-found-error" }, [_vm._m(2)])
+      : _vm._e(),
+    _vm._v(" "),
+    _c("div", { staticClass: "answer-form" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-sm-2" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-sm-6" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.createAnswer($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "mb-3" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "description" } },
+                  [_vm._v("Add Answer to this Question")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.description,
+                      expression: "description"
+                    }
+                  ],
+                  staticClass: "form-control rounded-0",
+                  attrs: { id: "description", rows: "8" },
+                  domProps: { value: _vm.description },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.description = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [
+                  _vm._v(
+                    "\n                        Submit\n                    "
+                  )
+                ]
+              )
+            ]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -39721,9 +39977,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "question-header" }, [
-      _c("div", { staticClass: "question-section-title" }, [
-        _c("h1", [_vm._v("Question")])
+    return _c("div", { staticClass: "question-section-title" }, [
+      _c("h1", [_vm._v("Question")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "answer-section-title" }, [
+      _c("div", { staticClass: "answer-header" }, [
+        _c("h2", [_vm._v("Answers")])
       ])
     ])
   },
@@ -39731,52 +39995,14 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "answers" }, [
-      _c("div", { staticClass: "answer-section-title" }, [
-        _c("div", { staticClass: "answer-header" }, [
-          _c("h2", [_vm._v("Answers")])
-        ])
-      ]),
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-sm-2" }),
       _vm._v(" "),
-      _c("div", { staticClass: "answer" }, [
-        _c("div", { staticClass: "header" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-sm-2" }, [
-            _c("div", { staticClass: "answer-left-part" }, [
-              _c("div", { staticClass: "answer-count" }, [
-                _c("p", [
-                  _vm._v(
-                    "\n                                Votes:\n                            "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "answer-thumbs-up" }, [
-                _c("button", { staticClass: "btn btn-success btn-sm" }, [
-                  _c("i", { staticClass: "far fa-thumbs-up" })
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "answer-thumbs-down pt-1" }, [
-                _c("button", { staticClass: "btn btn-danger btn-sm" }, [
-                  _c("i", { staticClass: "far fa-thumbs-down" })
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-8" }, [
-            _c("div", { staticClass: "answer-content" }, [
-              _c("div", { staticClass: "answer-description" }, [
-                _c("p", [
-                  _vm._v(
-                    "\n                                Lorem ipsum dolor, sit amet consectetur\n                                adipisicing elit. Voluptates laboriosam,\n                                modi error ipsa quas facilis iure a\n                                molestiae suscipit tempore sed consequuntur,\n                                porro doloremque ipsum optio, dolore neque\n                                unde aperiam!\n                            "
-                  )
-                ])
-              ])
-            ])
-          ])
+      _c("div", { staticClass: "col-sm-8" }, [
+        _c("p", [
+          _vm._v(
+            "\n                    There are no answers for this question. Want to answer?\n                    Go for it!\n                "
+          )
         ])
       ])
     ])
