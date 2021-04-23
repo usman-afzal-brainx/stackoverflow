@@ -1,7 +1,7 @@
 <template>
-    <button class="btn btn-success btn-sm" @click="handleLike(question)">
-        {{ data.no_thumbs_up }}
-        <i class="far fa-thumbs-up"></i>
+    <button class="btn btn-danger btn-sm" @click="handleDislike(question)">
+        {{ data.no_thumbs_down }}
+        <i class="far fa-thumbs-down"></i>
     </button>
 </template>
 
@@ -15,20 +15,23 @@ export default {
             }
         };
     },
+    created() {
+        console.log(data);
+    },
     methods: {
-        async handleLike(question) {
+        async handleDislike(question) {
             const data = {
                 api_token: window.api_token
             };
-            let no_thumbs_up = question.no_thumbs_up;
+            let no_thumbs_down = question.no_thumbs_down;
             const index = this.questions.indexOf(question);
             try {
-                question.no_thumbs_up = no_thumbs_up + 1;
+                question.no_thumbs_down = no_thumbs_down + 1;
                 this.questions[index] = question;
-                await axios.post(`/api/questions/${question.id}/like`, data);
+                await axios.post(`/api/questions/${question.id}/dislike`, data);
             } catch (error) {
                 console.log(error);
-                question.no_thumbs_up = no_thumbs_up;
+                question.no_thumbs_down = no_thumbs_down;
                 this.questions[index] = question;
             }
         }

@@ -29,22 +29,10 @@
                             </p>
                         </div>
                         <div class="question-thumbs-up">
-                            <button
-                                class="btn btn-success btn-sm"
-                                @click="handleLike(question)"
-                            >
-                                {{ question.no_thumbs_up }}
-                                <i class="far fa-thumbs-up"></i>
-                            </button>
+                            <like-button :data="question"></like-button>
                         </div>
                         <div class="question-thumbs-down pt-1">
-                            <button
-                                class="btn btn-danger btn-sm"
-                                @click="handleDislike(question)"
-                            >
-                                {{ question.no_thumbs_down }}
-                                <i class="far fa-thumbs-down"></i>
-                            </button>
+                            <dislike-button :data="question"></dislike-button>
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -89,7 +77,10 @@
 </template>
 
 <script>
+import likeButton from "./common/likeButton.vue";
+import dislikeButton from "./common/dislikeButton.vue";
 export default {
+    components: { dislikeButton, likeButton },
     data() {
         return {
             questions: [],

@@ -25,3 +25,5 @@ Route::get('/answers/{question}', 'AnswerController@show');
 Route::post('/answers/{question}', 'AnswerController@create');
 Route::put('/answers/{answer}', 'AnswerController@update');
 Route::delete('/answers/{answer}', 'AnswerController@delete');
+Route::post('/answers/{answer}/like', 'AnswerController@handleLike');
+Route::post('/answers/{answer}/dislike', 'AnswerController@handleDislike');
