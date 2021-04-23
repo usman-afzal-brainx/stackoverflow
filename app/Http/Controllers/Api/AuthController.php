@@ -58,8 +58,5 @@ class AuthController extends Controller
             'message' => 'User has been logged out.',
         ]);
     }
-    public function test()
-    {
-        return '1';
-    }
+
 }
