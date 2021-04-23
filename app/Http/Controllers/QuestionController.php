@@ -29,26 +29,33 @@ class QuestionController extends Controller
     {
         request()->validate([
             'question' => 'string | required',
-            'description' => 'string |required',
+            'description' => 'string | required',
+            'no_thumbs_up' => 'integer | required',
+            'no_thumbs_down' => 'integer | required ',
         ]);
-        $question = new Question();
-        $question->question = request('question');
-        $question->description = request('description');
-        $question->no_thumbs_up = 0;
-        $question->no_thumbs_down = 0;
-        $question->save();
-        return response()->json(['success' => ['Question has been created successfully'], 200], 200);
-    }
+        if (request('id') == null) {
+            $question = new Question();
+        } else {
+            $question = Question::where('id', request('id'))->first();
 
-    public function update(Question $question)
-    {
-        $question->question = request('question');
-        $question->description = request('description');
+        }
         $question->no_thumbs_up = request('no_thumbs_up');
         $question->no_thumbs_down = request('no_thumbs_down');
+        $question->question = request('question');
+        $question->description = request('description');
         $question->save();
         return response()->json(['question' => [$question], 200], 200);
     }
+
+    // public function update(Question $question)
+    // {
+    //     $question->question = request('question');
+    //     $question->description = request('description');
+    //     $question->no_thumbs_up = request('no_thumbs_up');
+    //     $question->no_thumbs_down = request('no_thumbs_down');
+    //     $question->save();
+    //     return response()->json(['question' => [$question], 200], 200);
+    // }
     public function delete(Question $question)
     {
         if (isset($question)) {

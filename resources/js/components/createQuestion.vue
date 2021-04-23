@@ -47,21 +47,39 @@ export default {
             }
         };
     },
+    created() {
+        this.checkEdit();
+    },
     methods: {
         async createQuestion() {
-            let data = {
+            let payload = {
                 question: this.question.question,
                 description: this.question.description,
+                no_thumbs_up: 0,
+                no_thumbs_down: 0,
                 api_token: window.api_token
             };
+            if (this.$route.params.question) {
+                payload.id = this.$route.params.question.id;
+                payload.no_thumbs_up = this.$route.params.question.no_thumbs_up;
+                payload.no_thumbs_down = this.$route.params.question.no_thumbs_down;
+            }
+            console.log(payload);
             try {
-                await axios.post("/api/questions", data);
+                const { data } = await axios.post("/api/questions", payload);
+                console.log(data);
                 this.question.question = "";
                 this.question.description = "";
             } catch (ex) {
                 console.log(ex);
             }
             this.$router.push({ path: "/" });
+        },
+        checkEdit() {
+            if (this.$route.params.question) {
+                this.question.question = this.$route.params.question.question;
+                this.question.description = this.$route.params.question.description;
+            }
         }
     }
 };

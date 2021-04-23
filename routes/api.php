@@ -17,7 +17,6 @@ Route::post('register', 'Api\AuthController@register');
 Route::get('/questions', 'QuestionController@index');
 Route::post('/questions', 'QuestionController@create');
 Route::get('/questions/{question}', 'QuestionController@show');
-Route::put('/questions/{question}', 'QuestionController@update');
 Route::delete('/questions/{question}', 'QuestionController@delete');
 Route::post('/questions/{question}/like', 'QuestionController@handleLike');
 Route::post('/questions/{question}/dislike', 'QuestionController@handleDislike');

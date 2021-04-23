@@ -65,7 +65,10 @@
                     <div class="col-sm-3">
                         <div class="manipulation-buttons">
                             <div class="question-edit" v-if="editAble">
-                                <button class="btn btn-primary">
+                                <button
+                                    class="btn btn-primary"
+                                    @click="handleEdit(question)"
+                                >
                                     Edit <i class="far fa-edit"></i>
                                 </button>
                             </div>
@@ -90,7 +93,7 @@ export default {
     data() {
         return {
             questions: [],
-            editAble: false,
+            editAble: true,
             deleteAble: false
         };
     },
@@ -165,6 +168,12 @@ export default {
             this.$router.push({
                 name: "question.show",
                 params: { id: question.id, question }
+            });
+        },
+        handleEdit(question) {
+            this.$router.push({
+                name: "question.create",
+                params: { question }
             });
         }
     }

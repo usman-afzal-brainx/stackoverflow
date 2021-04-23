@@ -1943,48 +1943,71 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
+  created: function created() {
+    this.checkEdit();
+  },
   methods: {
     createQuestion: function createQuestion() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var data;
+        var payload, _yield$axios$post, data;
+
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                data = {
+                payload = {
                   question: _this.question.question,
                   description: _this.question.description,
+                  no_thumbs_up: 0,
+                  no_thumbs_down: 0,
                   api_token: window.api_token
                 };
-                _context.prev = 1;
-                _context.next = 4;
-                return axios.post("/api/questions", data);
 
-              case 4:
+                if (_this.$route.params.question) {
+                  payload.id = _this.$route.params.question.id;
+                  payload.no_thumbs_up = _this.$route.params.question.no_thumbs_up;
+                  payload.no_thumbs_down = _this.$route.params.question.no_thumbs_down;
+                }
+
+                console.log(payload);
+                _context.prev = 3;
+                _context.next = 6;
+                return axios.post("/api/questions", payload);
+
+              case 6:
+                _yield$axios$post = _context.sent;
+                data = _yield$axios$post.data;
+                console.log(data);
                 _this.question.question = "";
                 _this.question.description = "";
-                _context.next = 11;
+                _context.next = 16;
                 break;
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
+              case 13:
+                _context.prev = 13;
+                _context.t0 = _context["catch"](3);
                 console.log(_context.t0);
 
-              case 11:
+              case 16:
                 _this.$router.push({
                   path: "/"
                 });
 
-              case 12:
+              case 17:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee, null, [[3, 13]]);
       }))();
+    },
+    checkEdit: function checkEdit() {
+      if (this.$route.params.question) {
+        this.question.question = this.$route.params.question.question;
+        this.question.description = this.$route.params.question.description;
+      }
     }
   }
 });
@@ -2103,11 +2126,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       questions: [],
-      editAble: false,
+      editAble: true,
       deleteAble: false
     };
   },
@@ -2291,6 +2317,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: "question.show",
         params: {
           id: question.id,
+          question: question
+        }
+      });
+    },
+    handleEdit: function handleEdit(question) {
+      this.$router.push({
+        name: "question.create",
+        params: {
           question: question
         }
       });
@@ -2627,6 +2661,7 @@ vue__WEBPACK_IMPORTED_MODULE_3__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
     component: _components_questionComponent_vue__WEBPACK_IMPORTED_MODULE_0__.default
   }, {
     path: "/question/create",
+    name: "question.create",
     component: _components_createQuestion_vue__WEBPACK_IMPORTED_MODULE_1__.default
   }, {
     path: "/question/:id",
@@ -39681,7 +39716,21 @@ var render = function() {
                 _c("div", { staticClass: "manipulation-buttons" }, [
                   _vm.editAble
                     ? _c("div", { staticClass: "question-edit" }, [
-                        _vm._m(1, true)
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            on: {
+                              click: function($event) {
+                                return _vm.handleEdit(question)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v("\n                                Edit "),
+                            _c("i", { staticClass: "far fa-edit" })
+                          ]
+                        )
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -39721,15 +39770,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "question-section-title" }, [
       _c("h1", [_vm._v("All Questions")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "btn btn-primary" }, [
-      _vm._v("\n                                Edit "),
-      _c("i", { staticClass: "far fa-edit" })
     ])
   }
 ]
