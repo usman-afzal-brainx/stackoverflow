@@ -1,12 +1,15 @@
 <template>
     <div class="questions">
-        <div class="container">
-            <div class="question-section-title">
-                <h1>All Questions</h1>
+        <div class="container-fluid">
+            <div class="header">
+                <div class="question-section-title">
+                    <h1>All Questions</h1>
+                </div>
+                <div class="question-section-button">
+                    <button class="btn btn-primary">Ask a question</button>
+                </div>
             </div>
-            <div class="question-section-button">
-                <button class="btn btn-primary">Ask a question</button>
-            </div>
+
             <div
                 class="question"
                 v-for="question in questions"
@@ -82,8 +85,8 @@ export default {
     data() {
         return {
             questions: [],
-            editAble: true,
-            deleteAble: true
+            editAble: false,
+            deleteAble: false
         };
     },
     async created() {
@@ -160,11 +163,8 @@ export default {
 }
 .description {
     width: 50%;
-    margin: auto;
 }
-.question {
-    text-align: center;
-}
+
 .question-section-title {
     display: inline-block;
 }
@@ -189,5 +189,8 @@ export default {
 }
 .manipulation-buttons {
     margin-top: 30px;
+}
+.header {
+    margin: 0 30px 20px;
 }
 </style>

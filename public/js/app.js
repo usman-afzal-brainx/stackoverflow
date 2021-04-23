@@ -2010,12 +2010,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       questions: [],
-      editAble: true,
-      deleteAble: true
+      editAble: false,
+      deleteAble: false
     };
   },
   created: function created() {
@@ -6732,7 +6735,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.question[data-v-011c6508] {\r\n    margin: 0px 35px 20px;\n}\n.description[data-v-011c6508] {\r\n    width: 50%;\r\n    margin: auto;\n}\n.question[data-v-011c6508] {\r\n    text-align: center;\n}\n.question-section-title[data-v-011c6508] {\r\n    display: inline-block;\n}\n.question-section-button[data-v-011c6508] {\r\n    float: right;\n}\n.question-thumbs-up[data-v-011c6508],\r\n.question-thumbs-down[data-v-011c6508],\r\n.question-edit[data-v-011c6508],\r\n.question-delete[data-v-011c6508] {\r\n    display: inline-block;\r\n    margin-right: 5px;\n}\n.question-count[data-v-011c6508] {\r\n    font-size: 20px;\n}\n.question-count > p[data-v-011c6508] {\r\n    margin: 0;\n}\n.question-content[data-v-011c6508] {\r\n    margin-top: 15px;\n}\n.manipulation-buttons[data-v-011c6508] {\r\n    margin-top: 30px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.question[data-v-011c6508] {\r\n    margin: 0px 35px 20px;\n}\n.description[data-v-011c6508] {\r\n    width: 50%;\n}\n.question-section-title[data-v-011c6508] {\r\n    display: inline-block;\n}\n.question-section-button[data-v-011c6508] {\r\n    float: right;\n}\n.question-thumbs-up[data-v-011c6508],\r\n.question-thumbs-down[data-v-011c6508],\r\n.question-edit[data-v-011c6508],\r\n.question-delete[data-v-011c6508] {\r\n    display: inline-block;\r\n    margin-right: 5px;\n}\n.question-count[data-v-011c6508] {\r\n    font-size: 20px;\n}\n.question-count > p[data-v-011c6508] {\r\n    margin: 0;\n}\n.question-content[data-v-011c6508] {\r\n    margin-top: 15px;\n}\n.manipulation-buttons[data-v-011c6508] {\r\n    margin-top: 30px;\n}\n.header[data-v-011c6508] {\r\n    margin: 0 30px 20px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -38788,11 +38791,9 @@ var render = function() {
   return _c("div", { staticClass: "questions" }, [
     _c(
       "div",
-      { staticClass: "container" },
+      { staticClass: "container-fluid" },
       [
         _vm._m(0),
-        _vm._v(" "),
-        _vm._m(1),
         _vm._v(" "),
         _vm._l(_vm.questions, function(question) {
           return _c("div", { key: question.id, staticClass: "question" }, [
@@ -38877,7 +38878,7 @@ var render = function() {
                 _c("div", { staticClass: "manipulation-buttons" }, [
                   _vm.editAble
                     ? _c("div", { staticClass: "question-edit" }, [
-                        _vm._m(2, true)
+                        _vm._m(1, true)
                       ])
                     : _vm._e(),
                   _vm._v(" "),
@@ -38915,17 +38916,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "question-section-title" }, [
-      _c("h1", [_vm._v("All Questions")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "question-section-button" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [
-        _vm._v("Ask a question")
+    return _c("div", { staticClass: "header" }, [
+      _c("div", { staticClass: "question-section-title" }, [
+        _c("h1", [_vm._v("All Questions")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "question-section-button" }, [
+        _c("button", { staticClass: "btn btn-primary" }, [
+          _vm._v("Ask a question")
+        ])
       ])
     ])
   },
