@@ -7,8 +7,13 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
     routes: [
-        { path: "/", component: showQuestion },
-        { path: "/question/create", component: createQuestion }
+        { path: "/", component: questionComponent },
+        { path: "/question/create", component: createQuestion },
+        {
+            path: "/question/:id",
+            name: "question.show",
+            component: showQuestion
+        }
     ],
     mode: "history"
 });

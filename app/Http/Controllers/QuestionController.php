@@ -9,7 +9,7 @@ class QuestionController extends Controller
 {
     public function index()
     {
-        $questions = Question::latest()->get();
+        $questions = Question::latest()->with('answers')->get();
         if (isset($questions)) {
             return response()->json(['questions' => [$questions], 200], 200);
         }
@@ -18,7 +18,7 @@ class QuestionController extends Controller
 
     public function show($question)
     {
-        $question = Question::find($question)->with('answers')->get();
+        $question = Question::where('id', $question)->with('answers')->get();
         if (isset($question)) {
             return response()->json(['question' => [$question], 200], 200);
         }

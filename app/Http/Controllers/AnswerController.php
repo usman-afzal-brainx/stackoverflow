@@ -8,7 +8,7 @@ class AnswerController extends Controller
 {
     public function show($question)
     {
-        $answers = Answer::where('user_id', 1)->where('question_id', $question)->get();
+        $answers = Answer::where('question_id', $question)->get();
         if (!isset($question)) {
             return response()->json(['failed' => ['The answers for given ID was not found'], 404], 404);
         }
@@ -18,13 +18,11 @@ class AnswerController extends Controller
     {
         request()->validate([
             'description' => 'String | required',
-            'no_thumbs_up' => 'required | integer',
-            'no_thumbs_down' => 'required | integer',
         ]);
         $answer = new Answer();
         $answer->description = request('description');
-        $answer->no_thumbs_up = request('no_thumbs_up');
-        $answer->no_thumbs_down = request('no_thumbs_down');
+        $answer->no_thumbs_up = 0;
+        $answer->no_thumbs_down = 0;
         $answer->user_id = 1;
         $answer->question_id = $question;
         $answer->save();

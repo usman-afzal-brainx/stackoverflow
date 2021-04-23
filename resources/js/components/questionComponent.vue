@@ -162,7 +162,10 @@ export default {
             this.$router.push({ path: "/question/create" });
         },
         handleClick(question) {
-            console.log(question);
+            this.$router.push({
+                name: "question.show",
+                params: { id: question.id, question }
+            });
         }
     }
 };
