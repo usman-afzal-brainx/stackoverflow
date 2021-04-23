@@ -6,7 +6,9 @@
                     <h1>All Questions</h1>
                 </div>
                 <div class="question-section-button">
-                    <button class="btn btn-primary">Ask a question</button>
+                    <button class="btn btn-primary" @click="handleClick">
+                        Ask a question
+                    </button>
                 </div>
             </div>
 
@@ -152,6 +154,9 @@ export default {
                 this.questions = originalQuestions;
                 console.log(error);
             }
+        },
+        handleClick() {
+            this.$router.push({ path: "/question/create" });
         }
     }
 };

@@ -55,12 +55,13 @@ export default {
                 api_token: window.api_token
             };
             try {
-                const response = await axios.post("/api/questions", data);
+                await axios.post("/api/questions", data);
                 this.question.question = "";
                 this.question.description = "";
             } catch (ex) {
                 console.log(ex);
             }
+            this.$router.push({ path: "/" });
         }
     }
 };
