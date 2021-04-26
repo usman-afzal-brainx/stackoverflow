@@ -2385,100 +2385,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
-    handleLike: function handleLike(question) {
+    handleDelete: function handleDelete(question) {
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var data, no_thumbs_up, index;
+        var originalQuestions, questions;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                data = {
-                  api_token: window.api_token
-                };
-                no_thumbs_up = question.no_thumbs_up;
-                index = _this3.questions.indexOf(question);
-                _context3.prev = 3;
-                question.no_thumbs_up = no_thumbs_up + 1;
-                _this3.questions[index] = question;
-                _context3.next = 8;
-                return axios.post("/api/questions/".concat(question.id, "/like"), data);
-
-              case 8:
-                _context3.next = 15;
-                break;
-
-              case 10:
-                _context3.prev = 10;
-                _context3.t0 = _context3["catch"](3);
-                console.log(_context3.t0);
-                question.no_thumbs_up = no_thumbs_up;
-                _this3.questions[index] = question;
-
-              case 15:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, null, [[3, 10]]);
-      }))();
-    },
-    handleDislike: function handleDislike(question) {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var data, no_thumbs_down, index;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                data = {
-                  api_token: window.api_token
-                };
-                no_thumbs_down = question.no_thumbs_down;
-                index = _this4.questions.indexOf(question);
-                _context4.prev = 3;
-                question.no_thumbs_down = no_thumbs_down + 1;
-                _this4.questions[index] = question;
-                _context4.next = 8;
-                return axios.post("/api/questions/".concat(question.id, "/dislike"), data);
-
-              case 8:
-                _context4.next = 15;
-                break;
-
-              case 10:
-                _context4.prev = 10;
-                _context4.t0 = _context4["catch"](3);
-                console.log(_context4.t0);
-                question.no_thumbs_down = no_thumbs_down;
-                _this4.questions[index] = question;
-
-              case 15:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[3, 10]]);
-      }))();
-    },
-    handleDelete: function handleDelete(question) {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        var originalQuestions, questions;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                originalQuestions = _objectSpread({}, _this5.questions);
-                _context5.prev = 1;
-                questions = _this5.questions.filter(function (q) {
+                originalQuestions = _objectSpread({}, _this3.questions);
+                _context3.prev = 1;
+                questions = _this3.questions.filter(function (q) {
                   return q.id !== question.id;
                 });
-                _this5.questions = questions;
-                _context5.next = 6;
+                _this3.questions = questions;
+                _context3.next = 6;
                 return axios["delete"]("/api/questions/".concat(question.id, "/"), {
                   headers: {
                     Authorization: "Bearer " + window.api_token,
@@ -2487,21 +2409,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 6:
-                _context5.next = 12;
+                _context3.next = 12;
                 break;
 
               case 8:
-                _context5.prev = 8;
-                _context5.t0 = _context5["catch"](1);
-                _this5.questions = originalQuestions;
-                console.log(_context5.t0);
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](1);
+                _this3.questions = originalQuestions;
+                console.log(_context3.t0);
 
               case 12:
               case "end":
-                return _context5.stop();
+                return _context3.stop();
             }
           }
-        }, _callee5, null, [[1, 8]]);
+        }, _callee3, null, [[1, 8]]);
       }))();
     },
     handleAskQuestion: function handleAskQuestion() {

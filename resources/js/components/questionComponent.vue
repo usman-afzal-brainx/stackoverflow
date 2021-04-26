@@ -106,38 +106,7 @@ export default {
             const questions = data.questions[0];
             this.questions = questions;
         },
-        async handleLike(question) {
-            const data = {
-                api_token: window.api_token
-            };
-            let no_thumbs_up = question.no_thumbs_up;
-            const index = this.questions.indexOf(question);
-            try {
-                question.no_thumbs_up = no_thumbs_up + 1;
-                this.questions[index] = question;
-                await axios.post(`/api/questions/${question.id}/like`, data);
-            } catch (error) {
-                console.log(error);
-                question.no_thumbs_up = no_thumbs_up;
-                this.questions[index] = question;
-            }
-        },
-        async handleDislike(question) {
-            const data = {
-                api_token: window.api_token
-            };
-            let no_thumbs_down = question.no_thumbs_down;
-            const index = this.questions.indexOf(question);
-            try {
-                question.no_thumbs_down = no_thumbs_down + 1;
-                this.questions[index] = question;
-                await axios.post(`/api/questions/${question.id}/dislike`, data);
-            } catch (error) {
-                console.log(error);
-                question.no_thumbs_down = no_thumbs_down;
-                this.questions[index] = question;
-            }
-        },
+
         async handleDelete(question) {
             const originalQuestions = { ...this.questions };
             try {
