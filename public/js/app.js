@@ -2558,6 +2558,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
+/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2697,18 +2699,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default
+  },
   data: function data() {
     return {
       question: {
         title: this.$route.params.question.question,
-        description: this.$route.params.question.description,
-        no_thumbs_up: this.$route.params.question.no_thumbs_up,
-        no_thumbs_down: this.$route.params.question.no_thumbs_down
+        description: this.$route.params.question.description
       },
       isAnswers: false,
       answers: this.$route.params.question.answers,
@@ -40425,34 +40427,35 @@ var render = function() {
                 _vm._v(
                   "\n                            Votes:\n                            " +
                     _vm._s(
-                      _vm.question.no_thumbs_up - _vm.question.no_thumbs_down
+                      _vm.$route.params.question.no_thumbs_up -
+                        _vm.$route.params.question.no_thumbs_down
                     ) +
                     "\n                        "
                 )
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "question-thumbs-up" }, [
-              _c("button", { staticClass: "btn btn-success btn-sm" }, [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.question.no_thumbs_up) +
-                    "\n\n                            "
-                ),
-                _c("i", { staticClass: "far fa-thumbs-up" })
-              ])
-            ]),
+            _c(
+              "div",
+              { staticClass: "question-thumbs-up" },
+              [
+                _c("question-like-button", {
+                  attrs: { data: _vm.$route.params.question }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
-            _c("div", { staticClass: "question-thumbs-down pt-1" }, [
-              _c("button", { staticClass: "btn btn-danger btn-sm" }, [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.question.no_thumbs_down) +
-                    "\n\n                            "
-                ),
-                _c("i", { staticClass: "far fa-thumbs-down" })
-              ])
-            ])
+            _c(
+              "div",
+              { staticClass: "question-thumbs-down pt-1" },
+              [
+                _c("question-dislike-button", {
+                  attrs: { data: _vm.$route.params.question }
+                })
+              ],
+              1
+            )
           ])
         ]),
         _vm._v(" "),

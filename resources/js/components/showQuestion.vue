@@ -18,24 +18,20 @@
                             <p>
                                 Votes:
                                 {{
-                                    question.no_thumbs_up -
-                                        question.no_thumbs_down
+                                    $route.params.question.no_thumbs_up -
+                                        $route.params.question.no_thumbs_down
                                 }}
                             </p>
                         </div>
                         <div class="question-thumbs-up">
-                            <button class="btn btn-success btn-sm">
-                                {{ question.no_thumbs_up }}
-
-                                <i class="far fa-thumbs-up"></i>
-                            </button>
+                            <question-like-button
+                                :data="$route.params.question"
+                            ></question-like-button>
                         </div>
                         <div class="question-thumbs-down pt-1">
-                            <button class="btn btn-danger btn-sm">
-                                {{ question.no_thumbs_down }}
-
-                                <i class="far fa-thumbs-down"></i>
-                            </button>
+                            <question-dislike-button
+                                :data="$route.params.question"
+                            ></question-dislike-button>
                         </div>
                     </div>
                 </div>
@@ -136,14 +132,15 @@
     </div>
 </template>
 <script>
+import questionLikeButton from "./questionLikeButton.vue";
+import questionDislikeButton from "./questionDislikeButton.vue";
 export default {
+    components: { questionLikeButton, questionDislikeButton },
     data() {
         return {
             question: {
                 title: this.$route.params.question.question,
-                description: this.$route.params.question.description,
-                no_thumbs_up: this.$route.params.question.no_thumbs_up,
-                no_thumbs_down: this.$route.params.question.no_thumbs_down
+                description: this.$route.params.question.description
             },
             isAnswers: false,
             answers: this.$route.params.question.answers,
