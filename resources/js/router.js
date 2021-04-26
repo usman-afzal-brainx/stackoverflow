@@ -3,6 +3,8 @@ import VueRouter from "vue-router";
 import questionComponent from "./components/questionComponent.vue";
 import createQuestion from "./components/createQuestion.vue";
 import showQuestion from "./components/showQuestion.vue";
+import login from "./components/login.vue";
+import register from "./components/registerForm.vue";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -17,6 +19,14 @@ export default new VueRouter({
             path: "/question/:id",
             name: "question.show",
             component: showQuestion
+        },
+        {
+            path: "/login",
+            component: login
+        },
+        {
+            path: "/register",
+            component: register
         }
     ],
     mode: "history"

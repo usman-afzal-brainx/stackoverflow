@@ -109,7 +109,8 @@ export default {
                 description: this.$route.params.question.description
             },
             isAnswers: false,
-            description: ""
+            description: "",
+            answers: this.$route.params.question.answers
         };
     },
     created() {

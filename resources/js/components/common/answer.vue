@@ -34,8 +34,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2 pt-1" v-if="edit"></div>
-                <div class="col-sm-6 pt-1" v-if="edit">
+
+                <div class="col-sm-8 pt-1" v-if="edit">
                     <form @submit.prevent="handleSubmit(answer)">
                         <textarea
                             class="form-control rounded-0"
@@ -47,6 +47,14 @@
                             Update
                         </button>
                     </form>
+                </div>
+                <div class="col-sm-1" v-if="!edit">
+                    <button
+                        class="btn btn-primary edit-button"
+                        @click="handleEdit"
+                    >
+                        Edit <i class="far fa-edit"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -63,7 +71,7 @@ export default {
     },
     data() {
         return {
-            edit: true,
+            edit: false,
             description: ""
         };
     },
@@ -82,6 +90,9 @@ export default {
             } catch (ex) {
                 console.log(ex);
             }
+        },
+        handleEdit() {
+            this.edit = true;
         }
     }
 };
@@ -114,5 +125,8 @@ export default {
     border-bottom: 1px solid;
     padding-bottom: 40px;
     border-color: rgb(166, 162, 151);
+}
+.edit-button {
+    margin-top: 40px;
 }
 </style>

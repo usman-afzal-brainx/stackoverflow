@@ -11,8 +11,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', 'Api\AuthController@logout');
 
 });
-Route::post('login', 'Api\AuthController@login');
-Route::post('register', 'Api\AuthController@register');
+Route::post('/login', 'Api\AuthController@login');
+Route::post('/register', 'Api\AuthController@register');
 
 Route::get('/questions', 'QuestionController@index');
 Route::post('/questions', 'QuestionController@create');
@@ -23,7 +23,6 @@ Route::post('/questions/{question}/dislike', 'QuestionController@handleDislike')
 
 Route::get('/answers/{question}', 'AnswerController@show');
 Route::post('/answers/{question}', 'AnswerController@create');
-Route::put('/answers/{answer}', 'AnswerController@update');
 Route::delete('/answers/{answer}', 'AnswerController@delete');
 Route::post('/answers/{answer}/like', 'AnswerController@handleLike');
 Route::post('/answers/{answer}/dislike', 'AnswerController@handleDislike');

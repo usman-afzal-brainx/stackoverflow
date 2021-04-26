@@ -32,23 +32,22 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        // $fields = $request->validate([
-        //     'name' => 'required | string',
-        //     'email' => 'required | string | unique:users,email',
-        //     'password' => 'required | string| confirmed',
-        //     'is_Admin' => 'required | String',
-        // ]);
-        $user = User::create([
-            'name' => request('name'),
-            'email' => request('email'),
-            'password' => bcrypt(request('password')),
-            'is_Admin' => request('is_Admin'),
-            'api_token' => Str::random(80),
-        ]);
+        // $old_user = User::where('email', $request->email)->first();
+
+        // if (isset($old_user)) {
+        //     return response()->json(['failure' => ['User cannot be created'], 400], 400);
+        // }
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->is_Admin = $request->is_Admin;
+        $user->password = bcrypt($request->name);
+        $user->api_token = Str::random(80);
+        $user->save();
         $credentials = $user->only('email', 'password');
         if (Auth::attempt($credentials)) {
             $token = $request->user()->createToken('api_token')->plainTextToken;
-            return response($token, 200);
+            return response()->json(['token' => [$token], 200], 200);
         }
     }
     public function logout()

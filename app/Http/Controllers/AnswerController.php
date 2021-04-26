@@ -31,26 +31,6 @@ class AnswerController extends Controller
         $answer->save();
         return response()->json(['answer' => [$answer], 200], 200);
     }
-    public function update($answer)
-    {
-        $answer = Answer::find('id', $answer)->first();
-        dd(($answer));
-        request()->validate([
-            'description' => 'string | required',
-            'no_thumbs_up' => 'required | integer',
-            'no_thumbs_down' => 'required | integer',
-        ]);
-
-        if (isset($answer)) {
-            $answer->description = request('description');
-            $answer->no_thumbs_up = request('no_thumbs_up');
-            $answer->no_thumbs_down = request('no_thumbs_down');
-            $answer->save();
-            return response()->json(['success' => ["The answer has been updated successfully."], 200], 200);
-        }
-        return response()->json(['failure' => ["The answer with given ID was not found"], 404], 404);
-
-    }
     public function delete(Answer $answer)
     {
         if (isset($answer)) {
