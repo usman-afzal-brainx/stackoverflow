@@ -50,48 +50,7 @@
             </div>
         </div>
         <div class="answers" v-if="isAnswers">
-            <div class="answer-section-title">
-                <div class="answer-header">
-                    <h2>Answers</h2>
-                </div>
-            </div>
-            <div class="answer" v-for="answer in answers" :key="answer.id">
-                <div class="header"></div>
-                <div class="row">
-                    <div class="col-sm-2">
-                        <div class="answer-left-part">
-                            <div class="answer-count">
-                                <p>
-                                    Votes:
-                                    {{
-                                        answer.no_thumbs_up -
-                                            answer.no_thumbs_down
-                                    }}
-                                </p>
-                            </div>
-                            <div class="answer-thumbs-up">
-                                <answer-like-button
-                                    :data="answer"
-                                ></answer-like-button>
-                            </div>
-                            <div class="answer-thumbs-down pt-1">
-                                <answer-dislike-button
-                                    :data="answer"
-                                ></answer-dislike-button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-8">
-                        <div class="answer-content">
-                            <div class="answer-description">
-                                <p>
-                                    {{ answer.description }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <answers :answers="$route.params.question.answers"></answers>
         </div>
         <div class="answer-not-found-error" v-if="!isAnswers">
             <div class="row">
@@ -134,12 +93,14 @@ import questionLikeButton from "./questionLikeButton.vue";
 import questionDislikeButton from "./questionDislikeButton.vue";
 import answerLikeButton from "./answerLikeButton";
 import answerDislikeButton from "./answerDislikeButton";
+import answers from "./answers.vue";
 export default {
     components: {
         questionLikeButton,
         questionDislikeButton,
         answerLikeButton,
-        answerDislikeButton
+        answerDislikeButton,
+        answers
     },
     data() {
         return {
@@ -148,7 +109,6 @@ export default {
                 description: this.$route.params.question.description
             },
             isAnswers: false,
-            answers: this.$route.params.question.answers,
             description: ""
         };
     },
@@ -211,43 +171,9 @@ export default {
     padding-bottom: 40px;
     border-color: rgb(166, 162, 151);
 }
-.answer-thumbs-up,
-.answer-thumbs-down,
-.answer-edit,
-.answer-delete {
-    display: inline-block;
-    margin-right: 5px;
-}
-.answer-left-part {
-    margin-left: 50px;
-}
-.answer-count {
-    font-size: 20px;
-    font-weight: bold;
-}
-.answer-count > p {
-    margin: 0;
-}
-.answer-content {
-    border-bottom: 1px solid;
-    padding-bottom: 40px;
-    border-color: rgb(166, 162, 151);
-}
-.answer-header {
-    margin: 0px 30px 20px;
-}
 .back-button {
     float: right;
     margin-right: 100px;
-}
-.question-section-title {
-    display: inline-block;
-}
-.answer-description {
-    padding-top: 40px;
-}
-.answer-left-part {
-    padding-top: 10px;
 }
 .answer-not-found-error {
     font-size: 23px;

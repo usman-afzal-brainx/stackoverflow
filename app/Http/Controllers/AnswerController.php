@@ -19,17 +19,22 @@ class AnswerController extends Controller
         request()->validate([
             'description' => 'String | required',
         ]);
-        $answer = new Answer();
+        if (request('id') == null) {
+            $answer = new Answer();
+            $answer->no_thumbs_up = 0;
+            $answer->no_thumbs_down = 0;
+            $answer->question_id = $question;
+        } else {
+            $answer = Answer::where('id', request('id'))->first();
+        }
         $answer->description = request('description');
-        $answer->no_thumbs_up = 0;
-        $answer->no_thumbs_down = 0;
-        $answer->user_id = 1;
-        $answer->question_id = $question;
         $answer->save();
         return response()->json(['answer' => [$answer], 200], 200);
     }
-    public function update(Answer $answer)
+    public function update($answer)
     {
+        $answer = Answer::find('id', $answer)->first();
+        dd(($answer));
         request()->validate([
             'description' => 'string | required',
             'no_thumbs_up' => 'required | integer',

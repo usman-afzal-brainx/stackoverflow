@@ -66,8 +66,7 @@ export default {
             }
             console.log(payload);
             try {
-                const { data } = await axios.post("/api/questions", payload);
-                console.log(data);
+                await axios.post("/api/questions", payload);
                 this.question.question = "";
                 this.question.description = "";
             } catch (ex) {
