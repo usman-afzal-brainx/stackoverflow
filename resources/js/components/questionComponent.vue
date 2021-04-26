@@ -29,10 +29,14 @@
                             </p>
                         </div>
                         <div class="question-thumbs-up">
-                            <like-button :data="question"></like-button>
+                            <question-like-button
+                                :data="question"
+                            ></question-like-button>
                         </div>
                         <div class="question-thumbs-down pt-1">
-                            <dislike-button :data="question"></dislike-button>
+                            <question-dislike-button
+                                :data="question"
+                            ></question-dislike-button>
                         </div>
                     </div>
                     <div class="col-sm-7">
@@ -77,10 +81,10 @@
 </template>
 
 <script>
-import likeButton from "./common/likeButton.vue";
-import dislikeButton from "./common/dislikeButton.vue";
+import questionLikeButton from "./questionLikeButton.vue";
+import questionDislikeButton from "./questionDislikeButton.vue";
 export default {
-    components: { dislikeButton, likeButton },
+    components: { questionDislikeButton, questionLikeButton },
     data() {
         return {
             questions: [],
