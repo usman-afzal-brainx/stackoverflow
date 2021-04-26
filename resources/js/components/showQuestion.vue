@@ -70,16 +70,14 @@
                                 </p>
                             </div>
                             <div class="answer-thumbs-up">
-                                <button class="btn btn-success btn-sm">
-                                    {{ answer.no_thumbs_up }}
-                                    <i class="far fa-thumbs-up"></i>
-                                </button>
+                                <answer-like-button
+                                    :data="answer"
+                                ></answer-like-button>
                             </div>
                             <div class="answer-thumbs-down pt-1">
-                                <button class="btn btn-danger btn-sm">
-                                    {{ answer.no_thumbs_down }}
-                                    <i class="far fa-thumbs-down"></i>
-                                </button>
+                                <answer-dislike-button
+                                    :data="answer"
+                                ></answer-dislike-button>
                             </div>
                         </div>
                     </div>
@@ -134,8 +132,15 @@
 <script>
 import questionLikeButton from "./questionLikeButton.vue";
 import questionDislikeButton from "./questionDislikeButton.vue";
+import answerLikeButton from "./answerLikeButton";
+import answerDislikeButton from "./answerDislikeButton";
 export default {
-    components: { questionLikeButton, questionDislikeButton },
+    components: {
+        questionLikeButton,
+        questionDislikeButton,
+        answerLikeButton,
+        answerDislikeButton
+    },
     data() {
         return {
             question: {

@@ -47,15 +47,6 @@ class QuestionController extends Controller
         return response()->json(['question' => [$question], 200], 200);
     }
 
-    // public function update(Question $question)
-    // {
-    //     $question->question = request('question');
-    //     $question->description = request('description');
-    //     $question->no_thumbs_up = request('no_thumbs_up');
-    //     $question->no_thumbs_down = request('no_thumbs_down');
-    //     $question->save();
-    //     return response()->json(['question' => [$question], 200], 200);
-    // }
     public function delete(Question $question)
     {
         if (isset($question)) {

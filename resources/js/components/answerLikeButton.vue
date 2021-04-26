@@ -9,16 +9,15 @@ export default {
     components: {
         likeButton
     },
-
     methods: {
-        async handleLike(question) {
+        async handleLike(answer) {
             const data = {
                 api_token: window.api_token
             };
-            let no_thumbs_up = question.no_thumbs_up;
+            let no_thumbs_up = answer.no_thumbs_up;
             try {
                 this.data.no_thumbs_up = no_thumbs_up + 1;
-                await axios.post(`/api/questions/${question.id}/like`, data);
+                await axios.post(`/api/answers/${answer.id}/like`, data);
             } catch (error) {
                 console.log(error);
                 this.data.no_thumbs_up = no_thumbs_up + 1;
