@@ -23,8 +23,8 @@
             >
                 <question
                     :question="question"
-                    @deleteClicked="handleDelete"
                     :user="user"
+                    @deleteClicked="handleDelete"
                 ></question>
             </div>
             <div class="no-questions-error" v-if="questions.length === 0">
@@ -48,7 +48,7 @@ export default {
     async created() {
         this.getQuestions();
         if (window.localStorage.getItem("api_token")) {
-            const user = getUser();
+            const user = await getUser();
             this.user = user;
         }
     },

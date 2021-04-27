@@ -3388,12 +3388,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this.getQuestions();
 
-              if (window.localStorage.getItem("api_token")) {
-                user = (0,_user_js__WEBPACK_IMPORTED_MODULE_2__.default)();
-                _this.user = user;
+              if (!window.localStorage.getItem("api_token")) {
+                _context.next = 6;
+                break;
               }
 
-            case 2:
+              _context.next = 4;
+              return (0,_user_js__WEBPACK_IMPORTED_MODULE_2__.default)();
+
+            case 4:
+              user = _context.sent;
+              _this.user = user;
+
+            case 6:
             case "end":
               return _context.stop();
           }
