@@ -43,15 +43,20 @@ export default {
     },
     methods: {
         async getQuestions() {
-            const { data } = await axios.get("/api/questions", {
-                headers: {
-                    Authorization:
-                        "Bearer " + window.localStorage.getItem("access_token"),
-                    Accept: "application/json"
-                }
-            });
-            const questions = data.questions[0];
-            this.questions = questions;
+            try {
+                const { data } = await axios.get("/api/questions", {
+                    headers: {
+                        Authorization:
+                            "Bearer " +
+                            window.localStorage.getItem("api_token"),
+                        Accept: "application/json"
+                    }
+                });
+                const questions = data.questions[0];
+                this.questions = questions;
+            } catch (error) {
+                console.log(error);
+            }
         },
 
         async handleDelete(question) {

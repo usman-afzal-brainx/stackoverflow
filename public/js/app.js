@@ -3409,26 +3409,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _context2.prev = 0;
+                _context2.next = 3;
                 return axios.get("/api/questions", {
                   headers: {
-                    Authorization: "Bearer " + window.localStorage.getItem("access_token"),
+                    Authorization: "Bearer " + window.localStorage.getItem("api_token"),
                     Accept: "application/json"
                   }
                 });
 
-              case 2:
+              case 3:
                 _yield$axios$get = _context2.sent;
                 data = _yield$axios$get.data;
                 questions = data.questions[0];
                 _this2.questions = questions;
+                _context2.next = 12;
+                break;
 
-              case 6:
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](0);
+                console.log(_context2.t0);
+
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 9]]);
       }))();
     },
     handleDelete: function handleDelete(question) {
@@ -42503,7 +42511,7 @@ var render = function() {
                 },
                 [
                   _vm._v("\n                    Delete "),
-                  _c("i", { staticClass: "far fa-delete" })
+                  _c("i", { staticClass: "far fa-trash-alt" })
                 ]
               )
             : _vm._e()
