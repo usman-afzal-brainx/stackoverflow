@@ -8,10 +8,7 @@
                 </p>
             </div>
             <div class="question-thumbs-up" v-if="user">
-                <question-like-button
-                    :data="question"
-                    :user="user"
-                ></question-like-button>
+                <question-like-button :data="question"></question-like-button>
             </div>
             <div class="question-thumbs-down pt-1" v-if="user">
                 <question-dislike-button

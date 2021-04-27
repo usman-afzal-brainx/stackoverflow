@@ -9,7 +9,6 @@ export default {
     components: {
         likeButton
     },
-
     methods: {
         async handleLike(question) {
             const data = {

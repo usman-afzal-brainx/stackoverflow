@@ -2667,9 +2667,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2695,6 +2692,241 @@ __webpack_require__.r(__webpack_exports__);
           question: question
         }
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/questionFavoriteButton.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/questionFavoriteButton.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      action: "like",
+      type: "answer"
+    };
+  },
+  methods: {
+    handleQuestionLike: function handleQuestionLike(question) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var data, no_thumbs_up;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log("Question like");
+                data = {
+                  question_id: question.id,
+                  api_token: window.localStorage.getItem("api_token")
+                };
+                no_thumbs_up = question.no_thumbs_up;
+                _context.prev = 3;
+                _this.data.no_thumbs_up = no_thumbs_up + 1;
+                _context.next = 7;
+                return axios.post("/api/questions/like", data);
+
+              case 7:
+                _context.next = 13;
+                break;
+
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](3);
+                console.log(_context.t0);
+                _this.data.no_thumbs_up = no_thumbs_up + 1;
+
+              case 13:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[3, 9]]);
+      }))();
+    },
+    handleQuestionDislike: function handleQuestionDislike(question) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var data, no_thumbs_down;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                console.log("Question dislike");
+                data = {
+                  question_id: question.id,
+                  api_token: window.localStorage.getItem("api_token")
+                };
+                no_thumbs_down = question.no_thumbs_down;
+                _context2.prev = 3;
+                _this2.data.no_thumbs_down = no_thumbs_down + 1;
+                _context2.next = 7;
+                return axios.post("/api/questions/dislike", data);
+
+              case 7:
+                _context2.next = 13;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](3);
+                console.log(_context2.t0);
+                _this2.data.no_thumbs_down = no_thumbs_down;
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[3, 9]]);
+      }))();
+    },
+    handleAnswerLike: function handleAnswerLike(answer) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var data, no_thumbs_up;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                console.log("Answer like");
+                data = {
+                  answer_id: answer.id,
+                  api_token: window.localStorage.getItem("api_token")
+                };
+                no_thumbs_up = answer.no_thumbs_up;
+                _context3.prev = 3;
+                _this3.data.no_thumbs_up = no_thumbs_up + 1;
+                _context3.next = 7;
+                return axios.post("/api/answers/like", data);
+
+              case 7:
+                _context3.next = 13;
+                break;
+
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](3);
+                console.log(_context3.t0);
+                _this3.data.no_thumbs_up = no_thumbs_up + 1;
+
+              case 13:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[3, 9]]);
+      }))();
+    },
+    handleAnswerDislike: function handleAnswerDislike(answer) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+        var data, no_thumbs_down;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                console.log("Answer dislike");
+                data = {
+                  answer_id: answer.id,
+                  api_token: window.localStorage.getItem("api_token")
+                };
+                no_thumbs_down = answer.no_thumbs_down;
+                _context4.prev = 3;
+                _this4.data.no_thumbs_down = no_thumbs_down + 1;
+                _context4.next = 7;
+                return axios.post("/api/answers/dislike", data);
+
+              case 7:
+                _context4.next = 13;
+                break;
+
+              case 9:
+                _context4.prev = 9;
+                _context4.t0 = _context4["catch"](3);
+                console.log(_context4.t0);
+                _this4.data.no_thumbs_down = no_thumbs_down;
+
+              case 13:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[3, 9]]);
+      }))();
+    },
+    handleClick: function handleClick() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (_this5.action === "like") {
+                  if (_this5.type === "question") {
+                    _this5.handleQuestionLike();
+                  } else {
+                    _this5.handleAnswerLike();
+                  }
+                } else {
+                  if (_this5.type === "question") {
+                    _this5.handleQuestionDislike();
+                  } else {
+                    _this5.handleAnswerDislike();
+                  }
+                }
+
+              case 1:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
     }
   }
 });
@@ -3065,6 +3297,11 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3976,8 +4213,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_questionListing_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/questionListing.vue */ "./resources/js/components/questionListing.vue");
 /* harmony import */ var _components_createQuestion_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/createQuestion.vue */ "./resources/js/components/createQuestion.vue");
 /* harmony import */ var _components_showQuestion_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/showQuestion.vue */ "./resources/js/components/showQuestion.vue");
@@ -3985,6 +4222,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_registerForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/registerForm.vue */ "./resources/js/components/registerForm.vue");
 /* harmony import */ var _components_logout_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/logout.vue */ "./resources/js/components/logout.vue");
 /* harmony import */ var _components_adminRegister_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/adminRegister.vue */ "./resources/js/components/adminRegister.vue");
+/* harmony import */ var _components_common_questionFavoriteButton_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/common/questionFavoriteButton.vue */ "./resources/js/components/common/questionFavoriteButton.vue");
 
 
 
@@ -3994,8 +4232,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_7__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_8__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_8__.default({
+
+vue__WEBPACK_IMPORTED_MODULE_8__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_9__.default);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_9__.default({
   routes: [{
     path: "/",
     component: _components_questionListing_vue__WEBPACK_IMPORTED_MODULE_0__.default
@@ -4019,6 +4258,9 @@ vue__WEBPACK_IMPORTED_MODULE_7__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
   }, {
     path: "/admin/register",
     component: _components_adminRegister_vue__WEBPACK_IMPORTED_MODULE_6__.default
+  }, {
+    path: "/buttons",
+    component: _components_common_questionFavoriteButton_vue__WEBPACK_IMPORTED_MODULE_7__.default
   }],
   mode: "history"
 }));
@@ -40875,6 +41117,45 @@ component.options.__file = "resources/js/components/common/question.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/common/questionFavoriteButton.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/common/questionFavoriteButton.vue ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _questionFavoriteButton_vue_vue_type_template_id_7766e846___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./questionFavoriteButton.vue?vue&type=template&id=7766e846& */ "./resources/js/components/common/questionFavoriteButton.vue?vue&type=template&id=7766e846&");
+/* harmony import */ var _questionFavoriteButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questionFavoriteButton.vue?vue&type=script&lang=js& */ "./resources/js/components/common/questionFavoriteButton.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _questionFavoriteButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _questionFavoriteButton_vue_vue_type_template_id_7766e846___WEBPACK_IMPORTED_MODULE_0__.render,
+  _questionFavoriteButton_vue_vue_type_template_id_7766e846___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/common/questionFavoriteButton.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/createQuestion.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/createQuestion.vue ***!
@@ -41380,6 +41661,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/common/questionFavoriteButton.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/common/questionFavoriteButton.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_questionFavoriteButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./questionFavoriteButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/questionFavoriteButton.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_questionFavoriteButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/createQuestion.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/createQuestion.vue?vue&type=script&lang=js& ***!
@@ -41673,6 +41970,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_question_vue_vue_type_template_id_4f8fdb0f_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_question_vue_vue_type_template_id_4f8fdb0f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./question.vue?vue&type=template&id=4f8fdb0f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/question.vue?vue&type=template&id=4f8fdb0f&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/common/questionFavoriteButton.vue?vue&type=template&id=7766e846&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/common/questionFavoriteButton.vue?vue&type=template&id=7766e846& ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_questionFavoriteButton_vue_vue_type_template_id_7766e846___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_questionFavoriteButton_vue_vue_type_template_id_7766e846___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_questionFavoriteButton_vue_vue_type_template_id_7766e846___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./questionFavoriteButton.vue?vue&type=template&id=7766e846& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/questionFavoriteButton.vue?vue&type=template&id=7766e846&");
 
 
 /***/ }),
@@ -42657,11 +42971,7 @@ var render = function() {
         ? _c(
             "div",
             { staticClass: "question-thumbs-up" },
-            [
-              _c("question-like-button", {
-                attrs: { data: _vm.question, user: _vm.user }
-              })
-            ],
+            [_c("question-like-button", { attrs: { data: _vm.question } })],
             1
           )
         : _vm._e(),
@@ -42748,6 +43058,48 @@ var render = function() {
         ])
       ])
     ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/questionFavoriteButton.vue?vue&type=template&id=7766e846&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/common/questionFavoriteButton.vue?vue&type=template&id=7766e846& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "buttons" }, [
+    _c(
+      "button",
+      {
+        class:
+          _vm.action === "like"
+            ? "btn btn-success btn-sm "
+            : "btn btn-danger btn-sm ",
+        on: { click: _vm.handleClick }
+      },
+      [
+        _c("i", {
+          class:
+            _vm.action === "like" ? "far fa-thumbs-up" : "far fa-thumbs-down"
+        })
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -43164,7 +43516,20 @@ var render = function() {
                       ],
                       1
                     )
-                  : _vm._e()
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "nav-item" },
+                  [
+                    _c(
+                      "router-link",
+                      { staticClass: "nav-link", attrs: { to: "/buttons" } },
+                      [_vm._v("Buttons")]
+                    )
+                  ],
+                  1
+                )
               ])
             ]
           )
