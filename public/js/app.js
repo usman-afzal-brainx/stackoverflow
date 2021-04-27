@@ -2601,17 +2601,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
-/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
-/* harmony import */ var _user_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../user.js */ "./resources/js/user.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
+/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
 //
 //
 //
@@ -2669,44 +2660,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ["question"],
-  data: function data() {
-    return {
-      user: ""
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var user;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return (0,_user_js__WEBPACK_IMPORTED_MODULE_3__.default)();
-
-            case 2:
-              user = _context.sent;
-              _this.user = user;
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  },
+  props: ["question", "user"],
   methods: {
     handleClick: function handleClick(question) {
       this.$router.push({
@@ -3128,6 +3089,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["api_token"],
@@ -3145,14 +3109,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              if (!_this.api_token) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
               return (0,_user_js__WEBPACK_IMPORTED_MODULE_1__.default)();
 
-            case 2:
+            case 3:
               user = _context.sent;
               _this.user = user;
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -3327,6 +3296,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_question_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common/question.vue */ "./resources/js/components/common/question.vue");
+/* harmony import */ var _user_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../user.js */ "./resources/js/user.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3370,6 +3340,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3377,20 +3349,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      questions: []
+      questions: [],
+      user: ""
     };
   },
   created: function created() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var user;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _this.getQuestions();
 
-            case 1:
+              if (window.localStorage.getItem("api_token")) {
+                user = (0,_user_js__WEBPACK_IMPORTED_MODULE_2__.default)();
+                _this.user = user;
+              }
+
+            case 2:
             case "end":
               return _context.stop();
           }
@@ -3409,7 +3388,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _context2.prev = 0;
+                _context2.next = 3;
                 return axios.get("/api/questions", {
                   headers: {
                     Authorization: "Bearer " + window.localStorage.getItem("access_token"),
@@ -3417,18 +3397,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 2:
+              case 3:
                 _yield$axios$get = _context2.sent;
                 data = _yield$axios$get.data;
                 questions = data.questions[0];
                 _this2.questions = questions;
+                _context2.next = 12;
+                break;
 
-              case 6:
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](0);
+                console.log(_context2.t0);
+
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, null, [[0, 9]]);
       }))();
     },
     handleDelete: function handleDelete(question) {
@@ -43038,14 +43025,16 @@ var render = function() {
                   "li",
                   { staticClass: "nav-item" },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: "/question/create" }
-                      },
-                      [_vm._v("Ask A Question")]
-                    )
+                    _vm.api_token
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/question/create" }
+                          },
+                          [_vm._v("Ask A Question")]
+                        )
+                      : _vm._e()
                   ],
                   1
                 ),
@@ -43229,7 +43218,7 @@ var render = function() {
             { key: question.id, staticClass: "question" },
             [
               _c("question", {
-                attrs: { question: question },
+                attrs: { question: question, user: _vm.user },
                 on: { deleteClicked: _vm.handleDelete }
               })
             ],

@@ -58,19 +58,10 @@
 <script>
 import questionLikeButton from "../questionLikeButton.vue";
 import questionDislikeButton from "../questionDislikeButton.vue";
-import getUser from "../../user.js";
 export default {
     components: { questionDislikeButton, questionLikeButton },
-    props: ["question"],
-    data() {
-        return {
-            user: ""
-        };
-    },
-    async created() {
-        const user = await getUser();
-        this.user = user;
-    },
+    props: ["question", "user"],
+
     methods: {
         handleClick(question) {
             this.$router.push({

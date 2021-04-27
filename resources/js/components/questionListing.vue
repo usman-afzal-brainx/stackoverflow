@@ -20,6 +20,7 @@
                 <question
                     :question="question"
                     @deleteClicked="handleDelete"
+                    :user="user"
                 ></question>
             </div>
             <div class="no-questions-error" v-if="questions.length === 0">
@@ -31,27 +32,38 @@
 
 <script>
 import question from "./common/question.vue";
+import getUser from "../user.js";
 export default {
     components: { question },
     data() {
         return {
-            questions: []
+            questions: [],
+            user: ""
         };
     },
     async created() {
         this.getQuestions();
+        if (window.localStorage.getItem("api_token")) {
+            const user = getUser();
+            this.user = user;
+        }
     },
     methods: {
         async getQuestions() {
-            const { data } = await axios.get("/api/questions", {
-                headers: {
-                    Authorization:
-                        "Bearer " + window.localStorage.getItem("access_token"),
-                    Accept: "application/json"
-                }
-            });
-            const questions = data.questions[0];
-            this.questions = questions;
+            try {
+                const { data } = await axios.get("/api/questions", {
+                    headers: {
+                        Authorization:
+                            "Bearer " +
+                            window.localStorage.getItem("access_token"),
+                        Accept: "application/json"
+                    }
+                });
+                const questions = data.questions[0];
+                this.questions = questions;
+            } catch (ex) {
+                console.log(ex);
+            }
         },
 
         async handleDelete(question) {

@@ -10,7 +10,10 @@
                         >
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/question/create"
+                        <router-link
+                            class="nav-link"
+                            to="/question/create"
+                            v-if="api_token"
                             >Ask A Question</router-link
                         >
                     </li>
@@ -52,8 +55,10 @@ export default {
         };
     },
     async created() {
-        const user = await getUser();
-        this.user = user;
+        if (this.api_token) {
+            const user = await getUser();
+            this.user = user;
+        }
     }
 };
 </script>
