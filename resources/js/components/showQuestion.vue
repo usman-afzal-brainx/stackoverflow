@@ -25,11 +25,13 @@
                         </div>
                         <div class="question-thumbs-up">
                             <question-like-button
+                                v-if="user"
                                 :data="$route.params.question"
                             ></question-like-button>
                         </div>
                         <div class="question-thumbs-down pt-1">
                             <question-dislike-button
+                                v-if="user"
                                 :data="$route.params.question"
                             ></question-dislike-button>
                         </div>
@@ -63,7 +65,7 @@
                 </div>
             </div>
         </div>
-        <div class="answer-form">
+        <div class="answer-form" v-if="user">
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-6">
@@ -91,16 +93,12 @@
 <script>
 import questionLikeButton from "./questionLikeButton.vue";
 import questionDislikeButton from "./questionDislikeButton.vue";
-import answerLikeButton from "./answerLikeButton";
-import answerDislikeButton from "./answerDislikeButton";
 import answers from "./answers.vue";
 import getUser from "../user";
 export default {
     components: {
         questionLikeButton,
         questionDislikeButton,
-        answerLikeButton,
-        answerDislikeButton,
         answers
     },
     data() {
@@ -117,8 +115,10 @@ export default {
     },
     async created() {
         this.computeAnswersLength();
-        const user = await getUser();
-        this.user = user;
+        if (window.localStorage.getItem("api_token")) {
+            const user = await getUser();
+            this.user = user;
+        }
     },
     methods: {
         handleBack() {

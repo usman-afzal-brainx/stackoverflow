@@ -2451,6 +2451,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -2475,14 +2477,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              if (!window.localStorage.getItem("api_token")) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
               return (0,_user_js__WEBPACK_IMPORTED_MODULE_3__.default)();
 
-            case 2:
+            case 3:
               user = _context.sent;
               _this.user = user;
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -2603,6 +2610,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
 /* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
+//
+//
+//
 //
 //
 //
@@ -3341,6 +3351,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -3652,10 +3666,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
 /* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
-/* harmony import */ var _answerLikeButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./answerLikeButton */ "./resources/js/components/answerLikeButton.vue");
-/* harmony import */ var _answerDislikeButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./answerDislikeButton */ "./resources/js/components/answerDislikeButton.vue");
-/* harmony import */ var _answers_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./answers.vue */ "./resources/js/components/answers.vue");
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
+/* harmony import */ var _answers_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./answers.vue */ "./resources/js/components/answers.vue");
+/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3752,8 +3764,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
-
+//
+//
 
 
 
@@ -3762,9 +3774,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    answerLikeButton: _answerLikeButton__WEBPACK_IMPORTED_MODULE_3__.default,
-    answerDislikeButton: _answerDislikeButton__WEBPACK_IMPORTED_MODULE_4__.default,
-    answers: _answers_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    answers: _answers_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   data: function data() {
     return {
@@ -3789,14 +3799,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this.computeAnswersLength();
 
-              _context.next = 3;
-              return (0,_user__WEBPACK_IMPORTED_MODULE_6__.default)();
+              if (!window.localStorage.getItem("api_token")) {
+                _context.next = 6;
+                break;
+              }
 
-            case 3:
+              _context.next = 4;
+              return (0,_user__WEBPACK_IMPORTED_MODULE_4__.default)();
+
+            case 4:
               user = _context.sent;
               _this.user = user;
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -42388,14 +42403,22 @@ var render = function() {
             _c(
               "div",
               { staticClass: "answer-thumbs-up" },
-              [_c("answer-like-button", { attrs: { data: _vm.answer } })],
+              [
+                _vm.user
+                  ? _c("answer-like-button", { attrs: { data: _vm.answer } })
+                  : _vm._e()
+              ],
               1
             ),
             _vm._v(" "),
             _c(
               "div",
               { staticClass: "answer-thumbs-down pt-1" },
-              [_c("answer-dislike-button", { attrs: { data: _vm.answer } })],
+              [
+                _vm.user
+                  ? _c("answer-dislike-button", { attrs: { data: _vm.answer } })
+                  : _vm._e()
+              ],
               1
             )
           ])
@@ -42612,19 +42635,27 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "question-thumbs-up" },
-        [_c("question-like-button", { attrs: { data: _vm.question } })],
-        1
-      ),
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "question-thumbs-up" },
+            [
+              _c("question-like-button", {
+                attrs: { data: _vm.question, user: _vm.user }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "question-thumbs-down pt-1" },
-        [_c("question-dislike-button", { attrs: { data: _vm.question } })],
-        1
-      )
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "question-thumbs-down pt-1" },
+            [_c("question-dislike-button", { attrs: { data: _vm.question } })],
+            1
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-sm-7" }, [
@@ -43201,14 +43232,20 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "question-section-button" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: { click: _vm.handleAskQuestion }
-              },
-              [_vm._v("\n                    Ask a question\n                ")]
-            )
+            _vm.user
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.handleAskQuestion }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Ask a question\n                "
+                    )
+                  ]
+                )
+              : _vm._e()
           ])
         ]),
         _vm._v(" "),
@@ -43508,9 +43545,11 @@ var render = function() {
               "div",
               { staticClass: "question-thumbs-up" },
               [
-                _c("question-like-button", {
-                  attrs: { data: _vm.$route.params.question }
-                })
+                _vm.user
+                  ? _c("question-like-button", {
+                      attrs: { data: _vm.$route.params.question }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -43519,9 +43558,11 @@ var render = function() {
               "div",
               { staticClass: "question-thumbs-down pt-1" },
               [
-                _c("question-dislike-button", {
-                  attrs: { data: _vm.$route.params.question }
-                })
+                _vm.user
+                  ? _c("question-dislike-button", {
+                      attrs: { data: _vm.$route.params.question }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -43565,66 +43606,74 @@ var render = function() {
       ? _c("div", { staticClass: "answer-not-found-error" }, [_vm._m(1)])
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "answer-form" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.createAnswer($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "mb-3" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "description" } },
-                  [_vm._v("Add Answer to this Question")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.description,
-                      expression: "description"
-                    }
-                  ],
-                  staticClass: "form-control rounded-0",
-                  attrs: { id: "description", rows: "8" },
-                  domProps: { value: _vm.description },
+    _vm.user
+      ? _c("div", { staticClass: "answer-form" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-2" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "form",
+                {
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.description = $event.target.value
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createAnswer($event)
                     }
                   }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                },
                 [
-                  _vm._v(
-                    "\n                        Submit\n                    "
+                  _c("div", { staticClass: "mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-label",
+                        attrs: { for: "description" }
+                      },
+                      [_vm._v("Add Answer to this Question")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.description,
+                          expression: "description"
+                        }
+                      ],
+                      staticClass: "form-control rounded-0",
+                      attrs: { id: "description", rows: "8" },
+                      domProps: { value: _vm.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.description = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Submit\n                    "
+                      )
+                    ]
                   )
                 ]
               )
-            ]
-          )
+            ])
+          ])
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [

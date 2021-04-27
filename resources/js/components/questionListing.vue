@@ -6,7 +6,11 @@
                     <h1>All Questions</h1>
                 </div>
                 <div class="question-section-button">
-                    <button class="btn btn-primary" @click="handleAskQuestion">
+                    <button
+                        class="btn btn-primary"
+                        @click="handleAskQuestion"
+                        v-if="user"
+                    >
                         Ask a question
                     </button>
                 </div>
