@@ -8,12 +8,18 @@
                 </p>
             </div>
             <div class="question-thumbs-up" v-if="user">
-                <question-like-button :data="question"></question-like-button>
+                <favorite-button
+                    :data="question.no_thumbs_up"
+                    :buttonAction="'like'"
+                    :type="question"
+                ></favorite-button>
             </div>
             <div class="question-thumbs-down pt-1" v-if="user">
-                <question-dislike-button
-                    :data="question"
-                ></question-dislike-button>
+                <favorite-button
+                    :data="question.no_thumbs_down"
+                    :buttonAction="'dislike'"
+                    :type="question"
+                ></favorite-button>
             </div>
         </div>
         <div class="col-sm-7">
@@ -58,10 +64,10 @@
 <script>
 import questionLikeButton from "../questionLikeButton.vue";
 import questionDislikeButton from "../questionDislikeButton.vue";
+import favoriteButton from "./favoriteButton.vue";
 export default {
-    components: { questionDislikeButton, questionLikeButton },
+    components: { questionDislikeButton, questionLikeButton, favoriteButton },
     props: ["question", "user"],
-
     methods: {
         handleClick(question) {
             this.$router.push({

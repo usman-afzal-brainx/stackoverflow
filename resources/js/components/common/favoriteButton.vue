@@ -2,15 +2,16 @@
     <div class="buttons">
         <button
             :class="
-                action === 'like'
+                buttonAction === 'like'
                     ? 'btn btn-success btn-sm '
                     : 'btn btn-danger btn-sm '
             "
             @click="handleClick"
         >
+            {{ data }}
             <i
                 :class="
-                    action === 'like'
+                    buttonAction === 'like'
                         ? 'far fa-thumbs-up'
                         : 'far fa-thumbs-down'
                 "
@@ -21,12 +22,8 @@
 
 <script>
 export default {
-    data() {
-        return {
-            action: "like",
-            type: "answer"
-        };
-    },
+    props: ["data", "buttonAction", "type", "id"],
+
     methods: {
         async handleQuestionLike(question) {
             console.log("Question like");
@@ -94,7 +91,7 @@ export default {
             }
         },
         async handleClick() {
-            if (this.action === "like") {
+            if (this.buttonAction === "like") {
                 if (this.type === "question") {
                     this.handleQuestionLike();
                 } else {
