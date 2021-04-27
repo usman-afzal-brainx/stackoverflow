@@ -65,6 +65,23 @@
                     >
                         <p>{{ err.password_confirmed }}</p>
                     </div>
+                    <div class="mb-3">
+                        <label for="userTypes" class="form-label"
+                            >User Type</label
+                        >
+                        <select
+                            name="userTypes"
+                            id="userTypes"
+                            v-model="user.is_Admin"
+                        >
+                            <option
+                                v-for="userType in userTypes"
+                                :key="userType.id"
+                                :value="userType.type"
+                                >{{ userType.type }}</option
+                            >
+                        </select>
+                    </div>
                     <button type="submit" class="btn btn-primary">
                         Submit
                     </button>
@@ -82,11 +99,15 @@ export default {
                 name: "",
                 email: "",
                 password: "",
-                is_Admin: "not-admin",
+                is_Admin: "",
                 password_confirmed: ""
             },
-            err: {}
+            err: {},
+            userTypes: []
         };
+    },
+    async created() {
+        this.getUserTypes();
     },
     methods: {
         async handleSubmit() {
@@ -106,7 +127,7 @@ export default {
                     this.user.email = "";
                     this.user.password = "";
                     this.user.password_confirmed = "";
-                    this.$router.push({ path: "/login" });
+                    this.$router.push({ path: "/" });
                 } catch (error) {
                     console.log(error);
                 }
@@ -117,6 +138,17 @@ export default {
         },
         clearConfirmPasswordError() {
             if (this.err.password_confirmed) delete this.err.password_confirmed;
+        },
+        async getUserTypes() {
+            const { data } = await axios.get("/api/user/types", {
+                headers: {
+                    Authorization:
+                        "Bearer " + window.localStorage.getItem("access_token"),
+                    Accept: "application/json"
+                }
+            });
+            const userTypes = data.userTypes[0];
+            this.userTypes = userTypes;
         }
     }
 };

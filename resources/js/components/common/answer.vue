@@ -59,7 +59,10 @@
                     <button
                         class="btn btn-danger delete-button"
                         @click="$emit('deleteClicked', answer)"
-                        v-if="answer.user_id === user.id"
+                        v-if="
+                            answer.user_id === user.id ||
+                                user.is_Admin === 'admin'
+                        "
                     >
                         Delete <i class="far fa-delete"></i>
                     </button>

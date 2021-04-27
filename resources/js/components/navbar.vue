@@ -24,6 +24,14 @@
                             >Register</router-link
                         >
                     </li>
+                    <li
+                        class="nav-item"
+                        v-if="api_token && user.is_Admin == 'admin'"
+                    >
+                        <router-link class="nav-link" to="/admin/register"
+                            >Register User</router-link
+                        >
+                    </li>
                     <li class="nav-item" v-if="api_token">
                         <router-link class="nav-link" to="/logout"
                             >Log Out</router-link
@@ -35,7 +43,17 @@
     </nav>
 </template>
 <script>
+import getUser from "../user.js";
 export default {
-    props: ["api_token"]
+    props: ["api_token"],
+    data() {
+        return {
+            user: ""
+        };
+    },
+    async created() {
+        const user = await getUser();
+        this.user = user;
+    }
 };
 </script>

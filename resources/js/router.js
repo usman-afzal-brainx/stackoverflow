@@ -6,6 +6,7 @@ import showQuestion from "./components/showQuestion.vue";
 import login from "./components/login.vue";
 import register from "./components/registerForm.vue";
 import logout from "./components/logout.vue";
+import AdminRegister from "./components/adminRegister.vue";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -32,6 +33,10 @@ export default new VueRouter({
         {
             path: "/logout",
             component: logout
+        },
+        {
+            path: "/admin/register",
+            component: AdminRegister
         }
     ],
     mode: "history"

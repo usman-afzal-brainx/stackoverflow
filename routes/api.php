@@ -20,6 +20,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/answers/{answer}', 'AnswerController@delete');
     Route::post('/answers/like', 'AnswerController@handleLike');
     Route::post('/answers/dislike', 'AnswerController@handleDislike');
+
+    Route::get('/user/types', 'UserTypeController@index');
 });
 Route::post('/login', 'Api\AuthController@login');
 Route::post('/register', 'Api\AuthController@register');
