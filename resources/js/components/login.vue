@@ -14,6 +14,7 @@
                             class="form-control"
                             id="email"
                             v-model="email"
+                            @input="removeError"
                         />
                     </div>
                     <div class="mb-3">
@@ -25,9 +26,12 @@
                             class="form-control"
                             id="password"
                             v-model="password"
+                            @input="removeError"
                         />
                     </div>
-
+                    <div class="error-message" v-if="err">
+                        <p>Credentials do not match</p>
+                    </div>
                     <button type="submit" class="btn btn-primary">
                         Submit
                     </button>
@@ -46,7 +50,8 @@ export default {
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
+            err: false
         };
     },
     methods: {
@@ -61,7 +66,12 @@ export default {
                 window.location.href = "/";
             } catch (ex) {
                 console.log(ex);
+                this.err = true;
             }
+        },
+        removeError() {
+            console.log("here");
+            this.err = false;
         }
     }
 };
@@ -70,5 +80,8 @@ export default {
 <style scoped>
 form {
     padding-top: 30px;
+}
+.error-message {
+    color: red;
 }
 </style>

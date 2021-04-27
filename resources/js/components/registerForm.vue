@@ -36,14 +36,14 @@
                             class="form-control"
                             id="password"
                             v-model="user.password"
-                            @change="clearPasswordError"
+                            @input="clearPasswordError"
                             required
                         />
                         <div
                             class="error-message-password pt-1 pb-1"
-                            v-if="err.password"
+                            v-if="passwordLengthError"
                         >
-                            <p>{{ err.password }}</p>
+                            <p>{{ passwordLengthError }}</p>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -55,15 +55,15 @@
                             class="form-control"
                             id="password_confirmed"
                             v-model="user.password_confirmed"
-                            @change="clearConfirmPasswordError"
+                            @input="clearConfirmPasswordError"
                             required
                         />
                     </div>
                     <div
                         class="error-message-password-confirmed pt-1 pb-1"
-                        v-if="err.password_confirmed"
+                        v-if="passwordMatchError"
                     >
-                        <p>{{ err.password_confirmed }}</p>
+                        <p>{{ passwordMatchError }}</p>
                     </div>
                     <button type="submit" class="btn btn-primary">
                         Submit
@@ -85,18 +85,19 @@ export default {
                 is_Admin: "not-admin",
                 password_confirmed: ""
             },
-            err: {}
+            passwordLengthError: "",
+            passwordMatchError: ""
         };
     },
     methods: {
         async handleSubmit() {
             if (this.user.password.length < 6)
-                this.err.password =
+                this.passwordLengthError =
                     "Password must be atleast 6 characters long";
             if (this.user.password !== this.user.password_confirmed)
-                this.err.password_confirmed = "Password does not match";
+                this.passwordMatchError = "Password does not match";
 
-            if (!this.err.password_confirmed && !this.err.password) {
+            if (!this.passwordMatchError && !this.passwordLengthError) {
                 try {
                     const response = await axios.post(
                         "/api/register",
@@ -113,10 +114,10 @@ export default {
             }
         },
         clearPasswordError() {
-            if (this.err.password) delete this.err.password;
+            this.passwordLengthError = "";
         },
         clearConfirmPasswordError() {
-            if (this.err.password_confirmed) delete this.err.password_confirmed;
+            this.passwordMatchError = "";
         }
     }
 };

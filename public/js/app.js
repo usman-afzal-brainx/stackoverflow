@@ -2451,6 +2451,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -2475,14 +2477,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              if (!window.localStorage.getItem("api_token")) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
               return (0,_user_js__WEBPACK_IMPORTED_MODULE_3__.default)();
 
-            case 2:
+            case 3:
               user = _context.sent;
               _this.user = user;
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -2601,17 +2608,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
-/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
-/* harmony import */ var _user_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../user.js */ "./resources/js/user.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
+/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
 //
 //
 //
@@ -2669,44 +2667,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ["question"],
-  data: function data() {
-    return {
-      user: ""
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var user;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return (0,_user_js__WEBPACK_IMPORTED_MODULE_3__.default)();
-
-            case 2:
-              user = _context.sent;
-              _this.user = user;
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  },
+  props: ["question", "user"],
   methods: {
     handleClick: function handleClick(question) {
       this.$router.push({
@@ -2953,11 +2924,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      err: false
     };
   },
   methods: {
@@ -2984,21 +2960,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 token = _yield$axios$post.data;
                 window.localStorage.setItem("api_token", token);
                 window.location.href = "/";
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
               case 10:
                 _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
+                _this.err = true;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee, null, [[1, 10]]);
       }))();
+    },
+    removeError: function removeError() {
+      console.log("here");
+      this.err = false;
     }
   }
 });
@@ -3128,6 +3109,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["api_token"],
@@ -3145,14 +3129,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
+              if (!_this.api_token) {
+                _context.next = 5;
+                break;
+              }
+
+              _context.next = 3;
               return (0,_user_js__WEBPACK_IMPORTED_MODULE_1__.default)();
 
-            case 2:
+            case 3:
               user = _context.sent;
               _this.user = user;
 
-            case 4:
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -3327,6 +3316,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_question_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common/question.vue */ "./resources/js/components/common/question.vue");
+/* harmony import */ var _user_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../user.js */ "./resources/js/user.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3370,6 +3360,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3377,20 +3373,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      questions: []
+      questions: [],
+      user: ""
     };
   },
   created: function created() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var user;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _this.getQuestions();
 
-            case 1:
+              if (!window.localStorage.getItem("api_token")) {
+                _context.next = 6;
+                break;
+              }
+
+              _context.next = 4;
+              return (0,_user_js__WEBPACK_IMPORTED_MODULE_2__.default)();
+
+            case 4:
+              user = _context.sent;
+              _this.user = user;
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -3595,7 +3605,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         is_Admin: "not-admin",
         password_confirmed: ""
       },
-      err: {}
+      passwordLengthError: "",
+      passwordMatchError: ""
     };
   },
   methods: {
@@ -3608,10 +3619,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (_this.user.password.length < 6) _this.err.password = "Password must be atleast 6 characters long";
-                if (_this.user.password !== _this.user.password_confirmed) _this.err.password_confirmed = "Password does not match";
+                if (_this.user.password.length < 6) _this.passwordLengthError = "Password must be atleast 6 characters long";
+                if (_this.user.password !== _this.user.password_confirmed) _this.passwordMatchError = "Password does not match";
 
-                if (!(!_this.err.password_confirmed && !_this.err.password)) {
+                if (!(!_this.passwordMatchError && !_this.passwordLengthError)) {
                   _context.next = 17;
                   break;
                 }
@@ -3648,10 +3659,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     clearPasswordError: function clearPasswordError() {
-      if (this.err.password) delete this.err.password;
+      this.passwordLengthError = "";
     },
     clearConfirmPasswordError: function clearConfirmPasswordError() {
-      if (this.err.password_confirmed) delete this.err.password_confirmed;
+      this.passwordMatchError = "";
     }
   }
 });
@@ -3673,10 +3684,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
 /* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
-/* harmony import */ var _answerLikeButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./answerLikeButton */ "./resources/js/components/answerLikeButton.vue");
-/* harmony import */ var _answerDislikeButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./answerDislikeButton */ "./resources/js/components/answerDislikeButton.vue");
-/* harmony import */ var _answers_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./answers.vue */ "./resources/js/components/answers.vue");
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
+/* harmony import */ var _answers_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./answers.vue */ "./resources/js/components/answers.vue");
+/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3773,8 +3782,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
-
+//
+//
 
 
 
@@ -3783,9 +3792,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    answerLikeButton: _answerLikeButton__WEBPACK_IMPORTED_MODULE_3__.default,
-    answerDislikeButton: _answerDislikeButton__WEBPACK_IMPORTED_MODULE_4__.default,
-    answers: _answers_vue__WEBPACK_IMPORTED_MODULE_5__.default
+    answers: _answers_vue__WEBPACK_IMPORTED_MODULE_3__.default
   },
   data: function data() {
     return {
@@ -3810,14 +3817,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this.computeAnswersLength();
 
-              _context.next = 3;
-              return (0,_user__WEBPACK_IMPORTED_MODULE_6__.default)();
+              if (!window.localStorage.getItem("api_token")) {
+                _context.next = 6;
+                break;
+              }
 
-            case 3:
+              _context.next = 4;
+              return (0,_user__WEBPACK_IMPORTED_MODULE_4__.default)();
+
+            case 4:
               user = _context.sent;
               _this.user = user;
 
-            case 5:
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -8649,7 +8661,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-172b28a4] {\r\n    padding-top: 30px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-172b28a4] {\r\n    padding-top: 30px;\n}\n.error-message[data-v-172b28a4] {\r\n    color: red;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42409,14 +42421,22 @@ var render = function() {
             _c(
               "div",
               { staticClass: "answer-thumbs-up" },
-              [_c("answer-like-button", { attrs: { data: _vm.answer } })],
+              [
+                _vm.user
+                  ? _c("answer-like-button", { attrs: { data: _vm.answer } })
+                  : _vm._e()
+              ],
               1
             ),
             _vm._v(" "),
             _c(
               "div",
               { staticClass: "answer-thumbs-down pt-1" },
-              [_c("answer-dislike-button", { attrs: { data: _vm.answer } })],
+              [
+                _vm.user
+                  ? _c("answer-dislike-button", { attrs: { data: _vm.answer } })
+                  : _vm._e()
+              ],
               1
             )
           ])
@@ -42633,19 +42653,27 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "question-thumbs-up" },
-        [_c("question-like-button", { attrs: { data: _vm.question } })],
-        1
-      ),
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "question-thumbs-up" },
+            [
+              _c("question-like-button", {
+                attrs: { data: _vm.question, user: _vm.user }
+              })
+            ],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "question-thumbs-down pt-1" },
-        [_c("question-dislike-button", { attrs: { data: _vm.question } })],
-        1
-      )
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "question-thumbs-down pt-1" },
+            [_c("question-dislike-button", { attrs: { data: _vm.question } })],
+            1
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-sm-7" }, [
@@ -42899,12 +42927,15 @@ var render = function() {
                 attrs: { type: "email", id: "email" },
                 domProps: { value: _vm.email },
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.email = $event.target.value
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.email = $event.target.value
+                    },
+                    _vm.removeError
+                  ]
                 }
               })
             ]),
@@ -42929,15 +42960,24 @@ var render = function() {
                 attrs: { type: "password", id: "password" },
                 domProps: { value: _vm.password },
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password = $event.target.value
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password = $event.target.value
+                    },
+                    _vm.removeError
+                  ]
                 }
               })
             ]),
+            _vm._v(" "),
+            _vm.err
+              ? _c("div", { staticClass: "error-message" }, [
+                  _c("p", [_vm._v("Credentials do not match")])
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c(
               "button",
@@ -43046,14 +43086,16 @@ var render = function() {
                   "li",
                   { staticClass: "nav-item" },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: "/question/create" }
-                      },
-                      [_vm._v("Ask A Question")]
-                    )
+                    _vm.api_token
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/question/create" }
+                          },
+                          [_vm._v("Ask A Question")]
+                        )
+                      : _vm._e()
                   ],
                   1
                 ),
@@ -43220,14 +43262,20 @@ var render = function() {
           _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "question-section-button" }, [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: { click: _vm.handleAskQuestion }
-              },
-              [_vm._v("\n                    Ask a question\n                ")]
-            )
+            _vm.user
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-primary",
+                    on: { click: _vm.handleAskQuestion }
+                  },
+                  [
+                    _vm._v(
+                      "\n                    Ask a question\n                "
+                    )
+                  ]
+                )
+              : _vm._e()
           ])
         ]),
         _vm._v(" "),
@@ -43237,7 +43285,7 @@ var render = function() {
             { key: question.id, staticClass: "question" },
             [
               _c("question", {
-                attrs: { question: question },
+                attrs: { question: question, user: _vm.user },
                 on: { deleteClicked: _vm.handleDelete }
               })
             ],
@@ -43385,21 +43433,23 @@ var render = function() {
                 attrs: { type: "password", id: "password", required: "" },
                 domProps: { value: _vm.user.password },
                 on: {
-                  change: _vm.clearPasswordError,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "password", $event.target.value)
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "password", $event.target.value)
+                    },
+                    _vm.clearPasswordError
+                  ]
                 }
               }),
               _vm._v(" "),
-              _vm.err.password
+              _vm.passwordLengthError
                 ? _c(
                     "div",
                     { staticClass: "error-message-password pt-1 pb-1" },
-                    [_c("p", [_vm._v(_vm._s(_vm.err.password))])]
+                    [_c("p", [_vm._v(_vm._s(_vm.passwordLengthError))])]
                   )
                 : _vm._e()
             ]),
@@ -43431,26 +43481,28 @@ var render = function() {
                 },
                 domProps: { value: _vm.user.password_confirmed },
                 on: {
-                  change: _vm.clearConfirmPasswordError,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.user,
-                      "password_confirmed",
-                      $event.target.value
-                    )
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.user,
+                        "password_confirmed",
+                        $event.target.value
+                      )
+                    },
+                    _vm.clearConfirmPasswordError
+                  ]
                 }
               })
             ]),
             _vm._v(" "),
-            _vm.err.password_confirmed
+            _vm.passwordMatchError
               ? _c(
                   "div",
                   { staticClass: "error-message-password-confirmed pt-1 pb-1" },
-                  [_c("p", [_vm._v(_vm._s(_vm.err.password_confirmed))])]
+                  [_c("p", [_vm._v(_vm._s(_vm.passwordMatchError))])]
                 )
               : _vm._e(),
             _vm._v(" "),
@@ -43527,9 +43579,11 @@ var render = function() {
               "div",
               { staticClass: "question-thumbs-up" },
               [
-                _c("question-like-button", {
-                  attrs: { data: _vm.$route.params.question }
-                })
+                _vm.user
+                  ? _c("question-like-button", {
+                      attrs: { data: _vm.$route.params.question }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -43538,9 +43592,11 @@ var render = function() {
               "div",
               { staticClass: "question-thumbs-down pt-1" },
               [
-                _c("question-dislike-button", {
-                  attrs: { data: _vm.$route.params.question }
-                })
+                _vm.user
+                  ? _c("question-dislike-button", {
+                      attrs: { data: _vm.$route.params.question }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -43584,66 +43640,74 @@ var render = function() {
       ? _c("div", { staticClass: "answer-not-found-error" }, [_vm._m(1)])
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "answer-form" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.createAnswer($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "mb-3" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "description" } },
-                  [_vm._v("Add Answer to this Question")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.description,
-                      expression: "description"
-                    }
-                  ],
-                  staticClass: "form-control rounded-0",
-                  attrs: { id: "description", rows: "8" },
-                  domProps: { value: _vm.description },
+    _vm.user
+      ? _c("div", { staticClass: "answer-form" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-2" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "form",
+                {
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.description = $event.target.value
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createAnswer($event)
                     }
                   }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                },
                 [
-                  _vm._v(
-                    "\n                        Submit\n                    "
+                  _c("div", { staticClass: "mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-label",
+                        attrs: { for: "description" }
+                      },
+                      [_vm._v("Add Answer to this Question")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.description,
+                          expression: "description"
+                        }
+                      ],
+                      staticClass: "form-control rounded-0",
+                      attrs: { id: "description", rows: "8" },
+                      domProps: { value: _vm.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.description = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Submit\n                    "
+                      )
+                    ]
                   )
                 ]
               )
-            ]
-          )
+            ])
+          ])
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [

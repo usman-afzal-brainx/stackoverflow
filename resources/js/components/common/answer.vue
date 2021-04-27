@@ -14,11 +14,13 @@
                         </div>
                         <div class="answer-thumbs-up">
                             <answer-like-button
+                                v-if="user"
                                 :data="answer"
                             ></answer-like-button>
                         </div>
                         <div class="answer-thumbs-down pt-1">
                             <answer-dislike-button
+                                v-if="user"
                                 :data="answer"
                             ></answer-dislike-button>
                         </div>
@@ -88,8 +90,10 @@ export default {
         };
     },
     async created() {
-        const user = await getUser();
-        this.user = user;
+        if (window.localStorage.getItem("api_token")) {
+            const user = await getUser();
+            this.user = user;
+        }
     },
     methods: {
         async handleSubmit(answer) {

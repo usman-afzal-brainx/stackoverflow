@@ -6,7 +6,11 @@
                     <h1>All Questions</h1>
                 </div>
                 <div class="question-section-button">
-                    <button class="btn btn-primary" @click="handleAskQuestion">
+                    <button
+                        class="btn btn-primary"
+                        @click="handleAskQuestion"
+                        v-if="user"
+                    >
                         Ask a question
                     </button>
                 </div>
@@ -19,6 +23,7 @@
             >
                 <question
                     :question="question"
+                    :user="user"
                     @deleteClicked="handleDelete"
                 ></question>
             </div>
@@ -31,15 +36,21 @@
 
 <script>
 import question from "./common/question.vue";
+import getUser from "../user.js";
 export default {
     components: { question },
     data() {
         return {
-            questions: []
+            questions: [],
+            user: ""
         };
     },
     async created() {
         this.getQuestions();
+        if (window.localStorage.getItem("api_token")) {
+            const user = await getUser();
+            this.user = user;
+        }
     },
     methods: {
         async getQuestions() {
@@ -49,13 +60,14 @@ export default {
                         Authorization:
                             "Bearer " +
                             window.localStorage.getItem("api_token"),
+
                         Accept: "application/json"
                     }
                 });
                 const questions = data.questions[0];
                 this.questions = questions;
-            } catch (error) {
-                console.log(error);
+            } catch (ex) {
+                console.log(ex);
             }
         },
 
