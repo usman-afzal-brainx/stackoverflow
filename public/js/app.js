@@ -2924,11 +2924,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      err: false
     };
   },
   methods: {
@@ -2955,21 +2960,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 token = _yield$axios$post.data;
                 window.localStorage.setItem("api_token", token);
                 window.location.href = "/";
-                _context.next = 13;
+                _context.next = 14;
                 break;
 
               case 10:
                 _context.prev = 10;
                 _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
+                _this.err = true;
 
-              case 13:
+              case 14:
               case "end":
                 return _context.stop();
             }
           }
         }, _callee, null, [[1, 10]]);
       }))();
+    },
+    removeError: function removeError() {
+      console.log("here");
+      this.err = false;
     }
   }
 });
@@ -3588,7 +3598,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         is_Admin: "not-admin",
         password_confirmed: ""
       },
-      err: {}
+      passwordLengthError: "",
+      passwordMatchError: ""
     };
   },
   methods: {
@@ -3601,10 +3612,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (_this.user.password.length < 6) _this.err.password = "Password must be atleast 6 characters long";
-                if (_this.user.password !== _this.user.password_confirmed) _this.err.password_confirmed = "Password does not match";
+                if (_this.user.password.length < 6) _this.passwordLengthError = "Password must be atleast 6 characters long";
+                if (_this.user.password !== _this.user.password_confirmed) _this.passwordMatchError = "Password does not match";
 
-                if (!(!_this.err.password_confirmed && !_this.err.password)) {
+                if (!(!_this.passwordMatchError && !_this.passwordLengthError)) {
                   _context.next = 17;
                   break;
                 }
@@ -3641,10 +3652,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     clearPasswordError: function clearPasswordError() {
-      if (this.err.password) delete this.err.password;
+      this.passwordLengthError = "";
     },
     clearConfirmPasswordError: function clearConfirmPasswordError() {
-      if (this.err.password_confirmed) delete this.err.password_confirmed;
+      this.passwordMatchError = "";
     }
   }
 });
@@ -8643,7 +8654,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-172b28a4] {\r\n    padding-top: 30px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nform[data-v-172b28a4] {\r\n    padding-top: 30px;\n}\n.error-message[data-v-172b28a4] {\r\n    color: red;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -42909,12 +42920,15 @@ var render = function() {
                 attrs: { type: "email", id: "email" },
                 domProps: { value: _vm.email },
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.email = $event.target.value
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.email = $event.target.value
+                    },
+                    _vm.removeError
+                  ]
                 }
               })
             ]),
@@ -42939,15 +42953,24 @@ var render = function() {
                 attrs: { type: "password", id: "password" },
                 domProps: { value: _vm.password },
                 on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.password = $event.target.value
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.password = $event.target.value
+                    },
+                    _vm.removeError
+                  ]
                 }
               })
             ]),
+            _vm._v(" "),
+            _vm.err
+              ? _c("div", { staticClass: "error-message" }, [
+                  _c("p", [_vm._v("Credentials do not match")])
+                ])
+              : _vm._e(),
             _vm._v(" "),
             _c(
               "button",
@@ -43403,21 +43426,23 @@ var render = function() {
                 attrs: { type: "password", id: "password", required: "" },
                 domProps: { value: _vm.user.password },
                 on: {
-                  change: _vm.clearPasswordError,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "password", $event.target.value)
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "password", $event.target.value)
+                    },
+                    _vm.clearPasswordError
+                  ]
                 }
               }),
               _vm._v(" "),
-              _vm.err.password
+              _vm.passwordLengthError
                 ? _c(
                     "div",
                     { staticClass: "error-message-password pt-1 pb-1" },
-                    [_c("p", [_vm._v(_vm._s(_vm.err.password))])]
+                    [_c("p", [_vm._v(_vm._s(_vm.passwordLengthError))])]
                   )
                 : _vm._e()
             ]),
@@ -43449,26 +43474,28 @@ var render = function() {
                 },
                 domProps: { value: _vm.user.password_confirmed },
                 on: {
-                  change: _vm.clearConfirmPasswordError,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.user,
-                      "password_confirmed",
-                      $event.target.value
-                    )
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.user,
+                        "password_confirmed",
+                        $event.target.value
+                      )
+                    },
+                    _vm.clearConfirmPasswordError
+                  ]
                 }
               })
             ]),
             _vm._v(" "),
-            _vm.err.password_confirmed
+            _vm.passwordMatchError
               ? _c(
                   "div",
                   { staticClass: "error-message-password-confirmed pt-1 pb-1" },
-                  [_c("p", [_vm._v(_vm._s(_vm.err.password_confirmed))])]
+                  [_c("p", [_vm._v(_vm._s(_vm.passwordMatchError))])]
                 )
               : _vm._e(),
             _vm._v(" "),
