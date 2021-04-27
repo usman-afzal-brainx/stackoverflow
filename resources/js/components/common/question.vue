@@ -34,7 +34,7 @@
                     <button
                         class="btn btn-primary"
                         @click="handleEdit(question)"
-                        v-if="editable"
+                        v-if="user.id === question.user_id"
                     >
                         Edit <i class="far fa-edit"></i>
                     </button>
@@ -43,7 +43,7 @@
                     <button
                         class="btn btn-danger"
                         @click="$emit('deleteClicked', question)"
-                        v-if="deleteable"
+                        v-if="user.id === question.user_id"
                     >
                         Delete <i class="far fa-trash-alt"></i>
                     </button>
@@ -55,14 +55,18 @@
 <script>
 import questionLikeButton from "../questionLikeButton.vue";
 import questionDislikeButton from "../questionDislikeButton.vue";
+import getUser from "../../user.js";
 export default {
     components: { questionDislikeButton, questionLikeButton },
     props: ["question"],
     data() {
         return {
-            editable: false,
-            deleteable: true
+            user: ""
         };
+    },
+    async created() {
+        const user = await getUser();
+        this.user = user;
     },
     methods: {
         handleClick(question) {

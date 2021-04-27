@@ -45,7 +45,8 @@ export default {
         async getQuestions() {
             const { data } = await axios.get("/api/questions", {
                 headers: {
-                    Authorization: "Bearer " + window.api_token,
+                    Authorization:
+                        "Bearer " + window.localStorage.getItem("access_token"),
                     Accept: "application/json"
                 }
             });
@@ -62,7 +63,9 @@ export default {
                 this.questions = questions;
                 await axios.delete(`/api/questions/${question.id}/`, {
                     headers: {
-                        Authorization: "Bearer " + window.api_token,
+                        Authorization:
+                            "Bearer " +
+                            window.localStorage.getItem("api_token"),
                         Accept: "application/json"
                     }
                 });

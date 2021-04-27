@@ -12,12 +12,13 @@ export default {
     methods: {
         async handleLike(answer) {
             const data = {
-                api_token: window.api_token
+                answer_id: answer.id,
+                api_token: window.localStorage.getItem("api_token")
             };
             let no_thumbs_up = answer.no_thumbs_up;
             try {
                 this.data.no_thumbs_up = no_thumbs_up + 1;
-                await axios.post(`/api/answers/${answer.id}/like`, data);
+                await axios.post("/api/answers/like", data);
             } catch (error) {
                 console.log(error);
                 this.data.no_thumbs_up = no_thumbs_up + 1;

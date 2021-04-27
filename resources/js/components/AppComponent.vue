@@ -15,9 +15,6 @@ export default {
     },
     components: {
         navbar
-    },
-    created() {
-        console.log(this.api_token);
     }
 };
 </script>

@@ -14,16 +14,19 @@ class AnswerController extends Controller
         }
         return response()->json(['answers' => [$answers], 200], 200);
     }
-    public function create($question)
+    public function create()
     {
         request()->validate([
+            'user_id' => 'required',
+            'question_id' => 'required',
             'description' => 'String | required',
         ]);
         if (request('id') == null) {
             $answer = new Answer();
             $answer->no_thumbs_up = 0;
             $answer->no_thumbs_down = 0;
-            $answer->question_id = $question;
+            $answer->question_id = request('question_id');
+            $answer->user_id = request('user_id');
         } else {
             $answer = Answer::where('id', request('id'))->first();
         }
@@ -40,8 +43,12 @@ class AnswerController extends Controller
         return response()->json(['failure' => ["The answer with given ID was not found"], 404], 404);
 
     }
-    public function handleLike(Answer $answer)
+    public function handleLike()
     {
+        request()->validate([
+            'answer_id' => 'required',
+        ]);
+        $answer = Answer::where('id', request('answer_id'))->first();
         if (!isset($answer)) {
             return response()->json(['failure' => ['The answer with given ID was not found'], 200], 200);
         }
@@ -49,8 +56,12 @@ class AnswerController extends Controller
         $answer->save();
         return response()->json(['success' => ['The likes has been updated successfully'], 200], 200);
     }
-    public function handleDislike(Answer $answer)
+    public function handleDislike()
     {
+        request()->validate([
+            'answer_id' => 'required',
+        ]);
+        $answer = Answer::where('id', request('answer_id'))->first();
         if (!isset($answer)) {
             return response()->json(['failure' => ['The answer with given ID was not found'], 200], 200);
         }

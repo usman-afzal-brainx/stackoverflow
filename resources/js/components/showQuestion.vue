@@ -94,6 +94,7 @@ import questionDislikeButton from "./questionDislikeButton.vue";
 import answerLikeButton from "./answerLikeButton";
 import answerDislikeButton from "./answerDislikeButton";
 import answers from "./answers.vue";
+import getUser from "../user";
 export default {
     components: {
         questionLikeButton,
@@ -110,11 +111,14 @@ export default {
             },
             isAnswers: false,
             description: "",
-            answers: this.$route.params.question.answers
+            answers: this.$route.params.question.answers,
+            user: ""
         };
     },
-    created() {
+    async created() {
         this.computeAnswersLength();
+        const user = await getUser();
+        this.user = user;
     },
     methods: {
         handleBack() {
@@ -127,14 +131,13 @@ export default {
         },
         async createAnswer() {
             let payload = {
+                user_id: this.user.id,
+                question_id: this.$route.params.id,
                 description: this.description,
-                api_token: window.api_token
+                api_token: window.localStorage.getItem("api_token")
             };
             try {
-                const { data } = await axios.post(
-                    `/api/answers/${this.$route.params.question.id}`,
-                    payload
-                );
+                const { data } = await axios.post("/api/answers", payload);
                 this.answers.push(data.answer[0]);
                 this.description = "";
                 this.isAnswers = true;

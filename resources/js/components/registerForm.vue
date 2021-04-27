@@ -97,12 +97,19 @@ export default {
                 this.err.password_confirmed = "Password does not match";
 
             if (!this.err.password_confirmed && !this.err.password) {
-                const response = await axios.post("/api/register", this.user);
-                this.user.name = "";
-                this.user.email = "";
-                this.user.password = "";
-                this.user.password_confirmed = "";
-                this.$router.push({ path: "/login" });
+                try {
+                    const response = await axios.post(
+                        "/api/register",
+                        this.user
+                    );
+                    this.user.name = "";
+                    this.user.email = "";
+                    this.user.password = "";
+                    this.user.password_confirmed = "";
+                    this.$router.push({ path: "/login" });
+                } catch (error) {
+                    console.log(error);
+                }
             }
         },
         clearPasswordError() {

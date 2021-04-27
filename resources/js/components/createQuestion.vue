@@ -38,17 +38,21 @@
 </template>
 
 <script>
+import getUser from "../user.js";
 export default {
     data() {
         return {
             question: {
                 question: "",
                 description: ""
-            }
+            },
+            user: ""
         };
     },
-    created() {
+    async created() {
         this.checkEdit();
+        const user = await getUser();
+        this.user = user;
     },
     methods: {
         async createQuestion() {
@@ -57,7 +61,8 @@ export default {
                 description: this.question.description,
                 no_thumbs_up: 0,
                 no_thumbs_down: 0,
-                api_token: window.api_token
+                api_token: window.localStorage.getItem("api_token"),
+                user_id: this.user.id
             };
             if (this.$route.params.question) {
                 payload.id = this.$route.params.question.id;

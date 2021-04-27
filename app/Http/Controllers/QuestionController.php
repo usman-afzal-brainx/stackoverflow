@@ -28,6 +28,7 @@ class QuestionController extends Controller
     public function create()
     {
         request()->validate([
+            'user_id' => 'integer | required',
             'question' => 'string | required',
             'description' => 'string | required',
             'no_thumbs_up' => 'integer | required',
@@ -43,6 +44,7 @@ class QuestionController extends Controller
         $question->no_thumbs_down = request('no_thumbs_down');
         $question->question = request('question');
         $question->description = request('description');
+        $question->user_id = request('user_id');
         $question->save();
         return response()->json(['question' => [$question], 200], 200);
     }
@@ -56,8 +58,12 @@ class QuestionController extends Controller
         return response()->json(['failure' => ["The question with given ID was not found"], 404], 404);
     }
 
-    public function handleLike(Question $question)
+    public function handleLike()
     {
+        request()->validate([
+            'question_id' => 'required',
+        ]);
+        $question = Question::where('id', request('question_id'))->first();
         if (!isset($question)) {
             return response()->json(['failure' => ['The question with given ID was not found'], 200], 200);
         }
@@ -65,8 +71,12 @@ class QuestionController extends Controller
         $question->save();
         return response()->json(['success' => ['The likes has been updated successfully'], 200], 200);
     }
-    public function handleDislike(Question $question)
+    public function handleDislike()
     {
+        request()->validate([
+            'question_id' => 'required',
+        ]);
+        $question = Question::where('id', request('question_id'))->first();
         if (!isset($question)) {
             return response()->json(['failure' => ['The question with given ID was not found'], 200], 200);
         }

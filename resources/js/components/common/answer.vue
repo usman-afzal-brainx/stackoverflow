@@ -48,12 +48,20 @@
                         </button>
                     </form>
                 </div>
-                <div class="col-sm-1" v-if="!edit">
+                <div class="col-sm-2">
                     <button
                         class="btn btn-primary edit-button"
                         @click="handleEdit"
+                        v-if="answer.user_id === user.id && !edit"
                     >
                         Edit <i class="far fa-edit"></i>
+                    </button>
+                    <button
+                        class="btn btn-danger delete-button"
+                        @click="$emit('deleteClicked', answer)"
+                        v-if="answer.user_id === user.id"
+                    >
+                        Delete <i class="far fa-delete"></i>
                     </button>
                 </div>
             </div>
@@ -63,6 +71,7 @@
 <script>
 import answerLikeButton from "../answerLikeButton";
 import answerDislikeButton from "../answerDislikeButton";
+import getUser from "../../user.js";
 export default {
     props: ["answer"],
     components: {
@@ -71,9 +80,13 @@ export default {
     },
     data() {
         return {
-            edit: false,
-            description: ""
+            user: "",
+            edit: false
         };
+    },
+    async created() {
+        const user = await getUser();
+        this.user = user;
     },
     methods: {
         async handleSubmit(answer) {
@@ -81,10 +94,13 @@ export default {
             this.description = answer.description;
             let payload = {
                 id: answer.id,
-                description: answer.description
+                user_id: this.user.id,
+                question_id: answer.question_id,
+                description: answer.description,
+                api_token: window.localStorage.getItem("api_token")
             };
             try {
-                await axios.post(`/api/answers/${answer.question_id}`, payload);
+                await axios.post("/api/answers", payload);
                 this.answer.description = this.description;
                 this.edit = false;
             } catch (ex) {
@@ -100,9 +116,10 @@ export default {
 <style scoped>
 .answer-thumbs-up,
 .answer-thumbs-down,
-.question-edit,
-.question-delete {
+.edit-button,
+.delete-button {
     display: inline-block;
+    margin-right: 5px;
 }
 .answer-description {
     padding-top: 40px;
@@ -126,7 +143,8 @@ export default {
     padding-bottom: 40px;
     border-color: rgb(166, 162, 151);
 }
-.edit-button {
+.edit-button,
+.delete-button {
     margin-top: 40px;
 }
 </style>

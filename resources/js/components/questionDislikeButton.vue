@@ -16,13 +16,14 @@ export default {
     methods: {
         async handleDislike(question) {
             const data = {
-                api_token: window.api_token
+                question_id: question.id,
+                api_token: window.localStorage.getItem("api_token")
             };
             let no_thumbs_down = question.no_thumbs_down;
             try {
                 this.data.no_thumbs_down = no_thumbs_down + 1;
 
-                await axios.post(`/api/questions/${question.id}/dislike`, data);
+                await axios.post("/api/questions/dislike", data);
             } catch (error) {
                 console.log(error);
                 this.data.no_thumbs_down = no_thumbs_down;
