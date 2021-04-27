@@ -64,7 +64,7 @@
                                 user.is_Admin === 'admin'
                         "
                     >
-                        Delete <i class="far fa-delete"></i>
+                        Delete <i class="far fa-trash-alt"></i>
                     </button>
                 </div>
             </div>

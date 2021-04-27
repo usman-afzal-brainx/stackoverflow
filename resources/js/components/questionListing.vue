@@ -20,6 +20,7 @@
                 <question
                     :question="question"
                     @deleteClicked="handleDelete"
+                    :user="user"
                 ></question>
             </div>
             <div class="no-questions-error" v-if="questions.length === 0">
@@ -31,15 +32,20 @@
 
 <script>
 import question from "./common/question.vue";
+import getUser from "../user.js";
 export default {
     components: { question },
     data() {
         return {
-            questions: []
+            questions: [],
+            user: ""
         };
     },
+
     async created() {
         this.getQuestions();
+        const user = await getUser();
+        this.user = user;
     },
     methods: {
         async getQuestions() {

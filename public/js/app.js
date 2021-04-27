@@ -2601,17 +2601,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
-/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
-/* harmony import */ var _user_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../user.js */ "./resources/js/user.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
+/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
 //
 //
 //
@@ -2669,51 +2660,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default
+    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ["question"],
-  data: function data() {
-    return {
-      user: ""
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var user;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return (0,_user_js__WEBPACK_IMPORTED_MODULE_3__.default)();
-
-            case 2:
-              user = _context.sent;
-              _this.user = user;
-
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
-  },
+  props: ["question", "user"],
   methods: {
     handleClick: function handleClick(question) {
       this.$router.push({
         name: "question.show",
         params: {
           id: question.id,
-          question: question
+          question: question,
+          user: this.user
         }
       });
     },
@@ -3128,6 +3090,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["api_token"],
@@ -3327,6 +3292,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_question_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common/question.vue */ "./resources/js/components/common/question.vue");
+/* harmony import */ var _user_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../user.js */ "./resources/js/user.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -3370,6 +3336,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -3377,20 +3345,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
-      questions: []
+      questions: [],
+      user: ""
     };
   },
   created: function created() {
     var _this = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var user;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _this.getQuestions();
 
-            case 1:
+              _context.next = 3;
+              return (0,_user_js__WEBPACK_IMPORTED_MODULE_2__.default)();
+
+            case 3:
+              user = _context.sent;
+              _this.user = user;
+
+            case 5:
             case "end":
               return _context.stop();
           }
@@ -3668,7 +3645,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _answerLikeButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./answerLikeButton */ "./resources/js/components/answerLikeButton.vue");
 /* harmony import */ var _answerDislikeButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./answerDislikeButton */ "./resources/js/components/answerDislikeButton.vue");
 /* harmony import */ var _answers_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./answers.vue */ "./resources/js/components/answers.vue");
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3765,7 +3741,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
+//
+//
+//
+//
+//
 
 
 
@@ -3788,34 +3768,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       isAnswers: false,
       description: "",
       answers: this.$route.params.question.answers,
-      user: ""
+      user: "",
+      token: window.localStorage.getItem("api_token")
     };
-  },
-  created: function created() {
-    var _this = this;
-
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-      var user;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _this.computeAnswersLength();
-
-              _context.next = 3;
-              return (0,_user__WEBPACK_IMPORTED_MODULE_6__.default)();
-
-            case 3:
-              user = _context.sent;
-              _this.user = user;
-
-            case 5:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, _callee);
-    }))();
   },
   methods: {
     handleBack: function handleBack() {
@@ -3827,47 +3782,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isAnswers =  true ? this.$route.params.question.answers.length > 0 : 0;
     },
     createAnswer: function createAnswer() {
-      var _this2 = this;
+      var _this = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var payload, _yield$axios$post, data;
 
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
-            switch (_context2.prev = _context2.next) {
+            switch (_context.prev = _context.next) {
               case 0:
                 payload = {
-                  user_id: _this2.user.id,
-                  question_id: _this2.$route.params.id,
-                  description: _this2.description,
+                  user_id: _this.user.id,
+                  question_id: _this.$route.params.id,
+                  description: _this.description,
                   api_token: window.localStorage.getItem("api_token")
                 };
-                _context2.prev = 1;
-                _context2.next = 4;
+                _context.prev = 1;
+                _context.next = 4;
                 return axios.post("/api/answers", payload);
 
               case 4:
-                _yield$axios$post = _context2.sent;
+                _yield$axios$post = _context.sent;
                 data = _yield$axios$post.data;
 
-                _this2.answers.push(data.answer[0]);
+                _this.answers.push(data.answer[0]);
 
-                _this2.description = "";
-                _this2.isAnswers = true;
-                _context2.next = 14;
+                _this.description = "";
+                _this.isAnswers = true;
+                _context.next = 14;
                 break;
 
               case 11:
-                _context2.prev = 11;
-                _context2.t0 = _context2["catch"](1);
-                console.log(_context2.t0);
+                _context.prev = 11;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0);
 
               case 14:
               case "end":
-                return _context2.stop();
+                return _context.stop();
             }
           }
-        }, _callee2, null, [[1, 11]]);
+        }, _callee, null, [[1, 11]]);
       }))();
     }
   }
@@ -42333,12 +42288,7 @@ var render = function() {
           return _c(
             "div",
             { key: answer.id, staticClass: "answer" },
-            [
-              _c("answer", {
-                attrs: { answer: answer },
-                on: { deleteClicked: _vm.handleDelete }
-              })
-            ],
+            [_c("answer", { attrs: { answer: answer } })],
             1
           )
         })
@@ -42503,7 +42453,7 @@ var render = function() {
                 },
                 [
                   _vm._v("\n                    Delete "),
-                  _c("i", { staticClass: "far fa-delete" })
+                  _c("i", { staticClass: "far fa-trash-alt" })
                 ]
               )
             : _vm._e()
@@ -42625,19 +42575,23 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "question-thumbs-up" },
-        [_c("question-like-button", { attrs: { data: _vm.question } })],
-        1
-      ),
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "question-thumbs-up" },
+            [_c("question-like-button", { attrs: { data: _vm.question } })],
+            1
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "question-thumbs-down pt-1" },
-        [_c("question-dislike-button", { attrs: { data: _vm.question } })],
-        1
-      )
+      _vm.user
+        ? _c(
+            "div",
+            { staticClass: "question-thumbs-down pt-1" },
+            [_c("question-dislike-button", { attrs: { data: _vm.question } })],
+            1
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-sm-7" }, [
@@ -43038,14 +42992,16 @@ var render = function() {
                   "li",
                   { staticClass: "nav-item" },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link",
-                        attrs: { to: "/question/create" }
-                      },
-                      [_vm._v("Ask A Question")]
-                    )
+                    _vm.api_token
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass: "nav-link",
+                            attrs: { to: "/question/create" }
+                          },
+                          [_vm._v("Ask A Question")]
+                        )
+                      : _vm._e()
                   ],
                   1
                 ),
@@ -43229,7 +43185,7 @@ var render = function() {
             { key: question.id, staticClass: "question" },
             [
               _c("question", {
-                attrs: { question: question },
+                attrs: { question: question, user: _vm.user },
                 on: { deleteClicked: _vm.handleDelete }
               })
             ],
@@ -43519,9 +43475,11 @@ var render = function() {
               "div",
               { staticClass: "question-thumbs-up" },
               [
-                _c("question-like-button", {
-                  attrs: { data: _vm.$route.params.question }
-                })
+                _vm.$route.params.user
+                  ? _c("question-like-button", {
+                      attrs: { data: _vm.$route.params.question }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -43530,9 +43488,11 @@ var render = function() {
               "div",
               { staticClass: "question-thumbs-down pt-1" },
               [
-                _c("question-dislike-button", {
-                  attrs: { data: _vm.$route.params.question }
-                })
+                _vm.$route.params.user
+                  ? _c("question-dislike-button", {
+                      attrs: { data: _vm.$route.params.question }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -43565,7 +43525,10 @@ var render = function() {
           { staticClass: "answers" },
           [
             _c("answers", {
-              attrs: { answers: _vm.$route.params.question.answers }
+              attrs: {
+                answers: _vm.$route.params.question.answers,
+                user: _vm.$route.params.user
+              }
             })
           ],
           1
@@ -43576,66 +43539,74 @@ var render = function() {
       ? _c("div", { staticClass: "answer-not-found-error" }, [_vm._m(1)])
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "answer-form" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6" }, [
-          _c(
-            "form",
-            {
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                  return _vm.createAnswer($event)
-                }
-              }
-            },
-            [
-              _c("div", { staticClass: "mb-3" }, [
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "description" } },
-                  [_vm._v("Add Answer to this Question")]
-                ),
-                _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.description,
-                      expression: "description"
-                    }
-                  ],
-                  staticClass: "form-control rounded-0",
-                  attrs: { id: "description", rows: "8" },
-                  domProps: { value: _vm.description },
+    _vm.token
+      ? _c("div", { staticClass: "answer-form" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-2" }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-sm-6" }, [
+              _c(
+                "form",
+                {
                   on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.description = $event.target.value
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.createAnswer($event)
                     }
                   }
-                })
-              ]),
-              _vm._v(" "),
-              _c(
-                "button",
-                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                },
                 [
-                  _vm._v(
-                    "\n                        Submit\n                    "
+                  _c("div", { staticClass: "mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "form-label",
+                        attrs: { for: "description" }
+                      },
+                      [_vm._v("Add Answer to this Question")]
+                    ),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.description,
+                          expression: "description"
+                        }
+                      ],
+                      staticClass: "form-control rounded-0",
+                      attrs: { id: "description", rows: "8" },
+                      domProps: { value: _vm.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.description = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      attrs: { type: "submit" }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Submit\n                    "
+                      )
+                    ]
                   )
                 ]
               )
-            ]
-          )
+            ])
+          ])
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [

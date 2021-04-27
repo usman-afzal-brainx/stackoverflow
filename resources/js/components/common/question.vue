@@ -7,10 +7,10 @@
                     {{ question.no_thumbs_up - question.no_thumbs_down }}
                 </p>
             </div>
-            <div class="question-thumbs-up">
+            <div class="question-thumbs-up" v-if="user">
                 <question-like-button :data="question"></question-like-button>
             </div>
-            <div class="question-thumbs-down pt-1">
+            <div class="question-thumbs-down pt-1" v-if="user">
                 <question-dislike-button
                     :data="question"
                 ></question-dislike-button>
@@ -58,24 +58,15 @@
 <script>
 import questionLikeButton from "../questionLikeButton.vue";
 import questionDislikeButton from "../questionDislikeButton.vue";
-import getUser from "../../user.js";
 export default {
     components: { questionDislikeButton, questionLikeButton },
-    props: ["question"],
-    data() {
-        return {
-            user: ""
-        };
-    },
-    async created() {
-        const user = await getUser();
-        this.user = user;
-    },
+    props: ["question", "user"],
+
     methods: {
         handleClick(question) {
             this.$router.push({
                 name: "question.show",
-                params: { id: question.id, question }
+                params: { id: question.id, question, user: this.user }
             });
         },
         handleEdit(question) {

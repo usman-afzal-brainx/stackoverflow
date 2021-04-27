@@ -26,11 +26,13 @@
                         <div class="question-thumbs-up">
                             <question-like-button
                                 :data="$route.params.question"
+                                v-if="$route.params.user"
                             ></question-like-button>
                         </div>
                         <div class="question-thumbs-down pt-1">
                             <question-dislike-button
                                 :data="$route.params.question"
+                                v-if="$route.params.user"
                             ></question-dislike-button>
                         </div>
                     </div>
@@ -50,7 +52,10 @@
             </div>
         </div>
         <div class="answers" v-if="isAnswers">
-            <answers :answers="$route.params.question.answers"></answers>
+            <answers
+                :answers="$route.params.question.answers"
+                :user="$route.params.user"
+            ></answers>
         </div>
         <div class="answer-not-found-error" v-if="!isAnswers">
             <div class="row">
@@ -63,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="answer-form">
+        <div class="answer-form" v-if="token">
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-6">
@@ -94,7 +99,6 @@ import questionDislikeButton from "./questionDislikeButton.vue";
 import answerLikeButton from "./answerLikeButton";
 import answerDislikeButton from "./answerDislikeButton";
 import answers from "./answers.vue";
-import getUser from "../user";
 export default {
     components: {
         questionLikeButton,
@@ -112,13 +116,9 @@ export default {
             isAnswers: false,
             description: "",
             answers: this.$route.params.question.answers,
-            user: ""
+            user: "",
+            token: window.localStorage.getItem("api_token")
         };
-    },
-    async created() {
-        this.computeAnswersLength();
-        const user = await getUser();
-        this.user = user;
     },
     methods: {
         handleBack() {

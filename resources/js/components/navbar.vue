@@ -10,7 +10,10 @@
                         >
                     </li>
                     <li class="nav-item">
-                        <router-link class="nav-link" to="/question/create"
+                        <router-link
+                            class="nav-link"
+                            to="/question/create"
+                            v-if="api_token"
                             >Ask A Question</router-link
                         >
                     </li>

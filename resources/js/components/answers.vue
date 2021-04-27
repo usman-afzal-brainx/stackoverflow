@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="answer" v-for="answer in answers" :key="answer.id">
-                <answer :answer="answer" @deleteClicked="handleDelete"></answer>
+                <answer :answer="answer"></answer>
             </div>
         </div>
     </div>
