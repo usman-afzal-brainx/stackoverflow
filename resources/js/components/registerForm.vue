@@ -102,6 +102,7 @@ export default {
                 this.user.email = "";
                 this.user.password = "";
                 this.user.password_confirmed = "";
+                this.$router.push({ path: "/login" });
             }
         },
         clearPasswordError() {

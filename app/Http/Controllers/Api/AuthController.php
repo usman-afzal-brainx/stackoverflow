@@ -32,24 +32,23 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        // $old_user = User::where('email', $request->email)->first();
+        $old_user = User::where('email', $request->email)->first();
 
-        // if (isset($old_user)) {
-        //     return response()->json(['failure' => ['User cannot be created'], 400], 400);
-        // }
+        if (isset($old_user)) {
+            return response()->json(['failure' => ['User cannot be created'], 400], 400);
+        }
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
         $user->is_Admin = $request->is_Admin;
-        $user->password = bcrypt($request->name);
+        $user->password = Hash::make($request->password);
         $user->api_token = Str::random(80);
         $user->save();
-        $credentials = $user->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            $token = $request->user()->createToken('api_token')->plainTextToken;
-            return response()->json(['token' => [$token], 200], 200);
-        }
+
+        return response()->json(['user' => [$user], 200], 200);
+
     }
+
     public function logout()
     {
         auth()->user()->tokens()->delete();

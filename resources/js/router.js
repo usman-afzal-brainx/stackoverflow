@@ -5,6 +5,7 @@ import createQuestion from "./components/createQuestion.vue";
 import showQuestion from "./components/showQuestion.vue";
 import login from "./components/login.vue";
 import register from "./components/registerForm.vue";
+import logout from "./components/logout.vue";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -27,6 +28,10 @@ export default new VueRouter({
         {
             path: "/register",
             component: register
+        },
+        {
+            path: "/logout",
+            component: logout
         }
     ],
     mode: "history"
