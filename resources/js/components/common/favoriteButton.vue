@@ -8,7 +8,7 @@
             "
             @click="handleClick"
         >
-            {{ data }}
+            {{ count }}
             <i
                 :class="
                     buttonAction === 'like'
@@ -23,75 +23,70 @@
 <script>
 export default {
     props: ["data", "buttonAction", "type", "id"],
-
+    data() {
+        return {
+            count: this.data
+        };
+    },
     methods: {
-        async handleQuestionLike(question) {
-            console.log("Question like");
+        async handleQuestionLike() {
             const data = {
-                question_id: question.id,
+                question_id: this.id,
                 api_token: window.localStorage.getItem("api_token")
             };
-            let no_thumbs_up = question.no_thumbs_up;
+            let count = this.count;
             try {
-                this.data.no_thumbs_up = no_thumbs_up + 1;
+                this.count = count + 1;
                 await axios.post("/api/questions/like", data);
             } catch (error) {
                 console.log(error);
-                this.data.no_thumbs_up = no_thumbs_up + 1;
+                this.count = count;
             }
         },
-        async handleQuestionDislike(question) {
-            console.log("Question dislike");
-
+        async handleQuestionDislike() {
             const data = {
-                question_id: question.id,
+                question_id: this.id,
                 api_token: window.localStorage.getItem("api_token")
             };
-            let no_thumbs_down = question.no_thumbs_down;
+            let count = this.count;
             try {
-                this.data.no_thumbs_down = no_thumbs_down + 1;
+                this.count = count + 1;
 
                 await axios.post("/api/questions/dislike", data);
             } catch (error) {
                 console.log(error);
-                this.data.no_thumbs_down = no_thumbs_down;
+                this.count = count;
             }
         },
-        async handleAnswerLike(answer) {
-            console.log("Answer like");
-
+        async handleAnswerLike() {
             const data = {
-                answer_id: answer.id,
+                answer_id: this.id,
                 api_token: window.localStorage.getItem("api_token")
             };
-            let no_thumbs_up = answer.no_thumbs_up;
+            let count = this.count;
             try {
-                this.data.no_thumbs_up = no_thumbs_up + 1;
+                this.count = count + 1;
                 await axios.post("/api/answers/like", data);
             } catch (error) {
                 console.log(error);
-                this.data.no_thumbs_up = no_thumbs_up + 1;
+                this.count = count;
             }
         },
-        async handleAnswerDislike(answer) {
-            console.log("Answer dislike");
-
+        async handleAnswerDislike() {
             const data = {
-                answer_id: answer.id,
+                answer_id: this.id,
                 api_token: window.localStorage.getItem("api_token")
             };
-            let no_thumbs_down = answer.no_thumbs_down;
+            let count = this.count;
             try {
-                this.data.no_thumbs_down = no_thumbs_down + 1;
-
+                this.count = count + 1;
                 await axios.post("/api/answers/dislike", data);
             } catch (error) {
                 console.log(error);
-                this.data.no_thumbs_down = no_thumbs_down;
+                this.count = count;
             }
         },
         async handleClick() {
-            this.data = this.data + 1;
             if (this.buttonAction === "like") {
                 if (this.type === "question") {
                     this.handleQuestionLike();

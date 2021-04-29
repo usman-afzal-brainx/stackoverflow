@@ -11,14 +11,16 @@
                 <favorite-button
                     :data="question.no_thumbs_up"
                     :buttonAction="'like'"
-                    :type="question"
+                    :type="'question'"
+                    :id="question.id"
                 ></favorite-button>
             </div>
             <div class="question-thumbs-down pt-1" v-if="user">
                 <favorite-button
                     :data="question.no_thumbs_down"
                     :buttonAction="'dislike'"
-                    :type="question"
+                    :type="'question'"
+                    :id="question.id"
                 ></favorite-button>
             </div>
         </div>
