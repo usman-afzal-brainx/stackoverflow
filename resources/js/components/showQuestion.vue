@@ -11,6 +11,7 @@
                     </button>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="row">
                 <div class="col-sm-2">
                     <div class="question-left-part">
@@ -56,16 +57,27 @@
                 :answers="$route.params.question.answers"
                 :user="$route.params.user"
             ></answers>
+=======
+            <question
+                :question="question"
+                :user="user"
+                :showManipulationButtons="false"
+            ></question>
         </div>
-        <div class="answer-not-found-error" v-if="!isAnswers">
+        <div class="answers" v-if="answers">
+            <answers :data="answers" @deleteClicked="handleDelete"></answers>
+>>>>>>> origin/temp
+        </div>
+        <div class="answer-not-found-error" v-if="!answers.length > 0">
             <div class="row">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" v-if="user">
                     <p>
                         There are no answers for this question. Want to answer?
                         Go for it!
                     </p>
                 </div>
+<<<<<<< HEAD
             </div>
         </div>
         <div class="answer-form" v-if="token">
@@ -88,38 +100,63 @@
                             Submit
                         </button>
                     </form>
+=======
+                <div class="col-sm-8" v-if="!user">
+                    <p>
+                        There are no answers for this question. Create an
+                        Account to answer this question!
+                    </p>
+>>>>>>> origin/temp
                 </div>
             </div>
+        </div>
+        <div class="answer-form" v-if="user">
+            <create-answer
+                :user_id="user.id"
+                :question_id="question.id"
+                @answerCreated="handleAnswerCreation"
+            ></create-answer>
         </div>
     </div>
 </template>
 <script>
-import questionLikeButton from "./questionLikeButton.vue";
-import questionDislikeButton from "./questionDislikeButton.vue";
-import answerLikeButton from "./answerLikeButton";
-import answerDislikeButton from "./answerDislikeButton";
 import answers from "./answers.vue";
+<<<<<<< HEAD
+=======
+import question from "./common/question";
+import createAnswer from "./common/createAnswer.vue";
+import getUser from "../user";
+>>>>>>> origin/temp
 export default {
     components: {
-        questionLikeButton,
-        questionDislikeButton,
-        answerLikeButton,
-        answerDislikeButton,
-        answers
+        answers,
+        question,
+        createAnswer
     },
     data() {
         return {
             question: {
-                title: this.$route.params.question.question,
-                description: this.$route.params.question.description
+                id: this.$route.params.id,
+                question: this.$route.params.question.question,
+                description: this.$route.params.question.description,
+                no_thumbs_up: this.$route.params.question.no_thumbs_up,
+                no_thumbs_down: this.$route.params.question.no_thumbs_down
             },
-            isAnswers: false,
-            description: "",
             answers: this.$route.params.question.answers,
             user: "",
             token: window.localStorage.getItem("api_token")
         };
     },
+<<<<<<< HEAD
+=======
+    async created() {
+        this.computeAnswersLength();
+        if (window.localStorage.getItem("api_token")) {
+            const user = await getUser();
+            this.user = user;
+        }
+    },
+>>>>>>> origin/temp
     methods: {
         handleBack() {
             this.$router.push({ path: "/" });
@@ -129,20 +166,30 @@ export default {
                 ? this.$route.params.question.answers.length > 0
                 : false;
         },
-        async createAnswer() {
-            let payload = {
-                user_id: this.user.id,
-                question_id: this.$route.params.id,
-                description: this.description,
-                api_token: window.localStorage.getItem("api_token")
-            };
+        handleAnswerCreation(answer) {
+            if (!answers) {
+                const answers = [];
+                answers.push(answer);
+                console.log(answers);
+                this.answers = answers;
+            } else this.answers.push(answer);
+        },
+        async handleDelete(answer) {
+            const originalAnswers = { ...this.answers };
             try {
-                const { data } = await axios.post("/api/answers", payload);
-                this.answers.push(data.answer[0]);
-                this.description = "";
-                this.isAnswers = true;
-            } catch (ex) {
-                console.log(ex);
+                const answers = this.answers.filter(a => a.id !== answer.id);
+                this.answers = answers;
+                await axios.delete(`/api/answers/${answer.id}/`, {
+                    headers: {
+                        Authorization:
+                            "Bearer " +
+                            window.localStorage.getItem("api_token"),
+                        Accept: "application/json"
+                    }
+                });
+            } catch (error) {
+                this.answers = originalAnswers;
+                console.log(error);
             }
         }
     }

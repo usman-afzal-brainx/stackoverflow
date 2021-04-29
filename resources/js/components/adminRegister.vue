@@ -36,14 +36,14 @@
                             class="form-control"
                             id="password"
                             v-model="user.password"
-                            @change="clearPasswordError"
+                            @input="clearPasswordError"
                             required
                         />
                         <div
                             class="error-message-password pt-1 pb-1"
-                            v-if="err.password"
+                            v-if="err_password"
                         >
-                            <p>{{ err.password }}</p>
+                            <p>{{ err_password }}</p>
                         </div>
                     </div>
                     <div class="mb-3">
@@ -55,15 +55,15 @@
                             class="form-control"
                             id="password_confirmed"
                             v-model="user.password_confirmed"
-                            @change="clearConfirmPasswordError"
+                            @input="clearConfirmPasswordError"
                             required
                         />
                     </div>
                     <div
                         class="error-message-password-confirmed pt-1 pb-1"
-                        v-if="err.password_confirmed"
+                        v-if="err_password_confirmed"
                     >
-                        <p>{{ err.password_confirmed }}</p>
+                        <p>{{ err_password_confirmed }}</p>
                     </div>
                     <div class="mb-3">
                         <label for="userTypes" class="form-label"
@@ -102,7 +102,8 @@ export default {
                 is_Admin: "",
                 password_confirmed: ""
             },
-            err: {},
+            err_password_confirmed: "",
+            err_password: "",
             userTypes: []
         };
     },
@@ -112,12 +113,12 @@ export default {
     methods: {
         async handleSubmit() {
             if (this.user.password.length < 6)
-                this.err.password =
+                this.err_password =
                     "Password must be atleast 6 characters long";
             if (this.user.password !== this.user.password_confirmed)
-                this.err.password_confirmed = "Password does not match";
+                this.err_password_confirmed = "Password does not match";
 
-            if (!this.err.password_confirmed && !this.err.password) {
+            if (!this.err_password_confirmed && !this.err_password) {
                 try {
                     const response = await axios.post(
                         "/api/register",
@@ -134,10 +135,10 @@ export default {
             }
         },
         clearPasswordError() {
-            if (this.err.password) delete this.err.password;
+            if (this.err_password) this.err_password = "";
         },
         clearConfirmPasswordError() {
-            if (this.err.password_confirmed) delete this.err.password_confirmed;
+            if (this.err_password_confirmed) this.err_password_confirmed = "";
         },
         async getUserTypes() {
             const { data } = await axios.get("/api/user/types", {

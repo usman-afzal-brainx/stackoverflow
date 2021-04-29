@@ -7,25 +7,33 @@
                         <div class="answer-count">
                             <p>
                                 Votes:
-                                {{
-                                    answer.no_thumbs_up - answer.no_thumbs_down
-                                }}
+                                {{ no_thumbs_up - no_thumbs_down }}
                             </p>
                         </div>
                         <div class="answer-thumbs-up">
-                            <answer-like-button
-                                :data="answer"
-                            ></answer-like-button>
+                            <favorite-button
+                                :data="no_thumbs_up"
+                                :buttonAction="'like'"
+                                :type="'answer'"
+                                :id="id"
+                                @buttonClick="handleCount"
+                                v-if="user"
+                            ></favorite-button>
                         </div>
                         <div class="answer-thumbs-down pt-1">
-                            <answer-dislike-button
-                                :data="answer"
-                            ></answer-dislike-button>
+                            <favorite-button
+                                :data="no_thumbs_down"
+                                :buttonAction="'dislike'"
+                                :type="'answer'"
+                                :id="id"
+                                @buttonClick="handleCount"
+                                v-if="user"
+                            ></favorite-button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-8" v-if="!edit">
+                <div class="col-sm-7" v-if="!edit">
                     <div class="answer-content">
                         <div class="answer-description">
                             <p>
@@ -35,13 +43,13 @@
                     </div>
                 </div>
 
-                <div class="col-sm-8 pt-1" v-if="edit">
+                <div class="col-sm-7 pt-1" v-if="edit">
                     <form @submit.prevent="handleSubmit(answer)">
                         <textarea
                             class="form-control rounded-0"
                             id="description"
                             rows="8"
-                            v-model="answer.description"
+                            v-model="description"
                         ></textarea>
                         <button class="btn btn-primary mt-2 mb-3">
                             Update
@@ -52,17 +60,14 @@
                     <button
                         class="btn btn-primary edit-button"
                         @click="handleEdit"
-                        v-if="answer.user_id === user.id && !edit"
+                        v-if="user_id === user.id && !edit"
                     >
                         Edit <i class="far fa-edit"></i>
                     </button>
                     <button
                         class="btn btn-danger delete-button"
                         @click="$emit('deleteClicked', answer)"
-                        v-if="
-                            answer.user_id === user.id ||
-                                user.is_Admin === 'admin'
-                        "
+                        v-if="user_id === user.id || user.is_Admin === 'admin'"
                     >
                         Delete <i class="far fa-trash-alt"></i>
                     </button>
@@ -72,34 +77,38 @@
     </div>
 </template>
 <script>
-import answerLikeButton from "../answerLikeButton";
-import answerDislikeButton from "../answerDislikeButton";
+import favoriteButton from "../common/favoriteButton.vue";
 import getUser from "../../user.js";
 export default {
     props: ["answer"],
     components: {
-        answerLikeButton,
-        answerDislikeButton
+        favoriteButton
     },
     data() {
         return {
+            id: this.answer.id,
             user: "",
-            edit: false
+            edit: false,
+            no_thumbs_up: this.answer.no_thumbs_up,
+            no_thumbs_down: this.answer.no_thumbs_down,
+            user_id: this.answer.user_id,
+            description: this.answer.description
         };
     },
     async created() {
-        const user = await getUser();
-        this.user = user;
+        if (window.localStorage.getItem("api_token")) {
+            const user = await getUser();
+            this.user = user;
+        }
     },
     methods: {
         async handleSubmit(answer) {
             console.log(answer);
-            this.description = answer.description;
             let payload = {
                 id: answer.id,
                 user_id: this.user.id,
                 question_id: answer.question_id,
-                description: answer.description,
+                description: this.description,
                 api_token: window.localStorage.getItem("api_token")
             };
             try {
@@ -112,6 +121,10 @@ export default {
         },
         handleEdit() {
             this.edit = true;
+        },
+        handleCount(action) {
+            if (action === "like") this.no_thumbs_up += 1;
+            else this.no_thumbs_down += 1;
         }
     }
 };
