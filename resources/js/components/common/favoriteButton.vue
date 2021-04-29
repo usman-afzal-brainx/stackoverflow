@@ -29,78 +29,92 @@ export default {
         };
     },
     methods: {
-        async handleQuestionLike() {
-            const data = {
-                question_id: this.id,
-                api_token: window.localStorage.getItem("api_token")
-            };
-            let count = this.count;
-            try {
-                this.count = count + 1;
-                await axios.post("/api/questions/like", data);
-            } catch (error) {
-                console.log(error);
-                this.count = count;
-            }
-        },
-        async handleQuestionDislike() {
-            const data = {
-                question_id: this.id,
-                api_token: window.localStorage.getItem("api_token")
-            };
-            let count = this.count;
-            try {
-                this.count = count + 1;
+        // async handleQuestionLike() {
+        //     const data = {
+        //         question_id: this.id,
+        //         api_token: window.localStorage.getItem("api_token")
+        //     };
+        //     let count = this.count;
+        //     try {
+        //         this.count = count + 1;
+        //         await axios.post("/api/questions/like", data);
+        //     } catch (error) {
+        //         console.log(error);
+        //         this.count = count;
+        //     }
+        // },
+        // async handleQuestionDislike() {
+        //     const data = {
+        //         question_id: this.id,
+        //         api_token: window.localStorage.getItem("api_token")
+        //     };
+        //     let count = this.count;
+        //     try {
+        //         this.count = count + 1;
 
-                await axios.post("/api/questions/dislike", data);
-            } catch (error) {
-                console.log(error);
-                this.count = count;
-            }
-        },
-        async handleAnswerLike() {
-            const data = {
-                answer_id: this.id,
-                api_token: window.localStorage.getItem("api_token")
-            };
-            let count = this.count;
-            try {
-                this.count = count + 1;
-                await axios.post("/api/answers/like", data);
-            } catch (error) {
-                console.log(error);
-                this.count = count;
-            }
-        },
-        async handleAnswerDislike() {
-            const data = {
-                answer_id: this.id,
-                api_token: window.localStorage.getItem("api_token")
-            };
-            let count = this.count;
-            try {
-                this.count = count + 1;
-                await axios.post("/api/answers/dislike", data);
-            } catch (error) {
-                console.log(error);
-                this.count = count;
-            }
-        },
+        //         await axios.post("/api/questions/dislike", data);
+        //     } catch (error) {
+        //         console.log(error);
+        //         this.count = count;
+        //     }
+        // },
+        // async handleAnswerLike() {
+        //     const data = {
+        //         answer_id: this.id,
+        //         api_token: window.localStorage.getItem("api_token")
+        //     };
+        //     let count = this.count;
+        //     try {
+        //         this.count = count + 1;
+        //         await axios.post("/api/answers/like", data);
+        //     } catch (error) {
+        //         console.log(error);
+        //         this.count = count;
+        //     }
+        // },
+        // async handleAnswerDislike() {
+        //     const data = {
+        //         answer_id: this.id,
+        //         api_token: window.localStorage.getItem("api_token")
+        //     };
+        //     let count = this.count;
+        //     try {
+        //         this.count = count + 1;
+        //         await axios.post("/api/answers/dislike", data);
+        //     } catch (error) {
+        //         console.log(error);
+        //         this.count = count;
+        //     }
+        // },
         async handleClick() {
             this.$emit("buttonClick", this.buttonAction);
-            if (this.buttonAction === "like") {
-                if (this.type === "question") {
-                    this.handleQuestionLike();
-                } else {
-                    this.handleAnswerLike();
-                }
-            } else {
-                if (this.type === "question") {
-                    this.handleQuestionDislike();
-                } else {
-                    this.handleAnswerDislike();
-                }
+            let count = this.count;
+            const data = {
+                api_token: window.localStorage.getItem("api_token")
+            };
+            const path = `/api/${this.type}s/${this.buttonAction}`;
+            if (this.type === "question") data.question_id = this.id;
+            else data.answer_id = this.id;
+            try {
+                this.count += 1;
+                await axios.post(path, data);
+            } catch (error) {
+                console.log(error);
+                this.count = count;
             }
+            // if (this.buttonAction === "like") {
+            //     if (this.type === "question") {
+            //         this.handleQuestionLike();
+            //     } else {
+            //         this.handleAnswerLike();
+            //     }
+            // } else {
+            //     if (this.type === "question") {
+            //         this.handleQuestionDislike();
+            //     } else {
+            //         this.handleAnswerDislike();
+            //     }
+            // }
         }
     }
 };

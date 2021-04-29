@@ -2622,184 +2622,100 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    handleQuestionLike: function handleQuestionLike() {
+    // async handleQuestionLike() {
+    //     const data = {
+    //         question_id: this.id,
+    //         api_token: window.localStorage.getItem("api_token")
+    //     };
+    //     let count = this.count;
+    //     try {
+    //         this.count = count + 1;
+    //         await axios.post("/api/questions/like", data);
+    //     } catch (error) {
+    //         console.log(error);
+    //         this.count = count;
+    //     }
+    // },
+    // async handleQuestionDislike() {
+    //     const data = {
+    //         question_id: this.id,
+    //         api_token: window.localStorage.getItem("api_token")
+    //     };
+    //     let count = this.count;
+    //     try {
+    //         this.count = count + 1;
+    //         await axios.post("/api/questions/dislike", data);
+    //     } catch (error) {
+    //         console.log(error);
+    //         this.count = count;
+    //     }
+    // },
+    // async handleAnswerLike() {
+    //     const data = {
+    //         answer_id: this.id,
+    //         api_token: window.localStorage.getItem("api_token")
+    //     };
+    //     let count = this.count;
+    //     try {
+    //         this.count = count + 1;
+    //         await axios.post("/api/answers/like", data);
+    //     } catch (error) {
+    //         console.log(error);
+    //         this.count = count;
+    //     }
+    // },
+    // async handleAnswerDislike() {
+    //     const data = {
+    //         answer_id: this.id,
+    //         api_token: window.localStorage.getItem("api_token")
+    //     };
+    //     let count = this.count;
+    //     try {
+    //         this.count = count + 1;
+    //         await axios.post("/api/answers/dislike", data);
+    //     } catch (error) {
+    //         console.log(error);
+    //         this.count = count;
+    //     }
+    // },
+    handleClick: function handleClick() {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var data, count;
+        var count, data, path;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                _this.$emit("buttonClick", _this.buttonAction);
+
+                count = _this.count;
                 data = {
-                  question_id: _this.id,
                   api_token: window.localStorage.getItem("api_token")
                 };
-                count = _this.count;
-                _context.prev = 2;
-                _this.count = count + 1;
-                _context.next = 6;
-                return axios.post("/api/questions/like", data);
+                path = "/api/".concat(_this.type, "s/").concat(_this.buttonAction);
+                if (_this.type === "question") data.question_id = _this.id;else data.answer_id = _this.id;
+                _context.prev = 5;
+                _this.count += 1;
+                _context.next = 9;
+                return axios.post(path, data);
 
-              case 6:
-                _context.next = 12;
+              case 9:
+                _context.next = 15;
                 break;
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](2);
+              case 11:
+                _context.prev = 11;
+                _context.t0 = _context["catch"](5);
                 console.log(_context.t0);
                 _this.count = count;
 
-              case 12:
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 8]]);
-      }))();
-    },
-    handleQuestionDislike: function handleQuestionDislike() {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var data, count;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                data = {
-                  question_id: _this2.id,
-                  api_token: window.localStorage.getItem("api_token")
-                };
-                count = _this2.count;
-                _context2.prev = 2;
-                _this2.count = count + 1;
-                _context2.next = 6;
-                return axios.post("/api/questions/dislike", data);
-
-              case 6:
-                _context2.next = 12;
-                break;
-
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](2);
-                console.log(_context2.t0);
-                _this2.count = count;
-
-              case 12:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, null, [[2, 8]]);
-      }))();
-    },
-    handleAnswerLike: function handleAnswerLike() {
-      var _this3 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var data, count;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                data = {
-                  answer_id: _this3.id,
-                  api_token: window.localStorage.getItem("api_token")
-                };
-                count = _this3.count;
-                _context3.prev = 2;
-                _this3.count = count + 1;
-                _context3.next = 6;
-                return axios.post("/api/answers/like", data);
-
-              case 6:
-                _context3.next = 12;
-                break;
-
-              case 8:
-                _context3.prev = 8;
-                _context3.t0 = _context3["catch"](2);
-                console.log(_context3.t0);
-                _this3.count = count;
-
-              case 12:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3, null, [[2, 8]]);
-      }))();
-    },
-    handleAnswerDislike: function handleAnswerDislike() {
-      var _this4 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
-        var data, count;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                data = {
-                  answer_id: _this4.id,
-                  api_token: window.localStorage.getItem("api_token")
-                };
-                count = _this4.count;
-                _context4.prev = 2;
-                _this4.count = count + 1;
-                _context4.next = 6;
-                return axios.post("/api/answers/dislike", data);
-
-              case 6:
-                _context4.next = 12;
-                break;
-
-              case 8:
-                _context4.prev = 8;
-                _context4.t0 = _context4["catch"](2);
-                console.log(_context4.t0);
-                _this4.count = count;
-
-              case 12:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4, null, [[2, 8]]);
-      }))();
-    },
-    handleClick: function handleClick() {
-      var _this5 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-                _this5.$emit("buttonClick", _this5.buttonAction);
-
-                if (_this5.buttonAction === "like") {
-                  if (_this5.type === "question") {
-                    _this5.handleQuestionLike();
-                  } else {
-                    _this5.handleAnswerLike();
-                  }
-                } else {
-                  if (_this5.type === "question") {
-                    _this5.handleQuestionDislike();
-                  } else {
-                    _this5.handleAnswerDislike();
-                  }
-                }
-
-              case 2:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
+        }, _callee, null, [[5, 11]]);
       }))();
     }
   }
