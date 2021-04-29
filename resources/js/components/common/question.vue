@@ -4,7 +4,7 @@
             <div class="question-count">
                 <p>
                     Votes:
-                    {{ question.no_thumbs_up - question.no_thumbs_down }}
+                    {{ no_thumbs_up - no_thumbs_down }}
                 </p>
             </div>
             <div class="question-thumbs-up" v-if="user">
@@ -13,6 +13,7 @@
                     :buttonAction="'like'"
                     :type="'question'"
                     :id="question.id"
+                    @buttonClick="handleCount"
                 ></favorite-button>
             </div>
             <div class="question-thumbs-down pt-1" v-if="user">
@@ -21,6 +22,7 @@
                     :buttonAction="'dislike'"
                     :type="'question'"
                     :id="question.id"
+                    @buttonClick="handleCount"
                 ></favorite-button>
             </div>
         </div>
@@ -70,6 +72,12 @@ import favoriteButton from "./favoriteButton.vue";
 export default {
     components: { questionDislikeButton, questionLikeButton, favoriteButton },
     props: ["question", "user"],
+    data() {
+        return {
+            no_thumbs_up: this.question.no_thumbs_up,
+            no_thumbs_down: this.question.no_thumbs_down
+        };
+    },
     methods: {
         handleClick(question) {
             this.$router.push({
@@ -82,6 +90,10 @@ export default {
                 name: "question.create",
                 params: { question }
             });
+        },
+        handleCount(action) {
+            if (action === "like") this.no_thumbs_up += 1;
+            else this.no_thumbs_down += 1;
         }
     }
 };

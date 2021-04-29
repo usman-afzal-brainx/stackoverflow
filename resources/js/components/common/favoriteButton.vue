@@ -87,6 +87,7 @@ export default {
             }
         },
         async handleClick() {
+            this.$emit("buttonClick", this.buttonAction);
             if (this.buttonAction === "like") {
                 if (this.type === "question") {
                     this.handleQuestionLike();

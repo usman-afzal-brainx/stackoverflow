@@ -2778,6 +2778,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
+                _this5.$emit("buttonClick", _this5.buttonAction);
+
                 if (_this5.buttonAction === "like") {
                   if (_this5.type === "question") {
                     _this5.handleQuestionLike();
@@ -2792,7 +2794,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 }
 
-              case 1:
+              case 2:
               case "end":
                 return _context5.stop();
             }
@@ -2908,6 +2910,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2918,6 +2922,12 @@ __webpack_require__.r(__webpack_exports__);
     favoriteButton: _favoriteButton_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   props: ["question", "user"],
+  data: function data() {
+    return {
+      no_thumbs_up: this.question.no_thumbs_up,
+      no_thumbs_down: this.question.no_thumbs_down
+    };
+  },
   methods: {
     handleClick: function handleClick(question) {
       this.$router.push({
@@ -2935,6 +2945,9 @@ __webpack_require__.r(__webpack_exports__);
           question: question
         }
       });
+    },
+    handleCount: function handleCount(action) {
+      if (action === "like") this.no_thumbs_up += 1;else this.no_thumbs_down += 1;
     }
   }
 });
@@ -43014,7 +43027,7 @@ var render = function() {
         _c("p", [
           _vm._v(
             "\n                Votes:\n                " +
-              _vm._s(_vm.question.no_thumbs_up - _vm.question.no_thumbs_down) +
+              _vm._s(_vm.no_thumbs_up - _vm.no_thumbs_down) +
               "\n            "
           )
         ])
@@ -43031,7 +43044,8 @@ var render = function() {
                   buttonAction: "like",
                   type: "question",
                   id: _vm.question.id
-                }
+                },
+                on: { buttonClick: _vm.handleCount }
               })
             ],
             1
@@ -43049,7 +43063,8 @@ var render = function() {
                   buttonAction: "dislike",
                   type: "question",
                   id: _vm.question.id
-                }
+                },
+                on: { buttonClick: _vm.handleCount }
               })
             ],
             1
