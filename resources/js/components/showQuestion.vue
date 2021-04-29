@@ -57,21 +57,18 @@
     </div>
 </template>
 <script>
-import questionLikeButton from "./questionLikeButton.vue";
-import questionDislikeButton from "./questionDislikeButton.vue";
 import answers from "./answers.vue";
 import question from "./common/question";
 import getUser from "../user";
 export default {
     components: {
-        questionLikeButton,
-        questionDislikeButton,
         answers,
         question
     },
     data() {
         return {
             question: {
+                id: this.$route.params.id,
                 question: this.$route.params.question.question,
                 description: this.$route.params.question.description,
                 no_thumbs_up: this.$route.params.question.no_thumbs_up,

@@ -7,22 +7,26 @@
                         <div class="answer-count">
                             <p>
                                 Votes:
-                                {{
-                                    answer.no_thumbs_up - answer.no_thumbs_down
-                                }}
+                                {{ no_thumbs_up - no_thumbs_down }}
                             </p>
                         </div>
                         <div class="answer-thumbs-up">
-                            <answer-like-button
-                                v-if="user"
-                                :data="answer"
-                            ></answer-like-button>
+                            <favorite-button
+                                :data="no_thumbs_up"
+                                :buttonAction="'like'"
+                                :type="'answer'"
+                                :id="answer.id"
+                                @buttonClick="handleCount"
+                            ></favorite-button>
                         </div>
                         <div class="answer-thumbs-down pt-1">
-                            <answer-dislike-button
-                                v-if="user"
-                                :data="answer"
-                            ></answer-dislike-button>
+                            <favorite-button
+                                :data="no_thumbs_down"
+                                :buttonAction="'dislike'"
+                                :type="'answer'"
+                                :id="answer.id"
+                                @buttonClick="handleCount"
+                            ></favorite-button>
                         </div>
                     </div>
                 </div>
@@ -74,19 +78,19 @@
     </div>
 </template>
 <script>
-import answerLikeButton from "../answerLikeButton";
-import answerDislikeButton from "../answerDislikeButton";
+import favoriteButton from "../common/favoriteButton.vue";
 import getUser from "../../user.js";
 export default {
     props: ["answer"],
     components: {
-        answerLikeButton,
-        answerDislikeButton
+        favoriteButton
     },
     data() {
         return {
             user: "",
-            edit: false
+            edit: false,
+            no_thumbs_up: this.answer.no_thumbs_up,
+            no_thumbs_down: this.answer.no_thumbs_down
         };
     },
     async created() {
@@ -116,6 +120,10 @@ export default {
         },
         handleEdit() {
             this.edit = true;
+        },
+        handleCount(action) {
+            if (action === "like") this.no_thumbs_up += 1;
+            else this.no_thumbs_down += 1;
         }
     }
 };
