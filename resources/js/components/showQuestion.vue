@@ -11,53 +11,7 @@
                     </button>
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="question-left-part">
-                        <div class="question-count">
-                            <p>
-                                Votes:
-                                {{
-                                    $route.params.question.no_thumbs_up -
-                                        $route.params.question.no_thumbs_down
-                                }}
-                            </p>
-                        </div>
-                        <div class="question-thumbs-up">
-                            <question-like-button
-                                :data="$route.params.question"
-                                v-if="$route.params.user"
-                            ></question-like-button>
-                        </div>
-                        <div class="question-thumbs-down pt-1">
-                            <question-dislike-button
-                                :data="$route.params.question"
-                                v-if="$route.params.user"
-                            ></question-dislike-button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="question-content">
-                        <div class="question-title">
-                            <h2>{{ question.title }}</h2>
-                        </div>
-                        <div class="question-description">
-                            <p>
-                                {{ question.description }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="answers" v-if="isAnswers">
-            <answers
-                :answers="$route.params.question.answers"
-                :user="$route.params.user"
-            ></answers>
-=======
+
             <question
                 :question="question"
                 :user="user"
@@ -66,7 +20,6 @@
         </div>
         <div class="answers" v-if="answers">
             <answers :data="answers" @deleteClicked="handleDelete"></answers>
->>>>>>> origin/temp
         </div>
         <div class="answer-not-found-error" v-if="!answers.length > 0">
             <div class="row">
@@ -77,36 +30,12 @@
                         Go for it!
                     </p>
                 </div>
-<<<<<<< HEAD
-            </div>
-        </div>
-        <div class="answer-form" v-if="token">
-            <div class="row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-6">
-                    <form @submit.prevent="createAnswer">
-                        <div class="mb-3">
-                            <label for="description" class="form-label"
-                                >Add Answer to this Question</label
-                            >
-                            <textarea
-                                class="form-control rounded-0"
-                                id="description"
-                                rows="8"
-                                v-model="description"
-                            ></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            Submit
-                        </button>
-                    </form>
-=======
+
                 <div class="col-sm-8" v-if="!user">
                     <p>
                         There are no answers for this question. Create an
                         Account to answer this question!
                     </p>
->>>>>>> origin/temp
                 </div>
             </div>
         </div>
@@ -121,12 +50,9 @@
 </template>
 <script>
 import answers from "./answers.vue";
-<<<<<<< HEAD
-=======
 import question from "./common/question";
 import createAnswer from "./common/createAnswer.vue";
 import getUser from "../user";
->>>>>>> origin/temp
 export default {
     components: {
         answers,
@@ -147,8 +73,7 @@ export default {
             token: window.localStorage.getItem("api_token")
         };
     },
-<<<<<<< HEAD
-=======
+
     async created() {
         this.computeAnswersLength();
         if (window.localStorage.getItem("api_token")) {
@@ -156,7 +81,6 @@ export default {
             this.user = user;
         }
     },
->>>>>>> origin/temp
     methods: {
         handleBack() {
             this.$router.push({ path: "/" });

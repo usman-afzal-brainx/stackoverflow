@@ -49,15 +49,11 @@ export default {
 
     async created() {
         this.getQuestions();
-<<<<<<< HEAD
-        const user = await getUser();
-        this.user = user;
-=======
+
         if (window.localStorage.getItem("api_token")) {
             const user = await getUser();
             this.user = user;
         }
->>>>>>> origin/temp
     },
     methods: {
         async getQuestions() {
@@ -66,23 +62,14 @@ export default {
                     headers: {
                         Authorization:
                             "Bearer " +
-<<<<<<< HEAD
-                            window.localStorage.getItem("api_token"),
-=======
                             window.localStorage.getItem("access_token"),
->>>>>>> origin/temp
                         Accept: "application/json"
                     }
                 });
                 const questions = data.questions[0];
                 this.questions = questions;
-<<<<<<< HEAD
-            } catch (error) {
-                console.log(error);
-=======
             } catch (ex) {
                 console.log(ex);
->>>>>>> origin/temp
             }
         },
 
