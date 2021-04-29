@@ -25,6 +25,7 @@
                     :question="question"
                     :user="user"
                     @deleteClicked="handleDelete"
+                    :showManipulationButtons="true"
                 ></question>
             </div>
             <div class="no-questions-error" v-if="questions.length === 0">
@@ -45,8 +46,10 @@ export default {
             user: ""
         };
     },
+
     async created() {
         this.getQuestions();
+
         if (window.localStorage.getItem("api_token")) {
             const user = await getUser();
             this.user = user;
@@ -60,7 +63,6 @@ export default {
                         Authorization:
                             "Bearer " +
                             window.localStorage.getItem("api_token"),
-
                         Accept: "application/json"
                     }
                 });

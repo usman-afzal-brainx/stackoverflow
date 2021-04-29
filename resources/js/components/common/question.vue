@@ -4,19 +4,26 @@
             <div class="question-count">
                 <p>
                     Votes:
-                    {{ question.no_thumbs_up - question.no_thumbs_down }}
+                    {{ no_thumbs_up - no_thumbs_down }}
                 </p>
             </div>
             <div class="question-thumbs-up" v-if="user">
-                <question-like-button
-                    :data="question"
-                    :user="user"
-                ></question-like-button>
+                <favorite-button
+                    :data="question.no_thumbs_up"
+                    :buttonAction="'like'"
+                    :type="'question'"
+                    :id="question.id"
+                    @buttonClick="handleCount"
+                ></favorite-button>
             </div>
             <div class="question-thumbs-down pt-1" v-if="user">
-                <question-dislike-button
-                    :data="question"
-                ></question-dislike-button>
+                <favorite-button
+                    :data="question.no_thumbs_down"
+                    :buttonAction="'dislike'"
+                    :type="'question'"
+                    :id="question.id"
+                    @buttonClick="handleCount"
+                ></favorite-button>
             </div>
         </div>
         <div class="col-sm-7">
@@ -31,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3" v-if="showManipulationButtons">
             <div class="manipulation-buttons">
                 <div class="question-edit">
                     <button
@@ -59,17 +66,21 @@
     </div>
 </template>
 <script>
-import questionLikeButton from "../questionLikeButton.vue";
-import questionDislikeButton from "../questionDislikeButton.vue";
+import favoriteButton from "./favoriteButton.vue";
 export default {
-    components: { questionDislikeButton, questionLikeButton },
-    props: ["question", "user"],
-
+    components: { favoriteButton },
+    props: ["question", "user", "showManipulationButtons"],
+    data() {
+        return {
+            no_thumbs_up: this.question.no_thumbs_up,
+            no_thumbs_down: this.question.no_thumbs_down
+        };
+    },
     methods: {
         handleClick(question) {
             this.$router.push({
                 name: "question.show",
-                params: { id: question.id, question }
+                params: { id: question.id, question, user: this.user }
             });
         },
         handleEdit(question) {
@@ -77,6 +88,10 @@ export default {
                 name: "question.create",
                 params: { question }
             });
+        },
+        handleCount(action) {
+            if (action === "like") this.no_thumbs_up += 1;
+            else this.no_thumbs_down += 1;
         }
     }
 };

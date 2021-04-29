@@ -11,108 +11,69 @@
                     </button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="question-left-part">
-                        <div class="question-count">
-                            <p>
-                                Votes:
-                                {{
-                                    $route.params.question.no_thumbs_up -
-                                        $route.params.question.no_thumbs_down
-                                }}
-                            </p>
-                        </div>
-                        <div class="question-thumbs-up">
-                            <question-like-button
-                                v-if="user"
-                                :data="$route.params.question"
-                            ></question-like-button>
-                        </div>
-                        <div class="question-thumbs-down pt-1">
-                            <question-dislike-button
-                                v-if="user"
-                                :data="$route.params.question"
-                            ></question-dislike-button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="question-content">
-                        <div class="question-title">
-                            <h2>{{ question.title }}</h2>
-                        </div>
-                        <div class="question-description">
-                            <p>
-                                {{ question.description }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+            <question
+                :question="question"
+                :user="user"
+                :showManipulationButtons="false"
+            ></question>
         </div>
-        <div class="answers" v-if="isAnswers">
-            <answers :answers="$route.params.question.answers"></answers>
+        <div class="answers" v-if="answers">
+            <answers :data="answers" @deleteClicked="handleDelete"></answers>
         </div>
-        <div class="answer-not-found-error" v-if="!isAnswers">
+        <div class="answer-not-found-error" v-if="!answers.length > 0">
             <div class="row">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" v-if="user">
                     <p>
                         There are no answers for this question. Want to answer?
                         Go for it!
                     </p>
                 </div>
+
+                <div class="col-sm-8" v-if="!user">
+                    <p>
+                        There are no answers for this question. Create an
+                        Account to answer this question!
+                    </p>
+                </div>
             </div>
         </div>
         <div class="answer-form" v-if="user">
-            <div class="row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-6">
-                    <form @submit.prevent="createAnswer">
-                        <div class="mb-3">
-                            <label for="description" class="form-label"
-                                >Add Answer to this Question</label
-                            >
-                            <textarea
-                                class="form-control rounded-0"
-                                id="description"
-                                rows="8"
-                                v-model="description"
-                            ></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
+            <create-answer
+                :user_id="user.id"
+                :question_id="question.id"
+                @answerCreated="handleAnswerCreation"
+            ></create-answer>
         </div>
     </div>
 </template>
 <script>
-import questionLikeButton from "./questionLikeButton.vue";
-import questionDislikeButton from "./questionDislikeButton.vue";
 import answers from "./answers.vue";
+import question from "./common/question";
+import createAnswer from "./common/createAnswer.vue";
 import getUser from "../user";
 export default {
     components: {
-        questionLikeButton,
-        questionDislikeButton,
-        answers
+        answers,
+        question,
+        createAnswer
     },
     data() {
         return {
             question: {
-                title: this.$route.params.question.question,
-                description: this.$route.params.question.description
+                id: this.$route.params.id,
+                question: this.$route.params.question.question,
+                description: this.$route.params.question.description,
+                no_thumbs_up: this.$route.params.question.no_thumbs_up,
+                no_thumbs_down: this.$route.params.question.no_thumbs_down
             },
-            isAnswers: false,
-            description: "",
             answers: this.$route.params.question.answers,
-            user: ""
+            user: "",
+            token: window.localStorage.getItem("api_token")
         };
     },
+
     async created() {
         this.computeAnswersLength();
         if (window.localStorage.getItem("api_token")) {
@@ -129,20 +90,30 @@ export default {
                 ? this.$route.params.question.answers.length > 0
                 : false;
         },
-        async createAnswer() {
-            let payload = {
-                user_id: this.user.id,
-                question_id: this.$route.params.id,
-                description: this.description,
-                api_token: window.localStorage.getItem("api_token")
-            };
+        handleAnswerCreation(answer) {
+            if (!answers) {
+                const answers = [];
+                answers.push(answer);
+                console.log(answers);
+                this.answers = answers;
+            } else this.answers.push(answer);
+        },
+        async handleDelete(answer) {
+            const originalAnswers = { ...this.answers };
             try {
-                const { data } = await axios.post("/api/answers", payload);
-                this.answers.push(data.answer[0]);
-                this.description = "";
-                this.isAnswers = true;
-            } catch (ex) {
-                console.log(ex);
+                const answers = this.answers.filter(a => a.id !== answer.id);
+                this.answers = answers;
+                await axios.delete(`/api/answers/${answer.id}/`, {
+                    headers: {
+                        Authorization:
+                            "Bearer " +
+                            window.localStorage.getItem("api_token"),
+                        Accept: "application/json"
+                    }
+                });
+            } catch (error) {
+                this.answers = originalAnswers;
+                console.log(error);
             }
         }
     }
