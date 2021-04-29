@@ -43,32 +43,6 @@ class AnswerController extends Controller
         return response()->json(['failure' => ["The answer with given ID was not found"], 404], 404);
 
     }
-    public function handleLike()
-    {
-        request()->validate([
-            'answer_id' => 'required',
-        ]);
-        $answer = Answer::where('id', request('answer_id'))->first();
-        if (!isset($answer)) {
-            return response()->json(['failure' => ['The answer with given ID was not found'], 200], 200);
-        }
-        $answer->no_thumbs_up = $answer->no_thumbs_up + 1;
-        $answer->save();
-        return response()->json(['success' => ['The likes has been updated successfully'], 200], 200);
-    }
-    public function handleDislike()
-    {
-        request()->validate([
-            'answer_id' => 'required',
-        ]);
-        $answer = Answer::where('id', request('answer_id'))->first();
-        if (!isset($answer)) {
-            return response()->json(['failure' => ['The answer with given ID was not found'], 200], 200);
-        }
-        $answer->no_thumbs_down = $answer->no_thumbs_down + 1;
-        $answer->save();
-        return response()->json(['success' => ['The likes has been updated successfully'], 200], 200);
-    }
 
     public function handleFavorite()
     {

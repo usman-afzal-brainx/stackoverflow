@@ -2000,7 +2000,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         is_Admin: "",
         password_confirmed: ""
       },
-      err: {},
+      err_password_confirmed: "",
+      err_password: "",
       userTypes: []
     };
   },
@@ -2032,10 +2033,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                if (_this2.user.password.length < 6) _this2.err.password = "Password must be atleast 6 characters long";
-                if (_this2.user.password !== _this2.user.password_confirmed) _this2.err.password_confirmed = "Password does not match";
+                if (_this2.user.password.length < 6) _this2.err_password = "Password must be atleast 6 characters long";
+                if (_this2.user.password !== _this2.user.password_confirmed) _this2.err_password_confirmed = "Password does not match";
 
-                if (!(!_this2.err.password_confirmed && !_this2.err.password)) {
+                if (!(!_this2.err_password_confirmed && !_this2.err_password)) {
                   _context2.next = 17;
                   break;
                 }
@@ -2072,10 +2073,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     clearPasswordError: function clearPasswordError() {
-      if (this.err.password) delete this.err.password;
+      if (this.err_password) this.err_password = "";
     },
     clearConfirmPasswordError: function clearConfirmPasswordError() {
-      if (this.err.password_confirmed) delete this.err.password_confirmed;
+      if (this.err_password_confirmed) this.err_password_confirmed = "";
     },
     getUserTypes: function getUserTypes() {
       var _this3 = this;
@@ -41662,21 +41663,23 @@ var render = function() {
                 attrs: { type: "password", id: "password", required: "" },
                 domProps: { value: _vm.user.password },
                 on: {
-                  change: _vm.clearPasswordError,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.user, "password", $event.target.value)
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.user, "password", $event.target.value)
+                    },
+                    _vm.clearPasswordError
+                  ]
                 }
               }),
               _vm._v(" "),
-              _vm.err.password
+              _vm.err_password
                 ? _c(
                     "div",
                     { staticClass: "error-message-password pt-1 pb-1" },
-                    [_c("p", [_vm._v(_vm._s(_vm.err.password))])]
+                    [_c("p", [_vm._v(_vm._s(_vm.err_password))])]
                   )
                 : _vm._e()
             ]),
@@ -41708,26 +41711,28 @@ var render = function() {
                 },
                 domProps: { value: _vm.user.password_confirmed },
                 on: {
-                  change: _vm.clearConfirmPasswordError,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(
-                      _vm.user,
-                      "password_confirmed",
-                      $event.target.value
-                    )
-                  }
+                  input: [
+                    function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.user,
+                        "password_confirmed",
+                        $event.target.value
+                      )
+                    },
+                    _vm.clearConfirmPasswordError
+                  ]
                 }
               })
             ]),
             _vm._v(" "),
-            _vm.err.password_confirmed
+            _vm.err_password_confirmed
               ? _c(
                   "div",
                   { staticClass: "error-message-password-confirmed pt-1 pb-1" },
-                  [_c("p", [_vm._v(_vm._s(_vm.err.password_confirmed))])]
+                  [_c("p", [_vm._v(_vm._s(_vm.err_password_confirmed))])]
                 )
               : _vm._e(),
             _vm._v(" "),
