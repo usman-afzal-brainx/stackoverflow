@@ -2622,62 +2622,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    // async handleQuestionLike() {
-    //     const data = {
-    //         question_id: this.id,
-    //         api_token: window.localStorage.getItem("api_token")
-    //     };
-    //     let count = this.count;
-    //     try {
-    //         this.count = count + 1;
-    //         await axios.post("/api/questions/like", data);
-    //     } catch (error) {
-    //         console.log(error);
-    //         this.count = count;
-    //     }
-    // },
-    // async handleQuestionDislike() {
-    //     const data = {
-    //         question_id: this.id,
-    //         api_token: window.localStorage.getItem("api_token")
-    //     };
-    //     let count = this.count;
-    //     try {
-    //         this.count = count + 1;
-    //         await axios.post("/api/questions/dislike", data);
-    //     } catch (error) {
-    //         console.log(error);
-    //         this.count = count;
-    //     }
-    // },
-    // async handleAnswerLike() {
-    //     const data = {
-    //         answer_id: this.id,
-    //         api_token: window.localStorage.getItem("api_token")
-    //     };
-    //     let count = this.count;
-    //     try {
-    //         this.count = count + 1;
-    //         await axios.post("/api/answers/like", data);
-    //     } catch (error) {
-    //         console.log(error);
-    //         this.count = count;
-    //     }
-    // },
-    // async handleAnswerDislike() {
-    //     const data = {
-    //         answer_id: this.id,
-    //         api_token: window.localStorage.getItem("api_token")
-    //     };
-    //     let count = this.count;
-    //     try {
-    //         this.count = count + 1;
-    //         await axios.post("/api/answers/dislike", data);
-    //     } catch (error) {
-    //         console.log(error);
-    //         this.count = count;
-    //     }
-    // },
     handleClick: function handleClick() {
       var _this = this;
 
@@ -2758,9 +2702,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
-/* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
-/* harmony import */ var _favoriteButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./favoriteButton.vue */ "./resources/js/components/common/favoriteButton.vue");
+/* harmony import */ var _favoriteButton_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./favoriteButton.vue */ "./resources/js/components/common/favoriteButton.vue");
 //
 //
 //
@@ -2828,16 +2770,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
-
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
-    questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_0__.default,
-    favoriteButton: _favoriteButton_vue__WEBPACK_IMPORTED_MODULE_2__.default
+    favoriteButton: _favoriteButton_vue__WEBPACK_IMPORTED_MODULE_0__.default
   },
-  props: ["question", "user"],
+  props: ["question", "user", "showManipulationButtons"],
   data: function data() {
     return {
       no_thumbs_up: this.question.no_thumbs_up,
@@ -3281,11 +3219,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["api_token"],
@@ -3503,6 +3436,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -3859,7 +3793,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./questionLikeButton.vue */ "./resources/js/components/questionLikeButton.vue");
 /* harmony import */ var _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./questionDislikeButton.vue */ "./resources/js/components/questionDislikeButton.vue");
 /* harmony import */ var _answers_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./answers.vue */ "./resources/js/components/answers.vue");
-/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
+/* harmony import */ var _common_question__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./common/question */ "./resources/js/components/common/question.vue");
+/* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3924,40 +3859,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -3966,13 +3868,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   components: {
     questionLikeButton: _questionLikeButton_vue__WEBPACK_IMPORTED_MODULE_1__.default,
     questionDislikeButton: _questionDislikeButton_vue__WEBPACK_IMPORTED_MODULE_2__.default,
-    answers: _answers_vue__WEBPACK_IMPORTED_MODULE_3__.default
+    answers: _answers_vue__WEBPACK_IMPORTED_MODULE_3__.default,
+    question: _common_question__WEBPACK_IMPORTED_MODULE_4__.default
   },
   data: function data() {
     return {
       question: {
-        title: this.$route.params.question.question,
-        description: this.$route.params.question.description
+        question: this.$route.params.question.question,
+        description: this.$route.params.question.description,
+        no_thumbs_up: this.$route.params.question.no_thumbs_up,
+        no_thumbs_down: this.$route.params.question.no_thumbs_down
       },
       isAnswers: false,
       description: "",
@@ -3997,7 +3902,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               }
 
               _context.next = 4;
-              return (0,_user__WEBPACK_IMPORTED_MODULE_4__.default)();
+              return (0,_user__WEBPACK_IMPORTED_MODULE_5__.default)();
 
             case 4:
               user = _context.sent;
@@ -4150,8 +4055,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _components_questionListing_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/questionListing.vue */ "./resources/js/components/questionListing.vue");
 /* harmony import */ var _components_createQuestion_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/createQuestion.vue */ "./resources/js/components/createQuestion.vue");
 /* harmony import */ var _components_showQuestion_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/showQuestion.vue */ "./resources/js/components/showQuestion.vue");
@@ -4159,7 +4064,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_registerForm_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/registerForm.vue */ "./resources/js/components/registerForm.vue");
 /* harmony import */ var _components_logout_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/logout.vue */ "./resources/js/components/logout.vue");
 /* harmony import */ var _components_adminRegister_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/adminRegister.vue */ "./resources/js/components/adminRegister.vue");
-/* harmony import */ var _components_common_favoriteButton_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/common/favoriteButton.vue */ "./resources/js/components/common/favoriteButton.vue");
 
 
 
@@ -4169,9 +4073,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-vue__WEBPACK_IMPORTED_MODULE_8__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_9__.default);
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_9__.default({
+vue__WEBPACK_IMPORTED_MODULE_7__.default.use(vue_router__WEBPACK_IMPORTED_MODULE_8__.default);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_8__.default({
   routes: [{
     path: "/",
     component: _components_questionListing_vue__WEBPACK_IMPORTED_MODULE_0__.default
@@ -4195,9 +4098,6 @@ vue__WEBPACK_IMPORTED_MODULE_8__.default.use(vue_router__WEBPACK_IMPORTED_MODULE
   }, {
     path: "/admin/register",
     component: _components_adminRegister_vue__WEBPACK_IMPORTED_MODULE_6__.default
-  }, {
-    path: "/buttons",
-    component: _components_common_favoriteButton_vue__WEBPACK_IMPORTED_MODULE_7__.default
   }],
   mode: "history"
 }));
@@ -43017,49 +42917,52 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "col-sm-3" }, [
-      _c("div", { staticClass: "manipulation-buttons" }, [
-        _c("div", { staticClass: "question-edit" }, [
-          _vm.user.id === _vm.question.user_id
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-primary",
-                  on: {
-                    click: function($event) {
-                      return _vm.handleEdit(_vm.question)
-                    }
-                  }
-                },
-                [
-                  _vm._v("\n                    Edit "),
-                  _c("i", { staticClass: "far fa-edit" })
-                ]
-              )
-            : _vm._e()
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "question-delete" }, [
-          _vm.user.id === _vm.question.user_id || _vm.user.is_Admin === "admin"
-            ? _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger",
-                  on: {
-                    click: function($event) {
-                      return _vm.$emit("deleteClicked", _vm.question)
-                    }
-                  }
-                },
-                [
-                  _vm._v("\n                    Delete "),
-                  _c("i", { staticClass: "far fa-trash-alt" })
-                ]
-              )
-            : _vm._e()
+    _vm.showManipulationButtons
+      ? _c("div", { staticClass: "col-sm-3" }, [
+          _c("div", { staticClass: "manipulation-buttons" }, [
+            _c("div", { staticClass: "question-edit" }, [
+              _vm.user.id === _vm.question.user_id
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.handleEdit(_vm.question)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("\n                    Edit "),
+                      _c("i", { staticClass: "far fa-edit" })
+                    ]
+                  )
+                : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "question-delete" }, [
+              _vm.user.id === _vm.question.user_id ||
+              _vm.user.is_Admin === "admin"
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.$emit("deleteClicked", _vm.question)
+                        }
+                      }
+                    },
+                    [
+                      _vm._v("\n                    Delete "),
+                      _c("i", { staticClass: "far fa-trash-alt" })
+                    ]
+                  )
+                : _vm._e()
+            ])
+          ])
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -43476,20 +43379,7 @@ var render = function() {
                       ],
                       1
                     )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  { staticClass: "nav-item" },
-                  [
-                    _c(
-                      "router-link",
-                      { staticClass: "nav-link", attrs: { to: "/buttons" } },
-                      [_vm._v("Buttons")]
-                    )
-                  ],
-                  1
-                )
+                  : _vm._e()
               ])
             ]
           )
@@ -43610,7 +43500,11 @@ var render = function() {
             { key: question.id, staticClass: "question" },
             [
               _c("question", {
-                attrs: { question: question, user: _vm.user },
+                attrs: {
+                  question: question,
+                  user: _vm.user,
+                  showManipulationButtons: true
+                },
                 on: { deleteClicked: _vm.handleDelete }
               })
             ],
@@ -43868,85 +43762,35 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
-    _c("div", { staticClass: "question" }, [
-      _c("div", { staticClass: "question-header" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "back-button" }, [
-          _c(
-            "button",
-            { staticClass: "btn btn-primary", on: { click: _vm.handleBack } },
-            [
-              _c("i", { staticClass: "fas fa-long-arrow-alt-left" }),
-              _vm._v(" Back\n                ")
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-sm-2" }, [
-          _c("div", { staticClass: "question-left-part" }, [
-            _c("div", { staticClass: "question-count" }, [
-              _c("p", [
-                _vm._v(
-                  "\n                            Votes:\n                            " +
-                    _vm._s(
-                      _vm.$route.params.question.no_thumbs_up -
-                        _vm.$route.params.question.no_thumbs_down
-                    ) +
-                    "\n                        "
-                )
-              ])
-            ]),
-            _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "question" },
+      [
+        _c("div", { staticClass: "question-header" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "back-button" }, [
             _c(
-              "div",
-              { staticClass: "question-thumbs-up" },
+              "button",
+              { staticClass: "btn btn-primary", on: { click: _vm.handleBack } },
               [
-                _vm.user
-                  ? _c("question-like-button", {
-                      attrs: { data: _vm.$route.params.question }
-                    })
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "question-thumbs-down pt-1" },
-              [
-                _vm.user
-                  ? _c("question-dislike-button", {
-                      attrs: { data: _vm.$route.params.question }
-                    })
-                  : _vm._e()
-              ],
-              1
+                _c("i", { staticClass: "fas fa-long-arrow-alt-left" }),
+                _vm._v(" Back\n                ")
+              ]
             )
           ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-8" }, [
-          _c("div", { staticClass: "question-content" }, [
-            _c("div", { staticClass: "question-title" }, [
-              _c("h2", [_vm._v(_vm._s(_vm.question.title))])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "question-description" }, [
-              _c("p", [
-                _vm._v(
-                  "\n                            " +
-                    _vm._s(_vm.question.description) +
-                    "\n                        "
-                )
-              ])
-            ])
-          ])
-        ])
-      ])
-    ]),
+        _c("question", {
+          attrs: {
+            question: _vm.question,
+            user: _vm.user,
+            showManipulationButtons: false
+          }
+        })
+      ],
+      1
+    ),
     _vm._v(" "),
     _vm.isAnswers
       ? _c(

@@ -25,6 +25,7 @@
                     :question="question"
                     :user="user"
                     @deleteClicked="handleDelete"
+                    :showManipulationButtons="true"
                 ></question>
             </div>
             <div class="no-questions-error" v-if="questions.length === 0">

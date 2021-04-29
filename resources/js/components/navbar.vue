@@ -40,11 +40,6 @@
                             >Log Out</router-link
                         >
                     </li>
-                    <li class="nav-item">
-                        <router-link class="nav-link" to="/buttons"
-                            >Buttons</router-link
-                        >
-                    </li>
                 </ul>
             </div>
         </div>

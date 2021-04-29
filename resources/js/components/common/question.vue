@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-3" v-if="showManipulationButtons">
             <div class="manipulation-buttons">
                 <div class="question-edit">
                     <button
@@ -66,12 +66,10 @@
     </div>
 </template>
 <script>
-import questionLikeButton from "../questionLikeButton.vue";
-import questionDislikeButton from "../questionDislikeButton.vue";
 import favoriteButton from "./favoriteButton.vue";
 export default {
-    components: { questionDislikeButton, questionLikeButton, favoriteButton },
-    props: ["question", "user"],
+    components: { favoriteButton },
+    props: ["question", "user", "showManipulationButtons"],
     data() {
         return {
             no_thumbs_up: this.question.no_thumbs_up,

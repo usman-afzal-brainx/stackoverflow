@@ -7,7 +7,6 @@ import login from "./components/login.vue";
 import register from "./components/registerForm.vue";
 import logout from "./components/logout.vue";
 import AdminRegister from "./components/adminRegister.vue";
-import buttons from "./components/common/favoriteButton.vue";
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -38,10 +37,6 @@ export default new VueRouter({
         {
             path: "/admin/register",
             component: AdminRegister
-        },
-        {
-            path: "/buttons",
-            component: buttons
         }
     ],
     mode: "history"

@@ -11,45 +11,11 @@
                     </button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-2">
-                    <div class="question-left-part">
-                        <div class="question-count">
-                            <p>
-                                Votes:
-                                {{
-                                    $route.params.question.no_thumbs_up -
-                                        $route.params.question.no_thumbs_down
-                                }}
-                            </p>
-                        </div>
-                        <div class="question-thumbs-up">
-                            <question-like-button
-                                v-if="user"
-                                :data="$route.params.question"
-                            ></question-like-button>
-                        </div>
-                        <div class="question-thumbs-down pt-1">
-                            <question-dislike-button
-                                v-if="user"
-                                :data="$route.params.question"
-                            ></question-dislike-button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="question-content">
-                        <div class="question-title">
-                            <h2>{{ question.title }}</h2>
-                        </div>
-                        <div class="question-description">
-                            <p>
-                                {{ question.description }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <question
+                :question="question"
+                :user="user"
+                :showManipulationButtons="false"
+            ></question>
         </div>
         <div class="answers" v-if="isAnswers">
             <answers :answers="$route.params.question.answers"></answers>
@@ -94,18 +60,22 @@
 import questionLikeButton from "./questionLikeButton.vue";
 import questionDislikeButton from "./questionDislikeButton.vue";
 import answers from "./answers.vue";
+import question from "./common/question";
 import getUser from "../user";
 export default {
     components: {
         questionLikeButton,
         questionDislikeButton,
-        answers
+        answers,
+        question
     },
     data() {
         return {
             question: {
-                title: this.$route.params.question.question,
-                description: this.$route.params.question.description
+                question: this.$route.params.question.question,
+                description: this.$route.params.question.description,
+                no_thumbs_up: this.$route.params.question.no_thumbs_up,
+                no_thumbs_down: this.$route.params.question.no_thumbs_down
             },
             isAnswers: false,
             description: "",
