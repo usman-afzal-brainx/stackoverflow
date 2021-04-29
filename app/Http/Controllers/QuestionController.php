@@ -58,29 +58,22 @@ class QuestionController extends Controller
         return response()->json(['failure' => ["The question with given ID was not found"], 404], 404);
     }
 
-    public function handleLike()
+    public function handleFavorite()
     {
         request()->validate([
             'question_id' => 'required',
+            'action' => 'required',
         ]);
         $question = Question::where('id', request('question_id'))->first();
         if (!isset($question)) {
             return response()->json(['failure' => ['The question with given ID was not found'], 200], 200);
         }
-        $question->no_thumbs_up = $question->no_thumbs_up + 1;
-        $question->save();
-        return response()->json(['success' => ['The likes has been updated successfully'], 200], 200);
-    }
-    public function handleDislike()
-    {
-        request()->validate([
-            'question_id' => 'required',
-        ]);
-        $question = Question::where('id', request('question_id'))->first();
-        if (!isset($question)) {
-            return response()->json(['failure' => ['The question with given ID was not found'], 200], 200);
+        if (request('action') === 'like') {
+            $question->no_thumbs_up = $question->no_thumbs_up + 1;
+        } else {
+            $question->no_thumbs_down = $question->no_thumbs_down + 1;
         }
-        $question->no_thumbs_down = $question->no_thumbs_down + 1;
+
         $question->save();
         return response()->json(['success' => ['The likes has been updated successfully'], 200], 200);
     }

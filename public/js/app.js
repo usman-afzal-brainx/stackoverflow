@@ -2130,12 +2130,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_answer_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./common/answer.vue */ "./resources/js/components/common/answer.vue");
 
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -2156,50 +2150,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["answers"],
+  props: ["data"],
+  data: function data() {
+    return {
+      answers: this.data
+    };
+  },
   components: {
     answer: _common_answer_vue__WEBPACK_IMPORTED_MODULE_1__.default
+  },
+  watch: {
+    data: function data() {
+      return this.answers = this.data;
+    }
   },
   methods: {
     handleDelete: function handleDelete(answer) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var originalAnswers, answers;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                originalAnswers = _objectSpread({}, _this.answers);
-                _context.prev = 1;
-                answers = _this.answers.filter(function (a) {
-                  return a.id !== answer.id;
-                });
-                _this.answers = answers;
-                _context.next = 6;
-                return axios["delete"]("/api/answers/".concat(answer.id, "/"), {
-                  headers: {
-                    Authorization: "Bearer " + window.localStorage.getItem("api_token"),
-                    Accept: "application/json"
-                  }
-                });
+                _this.$emit("deleteClicked", answer);
 
-              case 6:
-                _context.next = 12;
-                break;
-
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
-                _this.answers = originalAnswers;
-                console.log(_context.t0);
-
-              case 12:
+              case 1:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee);
       }))();
     }
   }
@@ -2306,7 +2287,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2316,10 +2296,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      id: this.answer.id,
       user: "",
       edit: false,
       no_thumbs_up: this.answer.no_thumbs_up,
-      no_thumbs_down: this.answer.no_thumbs_down
+      no_thumbs_down: this.answer.no_thumbs_down,
+      user_id: this.answer.user_id,
+      description: this.answer.description
     };
   },
   created: function created() {
@@ -2362,35 +2345,34 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 console.log(answer);
-                _this2.description = answer.description;
                 payload = {
                   id: answer.id,
                   user_id: _this2.user.id,
                   question_id: answer.question_id,
-                  description: answer.description,
+                  description: _this2.description,
                   api_token: window.localStorage.getItem("api_token")
                 };
-                _context2.prev = 3;
-                _context2.next = 6;
+                _context2.prev = 2;
+                _context2.next = 5;
                 return axios.post("/api/answers", payload);
 
-              case 6:
+              case 5:
                 _this2.answer.description = _this2.description;
                 _this2.edit = false;
-                _context2.next = 13;
+                _context2.next = 12;
                 break;
 
-              case 10:
-                _context2.prev = 10;
-                _context2.t0 = _context2["catch"](3);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](2);
                 console.log(_context2.t0);
 
-              case 13:
+              case 12:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[3, 10]]);
+        }, _callee2, null, [[2, 9]]);
       }))();
     },
     handleEdit: function handleEdit() {
@@ -2567,29 +2549,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 data = {
                   api_token: window.localStorage.getItem("api_token")
                 };
-                path = "/api/".concat(_this.type, "s/").concat(_this.buttonAction);
+                path = "/api/".concat(_this.type, "s/favorite");
                 if (_this.type === "question") data.question_id = _this.id;else data.answer_id = _this.id;
-                _context.prev = 5;
+                if (_this.buttonAction === "like") data.action = "like";else data.action = "dislike";
+                _context.prev = 6;
                 _this.count += 1;
-                _context.next = 9;
+                _context.next = 10;
                 return axios.post(path, data);
 
-              case 9:
-                _context.next = 15;
+              case 10:
+                _context.next = 16;
                 break;
 
-              case 11:
-                _context.prev = 11;
-                _context.t0 = _context["catch"](5);
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](6);
                 console.log(_context.t0);
                 _this.count = count;
 
-              case 15:
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[5, 11]]);
+        }, _callee, null, [[6, 12]]);
       }))();
     }
   }
@@ -3551,12 +3534,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_question__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./common/question */ "./resources/js/components/common/question.vue");
 /* harmony import */ var _common_createAnswer_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./common/createAnswer.vue */ "./resources/js/components/common/createAnswer.vue");
 /* harmony import */ var _user__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../user */ "./resources/js/user.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3618,7 +3613,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         no_thumbs_up: this.$route.params.question.no_thumbs_up,
         no_thumbs_down: this.$route.params.question.no_thumbs_down
       },
-      isAnswers: false,
       answers: this.$route.params.question.answers,
       user: ""
     };
@@ -3664,7 +3658,56 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.isAnswers =  true ? this.$route.params.question.answers.length > 0 : 0;
     },
     handleAnswerCreation: function handleAnswerCreation(answer) {
-      this.answers.push(answer);
+      if (!_answers_vue__WEBPACK_IMPORTED_MODULE_1__.default) {
+        var _answers = [];
+
+        _answers.push(answer);
+
+        console.log(_answers);
+        this.answers = _answers;
+      } else this.answers.push(answer);
+    },
+    handleDelete: function handleDelete(answer) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var originalAnswers, _answers2;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                originalAnswers = _objectSpread({}, _this2.answers);
+                _context2.prev = 1;
+                _answers2 = _this2.answers.filter(function (a) {
+                  return a.id !== answer.id;
+                });
+                _this2.answers = _answers2;
+                _context2.next = 6;
+                return axios["delete"]("/api/answers/".concat(answer.id, "/"), {
+                  headers: {
+                    Authorization: "Bearer " + window.localStorage.getItem("api_token"),
+                    Accept: "application/json"
+                  }
+                });
+
+              case 6:
+                _context2.next = 12;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                _this2.answers = originalAnswers;
+                console.log(_context2.t0);
+
+              case 12:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[1, 8]]);
+      }))();
     }
   }
 });
@@ -41852,15 +41895,17 @@ var render = function() {
               "div",
               { staticClass: "answer-thumbs-up" },
               [
-                _c("favorite-button", {
-                  attrs: {
-                    data: _vm.no_thumbs_up,
-                    buttonAction: "like",
-                    type: "answer",
-                    id: _vm.answer.id
-                  },
-                  on: { buttonClick: _vm.handleCount }
-                })
+                _vm.user
+                  ? _c("favorite-button", {
+                      attrs: {
+                        data: _vm.no_thumbs_up,
+                        buttonAction: "like",
+                        type: "answer",
+                        id: _vm.id
+                      },
+                      on: { buttonClick: _vm.handleCount }
+                    })
+                  : _vm._e()
               ],
               1
             ),
@@ -41869,15 +41914,17 @@ var render = function() {
               "div",
               { staticClass: "answer-thumbs-down pt-1" },
               [
-                _c("favorite-button", {
-                  attrs: {
-                    data: _vm.no_thumbs_down,
-                    buttonAction: "dislike",
-                    type: "answer",
-                    id: _vm.answer.id
-                  },
-                  on: { buttonClick: _vm.handleCount }
-                })
+                _vm.user
+                  ? _c("favorite-button", {
+                      attrs: {
+                        data: _vm.no_thumbs_down,
+                        buttonAction: "dislike",
+                        type: "answer",
+                        id: _vm.id
+                      },
+                      on: { buttonClick: _vm.handleCount }
+                    })
+                  : _vm._e()
               ],
               1
             )
@@ -41885,7 +41932,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         !_vm.edit
-          ? _c("div", { staticClass: "col-sm-8" }, [
+          ? _c("div", { staticClass: "col-sm-7" }, [
               _c("div", { staticClass: "answer-content" }, [
                 _c("div", { staticClass: "answer-description" }, [
                   _c("p", [
@@ -41901,7 +41948,7 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm.edit
-          ? _c("div", { staticClass: "col-sm-8 pt-1" }, [
+          ? _c("div", { staticClass: "col-sm-7 pt-1" }, [
               _c(
                 "form",
                 {
@@ -41918,19 +41965,19 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.answer.description,
-                        expression: "answer.description"
+                        value: _vm.description,
+                        expression: "description"
                       }
                     ],
                     staticClass: "form-control rounded-0",
                     attrs: { id: "description", rows: "8" },
-                    domProps: { value: _vm.answer.description },
+                    domProps: { value: _vm.description },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.answer, "description", $event.target.value)
+                        _vm.description = $event.target.value
                       }
                     }
                   }),
@@ -41946,7 +41993,7 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "col-sm-2" }, [
-          _vm.answer.user_id === _vm.user.id && !_vm.edit
+          _vm.user_id === _vm.user.id && !_vm.edit
             ? _c(
                 "button",
                 {
@@ -41960,7 +42007,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          _vm.answer.user_id === _vm.user.id || _vm.user.is_Admin === "admin"
+          _vm.user_id === _vm.user.id || _vm.user.is_Admin === "admin"
             ? _c(
                 "button",
                 {
@@ -43027,21 +43074,46 @@ var render = function() {
       1
     ),
     _vm._v(" "),
-    _vm.isAnswers
+    _vm.answers
       ? _c(
           "div",
           { staticClass: "answers" },
           [
             _c("answers", {
-              attrs: { answers: _vm.$route.params.question.answers }
+              attrs: { data: _vm.answers },
+              on: { deleteClicked: _vm.handleDelete }
             })
           ],
           1
         )
       : _vm._e(),
     _vm._v(" "),
-    !_vm.isAnswers
-      ? _c("div", { staticClass: "answer-not-found-error" }, [_vm._m(1)])
+    !_vm.answers.length > 0
+      ? _c("div", { staticClass: "answer-not-found-error" }, [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-sm-2" }),
+            _vm._v(" "),
+            _vm.user
+              ? _c("div", { staticClass: "col-sm-8" }, [
+                  _c("p", [
+                    _vm._v(
+                      "\n                    There are no answers for this question. Want to answer?\n                    Go for it!\n                "
+                    )
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.user
+              ? _c("div", { staticClass: "col-sm-8" }, [
+                  _c("p", [
+                    _vm._v(
+                      "\n                    There are no answers for this question. Create an\n                    Account to answer this question!\n                "
+                    )
+                  ])
+                ])
+              : _vm._e()
+          ])
+        ])
       : _vm._e(),
     _vm._v(" "),
     _vm.user
@@ -43066,22 +43138,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "question-section-title" }, [
       _c("h1", [_vm._v("Question")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-sm-2" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-sm-8" }, [
-        _c("p", [
-          _vm._v(
-            "\n                    There are no answers for this question. Want to answer?\n                    Go for it!\n                "
-          )
-        ])
-      ])
     ])
   }
 ]

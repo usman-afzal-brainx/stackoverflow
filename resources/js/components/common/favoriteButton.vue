@@ -35,9 +35,12 @@ export default {
             const data = {
                 api_token: window.localStorage.getItem("api_token")
             };
-            const path = `/api/${this.type}s/${this.buttonAction}`;
+            const path = `/api/${this.type}s/favorite`;
             if (this.type === "question") data.question_id = this.id;
             else data.answer_id = this.id;
+
+            if (this.buttonAction === "like") data.action = "like";
+            else data.action = "dislike";
             try {
                 this.count += 1;
                 await axios.post(path, data);

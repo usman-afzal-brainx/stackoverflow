@@ -17,16 +17,22 @@
                 :showManipulationButtons="false"
             ></question>
         </div>
-        <div class="answers" v-if="isAnswers">
-            <answers :answers="$route.params.question.answers"></answers>
+        <div class="answers" v-if="answers">
+            <answers :data="answers" @deleteClicked="handleDelete"></answers>
         </div>
-        <div class="answer-not-found-error" v-if="!isAnswers">
+        <div class="answer-not-found-error" v-if="!answers.length > 0">
             <div class="row">
                 <div class="col-sm-2"></div>
-                <div class="col-sm-8">
+                <div class="col-sm-8" v-if="user">
                     <p>
                         There are no answers for this question. Want to answer?
                         Go for it!
+                    </p>
+                </div>
+                <div class="col-sm-8" v-if="!user">
+                    <p>
+                        There are no answers for this question. Create an
+                        Account to answer this question!
                     </p>
                 </div>
             </div>
@@ -60,7 +66,6 @@ export default {
                 no_thumbs_up: this.$route.params.question.no_thumbs_up,
                 no_thumbs_down: this.$route.params.question.no_thumbs_down
             },
-            isAnswers: false,
             answers: this.$route.params.question.answers,
             user: ""
         };
@@ -82,7 +87,30 @@ export default {
                 : false;
         },
         handleAnswerCreation(answer) {
-            this.answers.push(answer);
+            if (!answers) {
+                const answers = [];
+                answers.push(answer);
+                console.log(answers);
+                this.answers = answers;
+            } else this.answers.push(answer);
+        },
+        async handleDelete(answer) {
+            const originalAnswers = { ...this.answers };
+            try {
+                const answers = this.answers.filter(a => a.id !== answer.id);
+                this.answers = answers;
+                await axios.delete(`/api/answers/${answer.id}/`, {
+                    headers: {
+                        Authorization:
+                            "Bearer " +
+                            window.localStorage.getItem("api_token"),
+                        Accept: "application/json"
+                    }
+                });
+            } catch (error) {
+                this.answers = originalAnswers;
+                console.log(error);
+            }
         }
     }
 };
