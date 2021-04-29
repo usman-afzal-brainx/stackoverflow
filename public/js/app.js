@@ -2777,6 +2777,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
+                _this5.data = _this5.data + 1;
+
                 if (_this5.buttonAction === "like") {
                   if (_this5.type === "question") {
                     _this5.handleQuestionLike();
@@ -2791,7 +2793,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 }
 
-              case 1:
+              case 2:
               case "end":
                 return _context5.stop();
             }
